@@ -7,3 +7,7 @@ This project aims to:
   - Manage versions of an asset, with descriptions of the changes.
   - Update references to an asset automatically whenever the asset is updated.
   - Provide a method of 'flattening' asset paths into a single project directory to allow easier project transfer to external rendering services.
+
+Requirements:
+  - Maya 2017 (2017 is hard coded into some paths)
+  - Definition of MAYA_ASSET_DIR as an environment variable (either in Maya.env or ~/.bashrc for now)
