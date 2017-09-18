@@ -63,32 +63,26 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="assetVersionLabel">
+       <widget class="QLabel" name="assetPathLabel">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
-         <string>Asset Version</string>
+         <string>Asset Path</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="assetVersionComboBox"/>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QLabel" name="assetPathText">
+        <property name="text">
+         <string/>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
      </layout>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="assetInfoText"/>
     </item>
    </layout>
   </widget>

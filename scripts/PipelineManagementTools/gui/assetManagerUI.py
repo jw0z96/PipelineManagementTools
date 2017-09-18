@@ -37,12 +37,16 @@ class AssetManagerUI(QWidget):
 		# department list widget callback
 		self.ui.departmentListWidget.itemClicked.connect(self.departmentChanged)
 
+		# asset list widget callback
+		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
+
 	def departmentChanged(self):
 		# new deparment chosen
 		department = self.ui.departmentListWidget.currentItem().text()
 
-		# clear the asset list widget
+		# clear the asset list widget & text label
 		self.ui.assetListWidget.clear()
+		self.ui.assetPathText.setText('')
 
 		# assets directory specified by an environment variable
 		assetDir = os.environ['MAYA_ASSET_DIR']
@@ -52,9 +56,16 @@ class AssetManagerUI(QWidget):
 		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, department)):
 			for x in files:
 				if x.endswith(".asset"):
-					self.assetList.append(os.path.join(dirpath, x))
 					self.ui.assetListWidget.addItem(x)
+					self.assetList.append(os.path.join(dirpath, x).replace(assetDir, ''))
 
+		print self.assetList
+
+	def assetChanged(self):
+		# new asset chosen
+		chosenAsset = self.assetList[self.ui.assetListWidget.currentRow()]
+		print chosenAsset
+		self.ui.assetPathText.setText(chosenAsset)
 
 
 # def main():
