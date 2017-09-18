@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>assetManagerForm</class>
+ <widget class="QWidget" name="assetManagerForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>402</height>
+    <width>628</width>
+    <height>390</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Asset Management GUI</string>
@@ -17,7 +23,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>14</y>
+     <y>10</y>
      <width>611</width>
      <height>371</height>
     </rect>
@@ -29,24 +35,24 @@
     <item>
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
-       <widget class="QListWidget" name="listWidget_2">
+       <widget class="QListWidget" name="departmentListWidget">
         <property name="toolTip">
          <string/>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QListWidget" name="listWidget"/>
+       <widget class="QListWidget" name="assetListWidget"/>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="assetLabel">
         <property name="text">
          <string>Asset</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="departmentLabel">
         <property name="text">
          <string>Department</string>
         </property>
@@ -57,14 +63,14 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="assetVersionLabel">
         <property name="text">
          <string>Asset Version</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QComboBox" name="comboBox"/>
+       <widget class="QComboBox" name="assetVersionComboBox"/>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -82,7 +88,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTextEdit" name="textEdit"/>
+     <widget class="QTextEdit" name="assetInfoText"/>
     </item>
    </layout>
   </widget>
