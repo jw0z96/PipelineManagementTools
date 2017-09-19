@@ -16,10 +16,8 @@ class AssetManagerUI(QWidget):
 		self.initUI()
 
 	def initUI(self):
-		currentDir = os.path.dirname(__file__)
-		print "running from: " + currentDir
-
 		# load .ui file
+		currentDir = os.path.dirname(__file__)
 		file = QFile(currentDir+"/assetManager.ui")
 		file.open(QFile.ReadOnly)
 		loader = QUiLoader()
@@ -41,19 +39,17 @@ class AssetManagerUI(QWidget):
 		# asset list widget callback
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
 
+		# new asset button callback
 		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
 
 	def departmentChanged(self):
-		# new deparment chosen
-		department = self.ui.departmentListWidget.currentItem().text()
-
+		# assets directory specified by an environment variable
+		assetDir = os.environ['MAYA_ASSET_DIR']
 		# clear the asset list widget & text label
 		self.ui.assetListWidget.clear()
 		self.ui.assetPathText.setText('')
-
-		# assets directory specified by an environment variable
-		assetDir = os.environ['MAYA_ASSET_DIR']
-
+		# new deparment chosen
+		department = self.ui.departmentListWidget.currentItem().text()
 		# populate asset list widget
 		self.assetList = []
 		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, department)):
@@ -61,7 +57,6 @@ class AssetManagerUI(QWidget):
 				if x.endswith(".asset"):
 					self.ui.assetListWidget.addItem(x)
 					self.assetList.append(os.path.join(dirpath, x).replace(assetDir, ''))
-
 		print self.assetList
 
 	def assetChanged(self):
