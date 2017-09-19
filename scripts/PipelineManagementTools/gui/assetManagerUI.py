@@ -6,7 +6,8 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 
-from newAssetDialog import *
+import newAssetDialog
+reload(newAssetDialog)
 
 class AssetManagerUI(QWidget):
 	def __init__(self, parentWindow = None, *args, **kwargs):
@@ -71,9 +72,8 @@ class AssetManagerUI(QWidget):
 
 	def newAssetCallback(self):
 		print "new asset"
-		newAssetDialog = NewAssetDialog(self)
-		newAssetDialog.setModal(True)
-		newAssetDialog.show()
+		diag = newAssetDialog.NewAssetDialog(self)
+		diag.show()
 
 
 # def main():

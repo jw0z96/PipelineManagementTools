@@ -22,5 +22,5 @@ class NewAssetDialog(QDialog):
 		self.ui = loader.load(file, parentWidget=self)
 		file.close()
 
-		# assets directory specified by an environment variable
-		assetDir = os.environ['MAYA_ASSET_DIR']
+		self.setModal(True)
+

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>175</height>
+    <height>173</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Form</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
@@ -23,24 +23,15 @@
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="leftMargin">
-     <number>5</number>
-    </property>
-    <property name="topMargin">
-     <number>5</number>
-    </property>
-    <property name="rightMargin">
-     <number>5</number>
-    </property>
-    <property name="bottomMargin">
+    <property name="margin">
      <number>5</number>
     </property>
     <item>
      <layout class="QGridLayout" name="gridLayout">
       <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="currentFileLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Current File?</string>
         </property>
         <property name="margin">
          <number>5</number>
@@ -48,15 +39,15 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="assetNameLineEdit"/>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_2"/>
+       <widget class="QLineEdit" name="filePathLineEdit"/>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="assetNameLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string>Asset Name</string>
         </property>
         <property name="margin">
          <number>5</number>
@@ -64,16 +55,16 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="currentFileCheckBox">
         <property name="text">
          <string>CheckBox</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="filePathLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string>File Path</string>
         </property>
         <property name="margin">
          <number>5</number>
@@ -81,7 +72,7 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="filePathPushButton">
         <property name="text">
          <string>PushButton</string>
         </property>
