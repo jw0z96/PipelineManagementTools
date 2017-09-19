@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>628</width>
-    <height>390</height>
+    <width>634</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -29,11 +29,23 @@
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
      <number>5</number>
     </property>
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="1">
+       <widget class="QListWidget" name="assetListWidget"/>
+      </item>
       <item row="1" column="0">
        <widget class="QListWidget" name="departmentListWidget">
         <property name="toolTip">
@@ -41,20 +53,17 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QListWidget" name="assetListWidget"/>
+      <item row="0" column="0">
+       <widget class="QLabel" name="departmentLabel">
+        <property name="text">
+         <string>Department</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="assetLabel">
         <property name="text">
          <string>Asset</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="departmentLabel">
-        <property name="text">
-         <string>Department</string>
         </property>
        </widget>
       </item>
@@ -79,6 +88,30 @@
        <widget class="QLabel" name="assetPathText">
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="newAssetPushButton">
+        <property name="text">
+         <string>New Asset</string>
         </property>
        </widget>
       </item>

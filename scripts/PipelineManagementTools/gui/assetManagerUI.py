@@ -6,11 +6,11 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 
+from newAssetDialog import *
+
 class AssetManagerUI(QWidget):
-	def __init__(self, parentWindow, *args, **kwargs):
-		super(AssetManagerUI, self).__init__(*args, **kwargs)
-		# parentWindow passed to support a standalone at a later date?
-		self.setParent(parentWindow)
+	def __init__(self, parentWindow = None, *args, **kwargs):
+		super(AssetManagerUI, self).__init__(parentWindow, *args, **kwargs)
 		self.setWindowFlags(Qt.Window)
 		self.initUI()
 
@@ -40,6 +40,8 @@ class AssetManagerUI(QWidget):
 		# asset list widget callback
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
 
+		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
+
 	def departmentChanged(self):
 		# new deparment chosen
 		department = self.ui.departmentListWidget.currentItem().text()
@@ -66,6 +68,12 @@ class AssetManagerUI(QWidget):
 		chosenAsset = self.assetList[self.ui.assetListWidget.currentRow()]
 		print chosenAsset
 		self.ui.assetPathText.setText(chosenAsset)
+
+	def newAssetCallback(self):
+		print "new asset"
+		newAssetDialog = NewAssetDialog(self)
+		newAssetDialog.setModal(True)
+		newAssetDialog.show()
 
 
 # def main():
