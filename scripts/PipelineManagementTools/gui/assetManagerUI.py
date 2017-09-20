@@ -9,6 +9,9 @@ from PySide2.QtUiTools import *
 import newAssetDialog
 reload(newAssetDialog)
 
+from PipelineManagementTools import assetUtils
+reload(assetUtils)
+
 class AssetManagerUI(QWidget):
 	def __init__(self, parentWindow = None, *args, **kwargs):
 		super(AssetManagerUI, self).__init__(parentWindow, *args, **kwargs)
@@ -54,9 +57,8 @@ class AssetManagerUI(QWidget):
 		print department
 		# assets directory specified by an environment variable
 		assetDir = os.environ['MAYA_ASSET_DIR']
-		# clear the asset list widget & text label
+		# clear the asset list widget
 		self.ui.assetListWidget.clear()
-		self.ui.assetPathText.setText('')
 		# populate asset list widget
 		self.assetList = []
 		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, department)):
@@ -74,8 +76,7 @@ class AssetManagerUI(QWidget):
 	def assetChanged(self):
 		# new asset chosen
 		chosenAsset = self.assetList[self.ui.assetListWidget.currentRow()]
-		print chosenAsset
-		self.ui.assetPathText.setText(chosenAsset)
+		self.updateAssetInfo(chosenAsset)
 
 	def newAssetCallback(self):
 		print "new asset"
@@ -85,6 +86,16 @@ class AssetManagerUI(QWidget):
 			department = os.path.split(asset)[0]
 			self.updateAssetWidget(department, asset)
 			self.assetChanged()
+
+	def updateAssetInfo(self, asset):
+		# clear the text labels
+		assetDict = assetUtils.loadAssetFile(asset)
+		self.ui.assetPathText.setText(asset)
+		self.ui.assetMasterText.setText(assetDict['master'])
+		self.ui.assetTypeText.setText(assetDict['type'])
+		self.ui.assetTargetText.setText(assetDict['target'])
+
+
 
 
 # def main():

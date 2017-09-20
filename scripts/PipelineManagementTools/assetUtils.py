@@ -24,4 +24,6 @@ def createAssetFile(name, fileType, target, master, asset):
 	pickle.dump(assetDict, open(asset, 'wb'))
 
 def loadAssetFile(path):
-	print path
+	assetDir = os.environ['MAYA_ASSET_DIR']
+	assetPath = os.path.join(assetDir,path)
+	return pickle.load(open(assetPath, 'rb'))
