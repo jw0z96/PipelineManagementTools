@@ -28,6 +28,37 @@ class NewAssetDialog(QDialog):
 
 	def createNewAsset(self):
 		print "checking asset name & path"
+		newAssetName = self.ui.assetNameLineEdit.text()
+
+		invalidChars = " ,/*'"
+		if any(c in newAssetName for c in invalidChars) or newAssetName.endswith('.'):
+			QMessageBox.critical(self,
+				"Error",
+				"Asset name '" + newAssetName + "' invalid!")
+			return
+
+		assetDir = os.environ['MAYA_ASSET_DIR']
+		assetList = []
+		for dirpath, subdirs, files in os.walk(assetDir):
+			for x in files:
+				if x.endswith(".asset"):
+					assetList.append(x.replace('.asset', ''))
+		print assetList
+		if newAssetName in assetList:
+			QMessageBox.critical(self,
+				"Error",
+				"Asset with name '" + newAssetName + "' already exists!")
+			return
+
+		print "asset name good!"
+
+		newFilePath = self.ui.assetNameLineEdit.text()
+
+		# TODO: CHECK IF FILE EXISTS
+
+	def validPath(self, path):
+		assetDir = os.environ['MAYA_ASSET_DIR']
+		return path.startswith(assetDir)
 
 	def filePathDialog(self):
 		assetDir = os.environ['MAYA_ASSET_DIR']
@@ -40,7 +71,7 @@ class NewAssetDialog(QDialog):
 		print "full file path: "+newFilePath
 
 		# if the file path is valid
-		if newFilePath.startswith(assetDir):
+		if self.validPath(newFilePath):
 			fp = newFilePath.replace(assetDir, '')
 			self.ui.filePathLineEdit.clear()
 			self.ui.filePathLineEdit.insert(fp)
