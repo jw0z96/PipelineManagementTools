@@ -38,6 +38,7 @@ class NewAssetDialog(QDialog):
 			return
 
 		assetDir = os.environ['MAYA_ASSET_DIR']
+		print "assetDir: "+assetDir
 		assetList = []
 		for dirpath, subdirs, files in os.walk(assetDir):
 			for x in files:
@@ -49,12 +50,20 @@ class NewAssetDialog(QDialog):
 				"Error",
 				"Asset with name '" + newAssetName + "' already exists!")
 			return
-
 		print "asset name good!"
 
-		newFilePath = self.ui.assetNameLineEdit.text()
+		newFilePath = self.ui.filePathLineEdit.text()
+		fp = os.path.join(assetDir, newFilePath)
+		if not os.path.isfile(fp):
+			print "newFilePath: " + newFilePath + "assetDir: " + assetDir + "fp: " + fp
+			QMessageBox.critical(self,
+				"Error",
+				"File: " + newFilePath + " doesnt exist!")
+			return
+		print "target file exists at path"
 
-		# TODO: CHECK IF FILE EXISTS
+
+
 
 	def validPath(self, path):
 		assetDir = os.environ['MAYA_ASSET_DIR']
@@ -72,7 +81,7 @@ class NewAssetDialog(QDialog):
 
 		# if the file path is valid
 		if self.validPath(newFilePath):
-			fp = newFilePath.replace(assetDir, '')
+			fp = os.path.relpath(newFilePath, assetDir)
 			self.ui.filePathLineEdit.clear()
 			self.ui.filePathLineEdit.insert(fp)
 		# if the file path wasn't null (user closed browser)

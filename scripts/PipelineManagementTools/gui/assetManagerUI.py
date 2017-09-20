@@ -56,7 +56,7 @@ class AssetManagerUI(QWidget):
 			for x in files:
 				if x.endswith(".asset"):
 					self.ui.assetListWidget.addItem(x)
-					self.assetList.append(os.path.join(dirpath, x).replace(assetDir, ''))
+					self.assetList.append(os.path.relpath(os.path.join(dirpath, x), assetDir))
 		print self.assetList
 
 	def assetChanged(self):
