@@ -25,11 +25,11 @@ class NewAssetDialog(QDialog):
 		loader = QUiLoader()
 		self.ui = loader.load(file, parentWidget=self)
 		file.close()
-
+		# set callbacks
 		self.ui.dialogButtonBox.rejected.connect(self.close)
 		self.ui.dialogButtonBox.accepted.connect(self.createNewAsset)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
-
+		# set regex for asset name
 		regex = QRegExp("[A-Za-z0-9_]+")
 		validator = QRegExpValidator(regex, self.ui.assetNameLineEdit)
 		self.ui.assetNameLineEdit.setValidator(validator)
@@ -88,7 +88,6 @@ class NewAssetDialog(QDialog):
 
 		# create a string for the .asset file
 		proposedAssetFile = os.path.join(containingFolder, newAssetName + ".asset")
-
 		# create the asset dict & file
 		assetUtils.createAssetFile(newAssetName, fileType, fullTargetFilePath, proposedMasterFile, proposedAssetFile)
 
@@ -110,7 +109,7 @@ class NewAssetDialog(QDialog):
 		diag = QFileDialog(self)
 		diag.setModal(True)
 		targetFilePath = diag.getOpenFileName(self,
-			"Select master file",
+			"Select target file",
 			assetDir,
 			"Maya scene files (*.ma *.mb);;All files (*)")[0]
 		print "full file path: "+targetFilePath

@@ -9,6 +9,9 @@ from PySide2.QtUiTools import *
 import newAssetDialog
 reload(newAssetDialog)
 
+import updateAssetDialog
+reload(updateAssetDialog)
+
 from PipelineManagementTools import assetUtils
 reload(assetUtils)
 
@@ -20,6 +23,7 @@ class AssetManagerUI(QWidget):
 		super(AssetManagerUI, self).__init__(parentWindow, *args, **kwargs)
 		self.setWindowFlags(Qt.Window)
 		self.initUI()
+		self.selectedAsset = None
 
 	def initUI(self):
 		# load .ui file
@@ -31,11 +35,13 @@ class AssetManagerUI(QWidget):
 		file.close()
 
 		# department list widget callback
-		self.ui.departmentListWidget.itemClicked.connect(self.departmentChanged)
+		self.ui.departmentListWidget.currentItemChanged.connect(self.departmentChanged)
 		# asset list widget callback
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
 		# new asset button callback
 		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
+		# update asset button callback
+		self.ui.updateAssetPushButton.clicked.connect(self.updateAssetCallback)
 
 		# populate department list widget
 		self.departmentList = [department for department in os.listdir(assetDir)
@@ -83,10 +89,18 @@ class AssetManagerUI(QWidget):
 			self.updateAssetWidget(department, asset)
 			self.assetChanged()
 
-	def updateAssetInfo(self, asset):
+	def updateAssetCallback(self):
+		if self.selectedAsset:
+			diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
+			if diag.exec_():
+				self.updateAssetInfo()
+
+	def updateAssetInfo(self, asset = None):
+		if asset:
+			self.selectedAsset = asset
 		# clear the text labels
-		assetDict = assetUtils.loadAssetFile(asset)
-		self.ui.assetPathText.setText(asset)
+		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
+		self.ui.assetPathText.setText(self.selectedAsset)
 		self.ui.assetMasterText.setText(assetDict['master'])
 		self.ui.assetTypeText.setText(assetDict['type'])
 		self.ui.assetTargetText.setText(assetDict['target'])

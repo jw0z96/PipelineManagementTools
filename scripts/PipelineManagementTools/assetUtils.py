@@ -29,3 +29,9 @@ def createAssetFile(name, fileType, target, master, asset):
 def loadAssetFile(path):
 	assetPath = os.path.join(assetDir,path)
 	return pickle.load(open(assetPath, 'rb'))
+
+def updateAssetFile(asset, target):
+	assetDict = loadAssetFile(asset)
+	assetDict['target'] = target
+	assetPath = os.path.join(assetDir, asset)
+	pickle.dump(assetDict, open(assetPath, 'wb'))

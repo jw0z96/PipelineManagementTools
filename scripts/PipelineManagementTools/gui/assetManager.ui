@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>634</width>
-    <height>397</height>
+    <width>632</width>
+    <height>390</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -33,109 +33,7 @@
      <number>5</number>
     </property>
     <item>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QListWidget" name="assetListWidget"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QListWidget" name="departmentListWidget">
-        <property name="toolTip">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="departmentLabel">
-        <property name="text">
-         <string>Department</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="assetLabel">
-        <property name="text">
-         <string>Asset</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <property name="margin">
-       <number>5</number>
-      </property>
-      <item>
-       <layout class="QFormLayout" name="assetInfoFormLayout">
-        <item row="1" column="0">
-         <widget class="QLabel" name="assetPathLabel">
-          <property name="text">
-           <string>Asset Path:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="assetTargetLabel">
-          <property name="text">
-           <string>Asset Target:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="assetTypeLabel">
-          <property name="text">
-           <string>Asset Type:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="assetPathText">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="assetTargetText">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="assetTypeText">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Asset Info:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="assetMasterLabel">
-          <property name="text">
-           <string>Asset Master:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="assetMasterText">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <layout class="QHBoxLayout" name="functionsHLayout">
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -155,6 +53,118 @@
          <string>New Asset</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="updateAssetPushButton">
+        <property name="text">
+         <string>Update Asset</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="1">
+       <widget class="QListWidget" name="assetListWidget"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="departmentLabel">
+        <property name="text">
+         <string>Department</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QListWidget" name="departmentListWidget">
+        <property name="toolTip">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="assetLabel">
+        <property name="text">
+         <string>Asset</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="margin">
+       <number>5</number>
+      </property>
+      <item>
+       <layout class="QFormLayout" name="assetInfoFormLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::ExpandingFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Asset Info:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="assetPathLabel">
+          <property name="text">
+           <string>Asset Path:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="assetPathText">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="assetMasterLabel">
+          <property name="text">
+           <string>Asset Master:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="assetMasterText">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="assetTargetLabel">
+          <property name="text">
+           <string>Asset Target:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="assetTargetText">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="assetTypeLabel">
+          <property name="text">
+           <string>Asset Type:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="assetTypeText">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>
