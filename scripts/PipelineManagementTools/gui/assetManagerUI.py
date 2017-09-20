@@ -12,6 +12,9 @@ reload(newAssetDialog)
 from PipelineManagementTools import assetUtils
 reload(assetUtils)
 
+# assets directory specified by an environment variable
+assetDir = os.environ['MAYA_ASSET_DIR']
+
 class AssetManagerUI(QWidget):
 	def __init__(self, parentWindow = None, *args, **kwargs):
 		super(AssetManagerUI, self).__init__(parentWindow, *args, **kwargs)
@@ -34,9 +37,6 @@ class AssetManagerUI(QWidget):
 		# new asset button callback
 		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
 
-		# assets directory specified by an environment variable
-		assetDir = os.environ['MAYA_ASSET_DIR']
-
 		# populate department list widget
 		self.departmentList = [department for department in os.listdir(assetDir)
 			if os.path.isdir(os.path.join(assetDir, department))
@@ -52,11 +52,9 @@ class AssetManagerUI(QWidget):
 			department = self.ui.departmentListWidget.currentItem().text()
 		# else get the widget to select the passed one
 		else:
-			self.ui.departmentListWidget.setCurrentRow(self.departmentList.index(department))
+			self.ui.departmentListWidget.setCurrentRow(
+				self.departmentList.index(department))
 
-		print department
-		# assets directory specified by an environment variable
-		assetDir = os.environ['MAYA_ASSET_DIR']
 		# clear the asset list widget
 		self.ui.assetListWidget.clear()
 		# populate asset list widget
@@ -65,12 +63,11 @@ class AssetManagerUI(QWidget):
 			for x in files:
 				if x.endswith(".asset"):
 					self.ui.assetListWidget.addItem(x)
-					self.assetList.append(os.path.relpath(os.path.join(dirpath, x), assetDir))
+					self.assetList.append(os.path.relpath(
+						os.path.join(dirpath, x), assetDir))
 
 		# if an asset was passed, select it
 		if asset:
-			print asset
-			print self.assetList
 			self.ui.assetListWidget.setCurrentRow(self.assetList.index(asset))
 
 	def assetChanged(self):
@@ -79,7 +76,6 @@ class AssetManagerUI(QWidget):
 		self.updateAssetInfo(chosenAsset)
 
 	def newAssetCallback(self):
-		print "new asset"
 		diag = newAssetDialog.NewAssetDialog(self)
 		if diag.exec_():
 			asset = diag.createdAssetFile
@@ -94,14 +90,3 @@ class AssetManagerUI(QWidget):
 		self.ui.assetMasterText.setText(assetDict['master'])
 		self.ui.assetTypeText.setText(assetDict['type'])
 		self.ui.assetTargetText.setText(assetDict['target'])
-
-
-
-
-# def main():
-# 	ui = AssetManagerUI()
-# 	ui.show()
-# 	return ui
-
-# if __name__ == '__main__':
-# 	main()

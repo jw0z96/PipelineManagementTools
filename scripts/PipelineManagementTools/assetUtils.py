@@ -2,6 +2,9 @@
 import os.path
 import pickle
 
+# assets directory specified by an environment variable
+assetDir = os.environ['MAYA_ASSET_DIR']
+
 def createAssetFile(name, fileType, target, master, asset):
 	print "CREATING ASSET:"
 	print "name: " + name
@@ -24,6 +27,5 @@ def createAssetFile(name, fileType, target, master, asset):
 	pickle.dump(assetDict, open(asset, 'wb'))
 
 def loadAssetFile(path):
-	assetDir = os.environ['MAYA_ASSET_DIR']
 	assetPath = os.path.join(assetDir,path)
 	return pickle.load(open(assetPath, 'rb'))

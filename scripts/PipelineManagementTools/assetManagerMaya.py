@@ -15,7 +15,6 @@ mayaMainWindowPtr = omui.MQtUtil.mainWindow()
 mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
 
 def main():
-	print "testing gather script"
 	print os.environ['MAYA_ASSET_DIR']
 	print "loading UI"
 	ui = assetManagerUI.AssetManagerUI(mayaMainWindow)

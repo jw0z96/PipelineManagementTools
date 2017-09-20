@@ -9,6 +9,9 @@ from PySide2.QtUiTools import *
 from PipelineManagementTools import assetUtils
 reload(assetUtils)
 
+# assets directory specified by an environment variable
+assetDir = os.environ['MAYA_ASSET_DIR']
+
 class NewAssetDialog(QDialog):
 	def __init__(self, parentWindow = None, *args, **kwargs):
 		super(NewAssetDialog, self).__init__(parentWindow, *args, **kwargs)
@@ -23,8 +26,6 @@ class NewAssetDialog(QDialog):
 		self.ui = loader.load(file, parentWidget=self)
 		file.close()
 
-		self.setModal(True)
-
 		self.ui.dialogButtonBox.rejected.connect(self.close)
 		self.ui.dialogButtonBox.accepted.connect(self.createNewAsset)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
@@ -35,7 +36,6 @@ class NewAssetDialog(QDialog):
 
 	def createNewAsset(self):
 		print "checking asset name & path"
-		assetDir = os.environ['MAYA_ASSET_DIR']
 		print "assetDir: "+assetDir
 
 		newAssetName = self.ui.assetNameLineEdit.text()
@@ -58,7 +58,7 @@ class NewAssetDialog(QDialog):
 			for x in files:
 				if x.endswith(".asset"):
 					assetList.append(x.replace('.asset', ''))
-		print assetList
+
 		if newAssetName in assetList:
 			QMessageBox.critical(self,
 				"Error",
@@ -86,10 +86,13 @@ class NewAssetDialog(QDialog):
 				"The proposed master file: " + proposedMasterFile + " already exists")
 			return
 
+		# create a string for the .asset file
 		proposedAssetFile = os.path.join(containingFolder, newAssetName + ".asset")
 
+		# create the asset dict & file
 		assetUtils.createAssetFile(newAssetName, fileType, fullTargetFilePath, proposedMasterFile, proposedAssetFile)
 
+		#check if the created files exist
 		if os.path.isfile(proposedMasterFile) and os.path.isfile(proposedAssetFile):
 			print "Asset created succesfully!"
 			#set up variables to return
@@ -103,12 +106,7 @@ class NewAssetDialog(QDialog):
 				+ " or ask me what's wrong")
 			return
 
-	def validPath(self, path):
-		assetDir = os.environ['MAYA_ASSET_DIR']
-		return path.startswith(assetDir)
-
 	def filePathDialog(self):
-		assetDir = os.environ['MAYA_ASSET_DIR']
 		diag = QFileDialog(self)
 		diag.setModal(True)
 		targetFilePath = diag.getOpenFileName(self,
@@ -118,7 +116,7 @@ class NewAssetDialog(QDialog):
 		print "full file path: "+targetFilePath
 
 		# if the file path is valid
-		if self.validPath(targetFilePath):
+		if targetFilePath.startswith(assetDir):
 			fp = os.path.relpath(targetFilePath, assetDir)
 			self.ui.filePathLineEdit.clear()
 			self.ui.filePathLineEdit.insert(fp)
