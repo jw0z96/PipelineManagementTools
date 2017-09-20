@@ -24,32 +24,39 @@ class AssetManagerUI(QWidget):
 		self.ui = loader.load(file, parentWidget=self)
 		file.close()
 
+		# department list widget callback
+		self.ui.departmentListWidget.itemClicked.connect(self.departmentChanged)
+		# asset list widget callback
+		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
+		# new asset button callback
+		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
+
 		# assets directory specified by an environment variable
 		assetDir = os.environ['MAYA_ASSET_DIR']
 
 		# populate department list widget
-		departmentList = [department for department in os.listdir(assetDir)
+		self.departmentList = [department for department in os.listdir(assetDir)
 			if os.path.isdir(os.path.join(assetDir, department))
 			and not department.startswith('.')]
-		self.ui.departmentListWidget.addItems(departmentList)
-
-		# department list widget callback
-		self.ui.departmentListWidget.itemClicked.connect(self.departmentChanged)
-
-		# asset list widget callback
-		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
-
-		# new asset button callback
-		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
+		self.ui.departmentListWidget.addItems(self.departmentList)
 
 	def departmentChanged(self):
+		self.updateAssetWidget()
+
+	def updateAssetWidget(self, department = None, asset = None):
+		# if no department passed, get the currently selected
+		if not department:
+			department = self.ui.departmentListWidget.currentItem().text()
+		# else get the widget to select the passed one
+		else:
+			self.ui.departmentListWidget.setCurrentRow(self.departmentList.index(department))
+
+		print department
 		# assets directory specified by an environment variable
 		assetDir = os.environ['MAYA_ASSET_DIR']
 		# clear the asset list widget & text label
 		self.ui.assetListWidget.clear()
 		self.ui.assetPathText.setText('')
-		# new deparment chosen
-		department = self.ui.departmentListWidget.currentItem().text()
 		# populate asset list widget
 		self.assetList = []
 		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, department)):
@@ -57,7 +64,12 @@ class AssetManagerUI(QWidget):
 				if x.endswith(".asset"):
 					self.ui.assetListWidget.addItem(x)
 					self.assetList.append(os.path.relpath(os.path.join(dirpath, x), assetDir))
-		print self.assetList
+
+		# if an asset was passed, select it
+		if asset:
+			print asset
+			print self.assetList
+			self.ui.assetListWidget.setCurrentRow(self.assetList.index(asset))
 
 	def assetChanged(self):
 		# new asset chosen
@@ -68,7 +80,11 @@ class AssetManagerUI(QWidget):
 	def newAssetCallback(self):
 		print "new asset"
 		diag = newAssetDialog.NewAssetDialog(self)
-		diag.show()
+		if diag.exec_():
+			asset = diag.createdAssetFile
+			department = os.path.split(asset)[0]
+			self.updateAssetWidget(department, asset)
+			self.assetChanged()
 
 
 # def main():

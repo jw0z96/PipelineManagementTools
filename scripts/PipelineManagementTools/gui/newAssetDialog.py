@@ -92,7 +92,9 @@ class NewAssetDialog(QDialog):
 
 		if os.path.isfile(proposedMasterFile) and os.path.isfile(proposedAssetFile):
 			print "Asset created succesfully!"
-			self.close()
+			#set up variables to return
+			self.createdAssetFile = os.path.relpath(proposedAssetFile, assetDir)
+			self.accept()
 		else:
 			QMessageBox.critical(self,
 				"Error",
@@ -123,4 +125,3 @@ class NewAssetDialog(QDialog):
 		# if the file path wasn't null (user closed browser)
 		elif targetFilePath:
 			QMessageBox.critical(self, "Error", "Selected file is not within $MAYA_ASSETS_DIR:\n"+assetDir)
-
