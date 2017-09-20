@@ -11,3 +11,7 @@ This project aims to:
 Requirements:
   - Maya 2017 (2017 is hard coded into some paths)
   - Definition of MAYA_ASSET_DIR as an environment variable (either in Maya.env or ~/.bashrc for now)
+
+Install:
+  - Define MAYA_ASSET_DIR as an environment variable pointing to the '3_prod' folder
+  - run `sh install.sh`
