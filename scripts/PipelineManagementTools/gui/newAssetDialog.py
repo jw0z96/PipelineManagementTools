@@ -6,6 +6,9 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 
+from PipelineManagementTools import assetUtils
+reload(assetUtils)
+
 class NewAssetDialog(QDialog):
 	def __init__(self, parentWindow = None, *args, **kwargs):
 		super(NewAssetDialog, self).__init__(parentWindow, *args, **kwargs)
@@ -26,19 +29,30 @@ class NewAssetDialog(QDialog):
 		self.ui.dialogButtonBox.accepted.connect(self.createNewAsset)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
 
+		regex = QRegExp("[A-Za-z0-9_]+")
+		validator = QRegExpValidator(regex, self.ui.assetNameLineEdit)
+		self.ui.assetNameLineEdit.setValidator(validator)
+
 	def createNewAsset(self):
 		print "checking asset name & path"
-		newAssetName = self.ui.assetNameLineEdit.text()
-
-		invalidChars = " ,/*'"
-		if any(c in newAssetName for c in invalidChars) or newAssetName.endswith('.'):
-			QMessageBox.critical(self,
-				"Error",
-				"Asset name '" + newAssetName + "' invalid!")
-			return
-
 		assetDir = os.environ['MAYA_ASSET_DIR']
 		print "assetDir: "+assetDir
+
+		newAssetName = self.ui.assetNameLineEdit.text()
+		if newAssetName == '':
+			QMessageBox.critical(self,
+				"Error",
+				"No asset name given!")
+			return
+
+		targetFilePath = self.ui.filePathLineEdit.text()
+		if targetFilePath == '':
+			QMessageBox.critical(self,
+				"Error",
+				"No file path given!")
+			return
+
+		# check if asset of name already exists
 		assetList = []
 		for dirpath, subdirs, files in os.walk(assetDir):
 			for x in files:
@@ -52,18 +66,40 @@ class NewAssetDialog(QDialog):
 			return
 		print "asset name good!"
 
-		newFilePath = self.ui.filePathLineEdit.text()
-		fp = os.path.join(assetDir, newFilePath)
-		if not os.path.isfile(fp):
-			print "newFilePath: " + newFilePath + "assetDir: " + assetDir + "fp: " + fp
+		# check if the target file exists (if the lineEdit was edited badly)
+		fullTargetFilePath = os.path.join(assetDir, targetFilePath)
+		if not os.path.isfile(fullTargetFilePath):
+			print "targetFilePath: " + targetFilePath + " assetDir: " + assetDir + " fullTargetFilePath: " + fullTargetFilePath
 			QMessageBox.critical(self,
 				"Error",
-				"File: " + newFilePath + " doesnt exist!")
+				"File: " + fullTargetFilePath + " doesnt exist!")
 			return
-		print "target file exists at path"
+		print "target file path good!"
 
+		# check if the proposed master file already exists
+		fileType = os.path.splitext(fullTargetFilePath)[1]
+		containingFolder = os.path.dirname(fullTargetFilePath)
+		proposedMasterFile = os.path.join(containingFolder, "master." + newAssetName + fileType)
+		if os.path.isfile(proposedMasterFile):
+			QMessageBox.critical(self,
+				"Error",
+				"The proposed master file: " + proposedMasterFile + " already exists")
+			return
 
+		proposedAssetFile = os.path.join(containingFolder, newAssetName + ".asset")
 
+		assetUtils.createAssetFile(newAssetName, fileType, fullTargetFilePath, proposedMasterFile, proposedAssetFile)
+
+		if os.path.isfile(proposedMasterFile) and os.path.isfile(proposedAssetFile):
+			print "Asset created succesfully!"
+			self.close()
+		else:
+			QMessageBox.critical(self,
+				"Error",
+				"Error: Asset or Master file not created, check contents of "
+				+ containingFolder
+				+ " or ask me what's wrong")
+			return
 
 	def validPath(self, path):
 		assetDir = os.environ['MAYA_ASSET_DIR']
@@ -73,18 +109,18 @@ class NewAssetDialog(QDialog):
 		assetDir = os.environ['MAYA_ASSET_DIR']
 		diag = QFileDialog(self)
 		diag.setModal(True)
-		newFilePath = diag.getOpenFileName(self,
+		targetFilePath = diag.getOpenFileName(self,
 			"Select master file",
 			assetDir,
-			"Maya scene files (*.ma *.mb)")[0]
-		print "full file path: "+newFilePath
+			"Maya scene files (*.ma *.mb);;All files (*)")[0]
+		print "full file path: "+targetFilePath
 
 		# if the file path is valid
-		if self.validPath(newFilePath):
-			fp = os.path.relpath(newFilePath, assetDir)
+		if self.validPath(targetFilePath):
+			fp = os.path.relpath(targetFilePath, assetDir)
 			self.ui.filePathLineEdit.clear()
 			self.ui.filePathLineEdit.insert(fp)
 		# if the file path wasn't null (user closed browser)
-		elif newFilePath:
+		elif targetFilePath:
 			QMessageBox.critical(self, "Error", "Selected file is not within $MAYA_ASSETS_DIR:\n"+assetDir)
 

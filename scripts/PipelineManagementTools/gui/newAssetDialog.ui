@@ -41,7 +41,7 @@
       <item row="1" column="2">
        <widget class="QPushButton" name="filePathPushButton">
         <property name="text">
-         <string>PushButton</string>
+         <string>Browse...</string>
         </property>
        </widget>
       </item>
