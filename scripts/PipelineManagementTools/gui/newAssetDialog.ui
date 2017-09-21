@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>381</width>
-     <height>152</height>
+     <height>154</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -28,6 +28,23 @@
     </property>
     <item>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="2">
+       <widget class="QPushButton" name="filePathPushButton">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="assetNameLabel">
+        <property name="text">
+         <string>Asset Name</string>
+        </property>
+        <property name="margin">
+         <number>5</number>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="filePathLabel">
         <property name="text">
@@ -38,23 +55,23 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="filePathPushButton">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="assetNameLineEdit"/>
       </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="filePathLineEdit"/>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="assetNameLabel">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="commentLineEdit">
+        <property name="inputMask">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="commentLabel">
         <property name="text">
-         <string>Asset Name</string>
+         <string>Comment:</string>
         </property>
         <property name="margin">
          <number>5</number>

@@ -31,10 +31,16 @@ class UpdateAssetDialog(QDialog):
 		self.ui.dialogButtonBox.accepted.connect(self.updateAsset)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
 		self.ui.assetNameLabel.setText("Updating asset: " + self.asset)
+		# set regex for comment
+		commentRegex = QRegExp("[A-Za-z0-9 _.,?!]+")
+		commentValidator = QRegExpValidator(commentRegex, self.ui.commentLineEdit)
+		self.ui.commentLineEdit.setValidator(commentValidator)
 
 	def updateAsset(self):
+		# get the passed path & comment
 		targetFilePath = self.ui.filePathLineEdit.text()
-		assetUtils.updateAssetFile(self.asset, targetFilePath)
+		comment = self.ui.commentLineEdit.text()
+		assetUtils.updateAssetFile(self.asset, targetFilePath, comment)
 		self.accept()
 
 	def filePathDialog(self):

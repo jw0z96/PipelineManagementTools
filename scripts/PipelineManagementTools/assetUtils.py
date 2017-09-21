@@ -6,7 +6,7 @@ import time
 # assets directory specified by an environment variable
 assetDir = os.environ['MAYA_ASSET_DIR']
 
-def createAssetFile(name, fileType, target, master, asset):
+def createAssetFile(name, fileType, target, master, asset, comment):
 	print "CREATING ASSET:"
 	print "name: " + name
 	print "file type: " + fileType
@@ -26,7 +26,7 @@ def createAssetFile(name, fileType, target, master, asset):
 	versionInfo = {
 		'target': relTarget,
 		'date': time.strftime("%c"),
-		'comment': "example comment"
+		'comment': comment
 		}
 
 	versionsArray = []
@@ -46,19 +46,24 @@ def loadAssetFile(path):
 	assetPath = os.path.join(assetDir,path)
 	return pickle.load(open(assetPath, 'rb'))
 
-def updateAssetFile(asset, target):
+def updateAssetFile(asset, target, comment):
 	assetDict = loadAssetFile(asset)
 
 	newAssetInfo = {
 		'target': target,
 		'date': time.strftime("%c"),
-		'comment': "example comment?"
+		'comment': comment
 	}
 
 	assetDict['versions'].append(newAssetInfo)
 	assetDict['currentVersion'] = len(assetDict['versions'])-1
 
-	# TODO UPDATE SYMLINK
-
 	assetPath = os.path.join(assetDir, asset)
+	master = os.path.join(
+		os.path.dirname(assetPath), assetDict['master']
+		)
+
+	os.unlink(master)
+	os.symlink(target, master)
+
 	pickle.dump(assetDict, open(assetPath, 'wb'))

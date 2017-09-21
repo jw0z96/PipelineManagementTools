@@ -114,5 +114,3 @@ class AssetManagerUI(QWidget):
 			self.ui.assetInfoTableWidget.setItem(row, 1, QTableWidgetItem(assetVersion['target']))
 			self.ui.assetInfoTableWidget.setItem(row, 2, QTableWidgetItem(assetVersion['date']))
 			self.ui.assetInfoTableWidget.setItem(row, 3, QTableWidgetItem(assetVersion['comment']))
-
-		# # self.ui.assetTargetText.setText(assetDict['target'])

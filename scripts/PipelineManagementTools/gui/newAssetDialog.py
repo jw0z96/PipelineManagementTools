@@ -30,9 +30,13 @@ class NewAssetDialog(QDialog):
 		self.ui.dialogButtonBox.accepted.connect(self.createNewAsset)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
 		# set regex for asset name
-		regex = QRegExp("[A-Za-z0-9_]+")
-		validator = QRegExpValidator(regex, self.ui.assetNameLineEdit)
-		self.ui.assetNameLineEdit.setValidator(validator)
+		assetNameRegex = QRegExp("[A-Za-z0-9_]+")
+		assetNameValidator = QRegExpValidator(assetNameRegex, self.ui.assetNameLineEdit)
+		self.ui.assetNameLineEdit.setValidator(assetNameValidator)
+		# set regex for comment
+		commentRegex = QRegExp("[A-Za-z0-9 _.,?!]+")
+		commentValidator = QRegExpValidator(commentRegex, self.ui.commentLineEdit)
+		self.ui.commentLineEdit.setValidator(commentValidator)
 
 	def createNewAsset(self):
 		print "checking asset name & path"
@@ -86,10 +90,19 @@ class NewAssetDialog(QDialog):
 				"The proposed master file: " + proposedMasterFile + " already exists")
 			return
 
+		# get the passed comment
+		comment = self.ui.commentLineEdit.text()
 		# create a string for the .asset file
 		proposedAssetFile = os.path.join(containingFolder, newAssetName + ".asset")
 		# create the asset dict & file
-		assetUtils.createAssetFile(newAssetName, fileType, fullTargetFilePath, proposedMasterFile, proposedAssetFile)
+		assetUtils.createAssetFile(
+			newAssetName,
+			fileType,
+			fullTargetFilePath,
+			proposedMasterFile,
+			proposedAssetFile,
+			comment
+			)
 
 		#check if the created files exist
 		if os.path.isfile(proposedMasterFile) and os.path.isfile(proposedAssetFile):
