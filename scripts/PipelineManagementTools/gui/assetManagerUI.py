@@ -103,4 +103,16 @@ class AssetManagerUI(QWidget):
 		self.ui.assetPathText.setText(self.selectedAsset)
 		self.ui.assetMasterText.setText(assetDict['master'])
 		self.ui.assetTypeText.setText(assetDict['type'])
-		self.ui.assetTargetText.setText(assetDict['target'])
+		self.ui.assetCurrentVersionText.setText(str(assetDict['currentVersion']))
+
+		assetVersions = assetDict['versions']
+		self.ui.assetInfoTableWidget.setRowCount(len(assetVersions))
+
+		for row in range(0, len(assetVersions)):
+			assetVersion = assetVersions[row]
+			self.ui.assetInfoTableWidget.setItem(row, 0, QTableWidgetItem(str(row)))
+			self.ui.assetInfoTableWidget.setItem(row, 1, QTableWidgetItem(assetVersion['target']))
+			self.ui.assetInfoTableWidget.setItem(row, 2, QTableWidgetItem(assetVersion['date']))
+			self.ui.assetInfoTableWidget.setItem(row, 3, QTableWidgetItem(assetVersion['comment']))
+
+		# # self.ui.assetTargetText.setText(assetDict['target'])
