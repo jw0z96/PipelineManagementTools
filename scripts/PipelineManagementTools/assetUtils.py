@@ -73,3 +73,13 @@ def updateAssetVersion(asset, version):
 	assetDict['currentVersion'] = version
 	assetPath = os.path.join(assetDir, asset)
 	pickle.dump(assetDict, open(assetPath, 'wb'))
+
+	assetVersions = assetDict['versions']
+	assetPath = os.path.join(assetDir, asset)
+	master = os.path.join(
+		os.path.dirname(assetPath), assetDict['master']
+		)
+
+	assetVersion = assetVersions[version]
+	os.unlink(master)
+	os.symlink(assetVersion['target'], master)
