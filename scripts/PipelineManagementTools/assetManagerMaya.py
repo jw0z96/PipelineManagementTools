@@ -24,7 +24,6 @@ assetDir = os.environ['MAYA_ASSET_DIR']
 class AssetManagerMaya():
 	def __init__(self, *args, **kwargs):
 		self.gui = assetManagerUI.AssetManagerUI(mayaMainWindow)
-
 		loadButton = QPushButton("Load Asset")
 		loadButton.clicked.connect(self.loadSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(loadButton)
@@ -52,4 +51,3 @@ class AssetManagerMaya():
 				"Error",
 				"File Target listed in .asset file: "
 				+ targetAbsPath + " doesnt exist!")
-

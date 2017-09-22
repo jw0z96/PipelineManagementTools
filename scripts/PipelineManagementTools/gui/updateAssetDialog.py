@@ -29,18 +29,32 @@ class UpdateAssetDialog(QDialog):
 		# set callbacks & ui text
 		self.ui.dialogButtonBox.rejected.connect(self.close)
 		self.ui.dialogButtonBox.accepted.connect(self.updateAsset)
+		self.ui.versionDialogButtonBox.rejected.connect(self.close)
+		self.ui.versionDialogButtonBox.accepted.connect(self.updateAssetVersion)
 		self.ui.filePathPushButton.clicked.connect(self.filePathDialog)
 		self.ui.assetNameLabel.setText("Updating asset: " + self.asset)
 		# set regex for comment
 		commentRegex = QRegExp("[A-Za-z0-9 _.,?!]+")
 		commentValidator = QRegExpValidator(commentRegex, self.ui.commentLineEdit)
 		self.ui.commentLineEdit.setValidator(commentValidator)
+		# set spinbox range
+		assetDict = assetUtils.loadAssetFile(self.asset)
+		self.ui.currentVersionSpinBox.setMinimum(0)
+		self.ui.currentVersionSpinBox.setMaximum(
+			len(assetDict['versions'])-1)
+		self.ui.currentVersionSpinBox.setValue(assetDict['currentVersion'])
 
 	def updateAsset(self):
 		# get the passed path & comment
 		targetFilePath = self.ui.filePathLineEdit.text()
 		comment = self.ui.commentLineEdit.text()
 		assetUtils.updateAssetFile(self.asset, targetFilePath, comment)
+		self.accept()
+
+	def updateAssetVersion(self):
+		assetUtils.updateAssetVersion(
+			self.asset,
+			self.ui.currentVersionSpinBox.value())
 		self.accept()
 
 	def filePathDialog(self):

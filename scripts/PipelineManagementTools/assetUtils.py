@@ -67,3 +67,9 @@ def updateAssetFile(asset, target, comment):
 	os.symlink(target, master)
 
 	pickle.dump(assetDict, open(assetPath, 'wb'))
+
+def updateAssetVersion(asset, version):
+	assetDict = loadAssetFile(asset)
+	assetDict['currentVersion'] = version
+	assetPath = os.path.join(assetDir, asset)
+	pickle.dump(assetDict, open(assetPath, 'wb'))
