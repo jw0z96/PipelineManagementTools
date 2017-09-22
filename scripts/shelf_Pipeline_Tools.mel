@@ -31,7 +31,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\nassetManagerMaya.main();\n"
+        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\nam = assetManagerMaya.AssetManagerMaya();\nam.main();\n"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
