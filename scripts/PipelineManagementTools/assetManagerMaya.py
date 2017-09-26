@@ -24,16 +24,20 @@ assetDir = os.environ['MAYA_ASSET_DIR']
 class AssetManagerMaya():
 	def __init__(self, *args, **kwargs):
 		self.gui = assetManagerUI.AssetManagerUI(mayaMainWindow)
-		loadButton = QPushButton("Load Asset")
+
+		loadButton = QPushButton("Gather Asset")
 		loadButton.clicked.connect(self.loadSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(loadButton)
+
+		referenceButton = QPushButton("Reference Asset")
+		referenceButton.clicked.connect(self.referenceSelectedAssetTarget)
+		self.gui.ui.functionsHLayout.addWidget(referenceButton)
 
 	def main(self):
 		self.gui.show()
 
 	def loadSelectedAssetTarget(self):
 		selectedAsset = self.gui.getSelectedAsset()
-		print "trying to load " + selectedAsset
 		if selectedAsset:
 			asset = assetUtils.loadAssetFile(selectedAsset)
 			currentVersion = asset['currentVersion']
@@ -51,3 +55,6 @@ class AssetManagerMaya():
 				"Error",
 				"File Target listed in .asset file: "
 				+ targetAbsPath + " doesnt exist!")
+
+	def referenceSelectedAssetTarget(self):
+		print "referencing asset"
