@@ -38,10 +38,8 @@ class AssetManagerUI(QWidget):
 		self.ui.departmentListWidget.currentItemChanged.connect(self.departmentChanged)
 		# asset list widget callback
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
-		# new asset button callback
-		self.ui.newAssetPushButton.clicked.connect(self.newAssetCallback)
-		# update asset button callback
-		self.ui.updateAssetPushButton.clicked.connect(self.updateAssetCallback)
+		# release asset button callback
+		self.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
 
 		# populate department list widget
 		self.departmentList = [department for department in os.listdir(assetDir)
@@ -94,6 +92,9 @@ class AssetManagerUI(QWidget):
 			diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
 			if diag.exec_():
 				self.updateAssetInfo()
+
+	def releaseAssetCallback(self):
+		print "releasing asset"
 
 	def updateAssetInfo(self, asset = None):
 		if asset:

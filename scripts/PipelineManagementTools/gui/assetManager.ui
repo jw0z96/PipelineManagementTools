@@ -29,7 +29,16 @@
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="margin">
+    <property name="leftMargin">
+     <number>5</number>
+    </property>
+    <property name="topMargin">
+     <number>5</number>
+    </property>
+    <property name="rightMargin">
+     <number>5</number>
+    </property>
+    <property name="bottomMargin">
      <number>5</number>
     </property>
     <item>
@@ -48,16 +57,9 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="newAssetPushButton">
+       <widget class="QPushButton" name="releaseAssetPushButton">
         <property name="text">
-         <string>New Asset</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="updateAssetPushButton">
-        <property name="text">
-         <string>Update Asset</string>
+         <string>Release Asset</string>
         </property>
        </widget>
       </item>
