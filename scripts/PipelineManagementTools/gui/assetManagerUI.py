@@ -6,11 +6,14 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 from PySide2.QtUiTools import *
 
-import newAssetDialog
-reload(newAssetDialog)
+# import newAssetDialog
+# reload(newAssetDialog)
 
-import updateAssetDialog
-reload(updateAssetDialog)
+# import updateAssetDialog
+# reload(updateAssetDialog)
+
+import releaseAssetDialog
+reload(releaseAssetDialog)
 
 from PipelineManagementTools import assetUtils
 reload(assetUtils)
@@ -40,12 +43,64 @@ class AssetManagerUI(QWidget):
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
 		# release asset button callback
 		self.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
+		# load version button callback
+		self.ui.loadSelectedVersionPushButton.clicked.connect(self.loadSelectedVersionCallback)
+		# set current version button callback
+		self.ui.setSelectedVersionPushButton.clicked.connect(self.setSelectedVersionCallback)
 
 		# populate department list widget
 		self.departmentList = [department for department in os.listdir(assetDir)
 			if os.path.isdir(os.path.join(assetDir, department))
 			and not department.startswith('.')]
 		self.ui.departmentListWidget.addItems(self.departmentList)
+
+	def newAssetCallback(self):
+		diag = newAssetDialog.NewAssetDialog(self)
+		if diag.exec_():
+			asset = diag.createdAssetFile
+			department = os.path.split(asset)[0]
+			self.updateAssetWidget(department, asset)
+			self.assetChanged()
+
+	def updateAssetCallback(self):
+		if self.selectedAsset:
+			diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
+			if diag.exec_():
+				self.updateAssetInfo()
+
+	def releaseAssetCallback(self):
+		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self)
+		if diag.exec_():
+			print "diag accepted"
+
+	def loadSelectedVersionCallback(self):
+		print "loading version"
+
+	def setSelectedVersionCallback(self):
+		print "set selected version as current"
+
+	def updateAssetInfo(self, asset = None):
+		if asset:
+			self.selectedAsset = asset
+		# clear the text labels
+		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
+		self.ui.assetPathText.setText(self.selectedAsset)
+		self.ui.assetMasterText.setText(assetDict['master'])
+		self.ui.assetTypeText.setText(assetDict['type'])
+		self.ui.assetCurrentVersionText.setText(str(assetDict['currentVersion']))
+
+		assetVersions = assetDict['versions']
+		self.ui.assetInfoTableWidget.setRowCount(len(assetVersions))
+
+		for row in range(0, len(assetVersions)):
+			assetVersion = assetVersions[row]
+			self.ui.assetInfoTableWidget.setItem(row, 0, QTableWidgetItem(str(row)))
+			self.ui.assetInfoTableWidget.setItem(row, 1, QTableWidgetItem(assetVersion['target']))
+			self.ui.assetInfoTableWidget.setItem(row, 2, QTableWidgetItem(assetVersion['date']))
+			self.ui.assetInfoTableWidget.setItem(row, 3, QTableWidgetItem(assetVersion['comment']))
+
+	def getSelectedAsset(self):
+		return self.selectedAsset
 
 	def departmentChanged(self):
 		self.updateAssetWidget()
@@ -78,43 +133,3 @@ class AssetManagerUI(QWidget):
 		# new asset chosen
 		chosenAsset = self.assetList[self.ui.assetListWidget.currentRow()]
 		self.updateAssetInfo(chosenAsset)
-
-	def newAssetCallback(self):
-		diag = newAssetDialog.NewAssetDialog(self)
-		if diag.exec_():
-			asset = diag.createdAssetFile
-			department = os.path.split(asset)[0]
-			self.updateAssetWidget(department, asset)
-			self.assetChanged()
-
-	def updateAssetCallback(self):
-		if self.selectedAsset:
-			diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
-			if diag.exec_():
-				self.updateAssetInfo()
-
-	def releaseAssetCallback(self):
-		print "releasing asset"
-
-	def updateAssetInfo(self, asset = None):
-		if asset:
-			self.selectedAsset = asset
-		# clear the text labels
-		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
-		self.ui.assetPathText.setText(self.selectedAsset)
-		self.ui.assetMasterText.setText(assetDict['master'])
-		self.ui.assetTypeText.setText(assetDict['type'])
-		self.ui.assetCurrentVersionText.setText(str(assetDict['currentVersion']))
-
-		assetVersions = assetDict['versions']
-		self.ui.assetInfoTableWidget.setRowCount(len(assetVersions))
-
-		for row in range(0, len(assetVersions)):
-			assetVersion = assetVersions[row]
-			self.ui.assetInfoTableWidget.setItem(row, 0, QTableWidgetItem(str(row)))
-			self.ui.assetInfoTableWidget.setItem(row, 1, QTableWidgetItem(assetVersion['target']))
-			self.ui.assetInfoTableWidget.setItem(row, 2, QTableWidgetItem(assetVersion['date']))
-			self.ui.assetInfoTableWidget.setItem(row, 3, QTableWidgetItem(assetVersion['comment']))
-
-	def getSelectedAsset(self):
-		return self.selectedAsset
