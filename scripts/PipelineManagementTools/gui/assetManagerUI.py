@@ -82,7 +82,12 @@ class AssetManagerUI(QWidget):
 		print "loading version"
 
 	def setSelectedVersionCallback(self):
-		print "set selected version as current"
+		if self.selectedAsset:
+			selectedVersion = self.ui.assetInfoTableWidget.currentRow()
+			if selectedVersion >= 0:
+				print "set selected version " + str(selectedVersion) + " as current"
+				assetUtils.updateAssetVersion(self.selectedAsset, selectedVersion)
+				self.updateAssetInfo()
 
 	def updateAssetInfo(self, asset = None):
 		if asset:
