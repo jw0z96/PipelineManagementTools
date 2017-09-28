@@ -72,6 +72,11 @@ class AssetManagerUI(QWidget):
 		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self)
 		if diag.exec_():
 			print "diag accepted"
+			asset = diag.releasedAsset
+			department = os.path.split(asset)[0]
+			self.updateAssetWidget(department, asset)
+			self.updateAssetInfo(asset)
+
 
 	def loadSelectedVersionCallback(self):
 		print "loading version"
