@@ -43,8 +43,6 @@ class AssetManagerUI(QWidget):
 		self.ui.assetListWidget.itemClicked.connect(self.assetChanged)
 		# release asset button callback
 		self.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
-		# load version button callback
-		self.ui.loadSelectedVersionPushButton.clicked.connect(self.loadSelectedVersionCallback)
 		# set current version button callback
 		self.ui.setSelectedVersionPushButton.clicked.connect(self.setSelectedVersionCallback)
 
@@ -76,10 +74,6 @@ class AssetManagerUI(QWidget):
 			department = os.path.split(asset)[0]
 			self.updateAssetWidget(department, asset)
 			self.updateAssetInfo(asset)
-
-
-	def loadSelectedVersionCallback(self):
-		print "loading version"
 
 	def setSelectedVersionCallback(self):
 		if self.selectedAsset:

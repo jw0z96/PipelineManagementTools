@@ -230,7 +230,7 @@
      </widget>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QHBoxLayout" name="assetInfoHLayout">
       <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
@@ -243,13 +243,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="loadSelectedVersionPushButton">
-        <property name="text">
-         <string>Load Selected Version</string>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="setSelectedVersionPushButton">

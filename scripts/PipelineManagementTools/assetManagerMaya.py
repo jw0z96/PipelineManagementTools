@@ -33,13 +33,16 @@ class AssetManagerMaya():
 		referenceButton.clicked.connect(self.referenceSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(referenceButton)
 
+		loadVersionButton = QPushButton("Load Version")
+		loadVersionButton.clicked.connect(self.loadSelectedAssetVersion)
+		self.gui.ui.assetInfoHLayout.addWidget(loadVersionButton)
+
 	def main(self):
 		self.gui.show()
 
 	def loadSelectedAssetTarget(self):
 		selectedAsset = self.gui.getSelectedAsset()
 		if selectedAsset:
-			asset = assetUtils.loadAssetFile(selectedAsset)
 			currentVersion = asset['currentVersion']
 			assetVersions = asset['versions']
 			currentVersionInfo = assetVersions[currentVersion]
@@ -55,6 +58,12 @@ class AssetManagerMaya():
 				"Error",
 				"File Target listed in .asset file: "
 				+ targetAbsPath + " doesnt exist!")
+
+	def loadSelectedAssetVersion(self):
+		version = self.gui.ui.assetInfoTableWidget.currentRow()
+		print version
+		# if version >= 0:
+			# print "loading " + version
 
 	def referenceSelectedAssetTarget(self):
 		print "referencing asset"
