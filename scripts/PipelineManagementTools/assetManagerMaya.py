@@ -43,6 +43,7 @@ class AssetManagerMaya():
 	def loadSelectedAssetTarget(self):
 		selectedAsset = self.gui.getSelectedAsset()
 		if selectedAsset:
+			asset = assetUtils.loadAssetFile(selectedAsset)
 			currentVersion = asset['currentVersion']
 			assetVersions = asset['versions']
 			currentVersionInfo = assetVersions[currentVersion]
@@ -66,4 +67,21 @@ class AssetManagerMaya():
 			# print "loading " + version
 
 	def referenceSelectedAssetTarget(self):
-		print "referencing asset"
+		# print "referencing asset"
+		selectedAsset = self.gui.getSelectedAsset()
+		currentFile = cmds.file(q = True, sn = True)
+		if currentFile and selectedAsset:
+			# print "current file: " + currentFile
+
+			containingFolder = os.path.split(currentFile)[0]
+			# print "containing folder: " + containingFolder
+
+			referencedAssetsFolder = os.path.join(containingFolder, "referencedAssets")
+			if not os.path.isdir(referencedAssetsFolder):
+				# print "creating: " + referencedAssetsFolder
+				os.mkdir(referencedAssetsFolder)
+
+			referenceLink = assetUtils.createReferenceLink(
+				referencedAssetsFolder, selectedAsset)
+
+			cmds.file(referenceLink, r=True)
