@@ -15,6 +15,9 @@ reload(assetManagerUI)
 import assetUtils
 reload(assetUtils)
 
+from gui import nameSpaceDialog
+reload(nameSpaceDialog)
+
 mayaMainWindowPtr = omui.MQtUtil.mainWindow()
 mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
 
@@ -67,21 +70,22 @@ class AssetManagerMaya():
 			# print "loading " + version
 
 	def referenceSelectedAssetTarget(self):
-		# print "referencing asset"
+		print "referencing asset"
 		selectedAsset = self.gui.getSelectedAsset()
-		currentFile = cmds.file(q = True, sn = True)
-		if currentFile and selectedAsset:
-			# print "current file: " + currentFile
+		if selectedAsset:
+			asset = assetUtils.loadAssetFile(selectedAsset)
+			assetFolder = os.path.dirname(selectedAsset)
+			masterFile = asset['master']
+			referencePath = os.path.join(
+				"$MAYA_ASSET_DIR", assetFolder, masterFile)
+			print referencePath
 
-			containingFolder = os.path.split(currentFile)[0]
-			# print "containing folder: " + containingFolder
+			# TODO NAMESPACE DIALOG
+			cmds.file(referencePath, r=True, namespace = selectedAsset)
 
-			referencedAssetsFolder = os.path.join(containingFolder, "referencedAssets")
-			if not os.path.isdir(referencedAssetsFolder):
-				# print "creating: " + referencedAssetsFolder
-				os.mkdir(referencedAssetsFolder)
+			# diag = nameSpaceDialog.NameSpaceDialog(referencePath, self.gui)
 
-			referenceLink = assetUtils.createReferenceLink(
-				referencedAssetsFolder, selectedAsset)
-
-			cmds.file(referenceLink, r=True)
+			# if diag.exec_():
+			# 	namespace = diag.ui.nameSpaceLineEdit.text()
+			# 	cmds.file(
+			# 		referencePath, r=True, namespace=namespace)

@@ -84,21 +84,21 @@ def updateAssetVersion(asset, version):
 	os.unlink(master)
 	os.symlink(assetVersion['target'], master)
 
-def createReferenceLink(linkDir, asset):
-	print "selected asset: " + asset
-	assetDict = loadAssetFile(asset)
-	masterFile = assetDict['master']
-	assetFolder = os.path.dirname(os.path.join(assetDir, asset))
-	relPath = os.path.relpath(
-		assetFolder, linkDir)
-	relMasterFile = os.path.join(relPath, masterFile)
+# def createReferenceLink(linkDir, asset):
+# 	print "selected asset: " + asset
+# 	assetDict = loadAssetFile(asset)
+# 	masterFile = assetDict['master']
+# 	assetFolder = os.path.dirname(os.path.join(assetDir, asset))
+# 	relPath = os.path.relpath(
+# 		assetFolder, linkDir)
+# 	relMasterFile = os.path.join(relPath, masterFile)
 
-	# TODO: unique asset names
-	referenceLink = os.path.join(linkDir, 'test.ma')
+# 	# TODO: unique asset names
+# 	referenceLink = os.path.join(linkDir, 'test.ma')
 
-	print "referenceLink: " + referenceLink
-	print "relMasterFile: " + relMasterFile
+# 	print "referenceLink: " + referenceLink
+# 	print "relMasterFile: " + relMasterFile
 
-	os.symlink(relMasterFile, referenceLink)
+# 	os.symlink(relMasterFile, referenceLink)
 
-	return referenceLink
+# 	return referenceLink
