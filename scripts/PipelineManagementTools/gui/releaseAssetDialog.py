@@ -13,9 +13,10 @@ reload(assetUtils)
 assetDir = os.environ['MAYA_ASSET_DIR']
 
 class ReleaseAssetDialog(QDialog):
-	def __init__(self, asset, parentWindow = None, *args, **kwargs):
+	def __init__(self, asset, currentFile, parentWindow = None, *args, **kwargs):
 		super(ReleaseAssetDialog, self).__init__(parentWindow, *args, **kwargs)
 		self.selectedAsset = asset
+		self.currentFile = currentFile
 		self.releasedAsset = None
 		self.initUI()
 
@@ -51,12 +52,17 @@ class ReleaseAssetDialog(QDialog):
 		# set callbacks & ui text
 		self.ui.newVersionDialogButtonBox.rejected.connect(self.close)
 		self.ui.newVersionDialogButtonBox.accepted.connect(self.updateAsset)
+
 		self.ui.newVersionFilePathPushButton.clicked.connect(self.versionFilePathDialog)
 		self.ui.currentAssetNameLabel.setText("Updating asset: " + self.selectedAsset)
+
+		# check if the current file is in the selected asset dir??
+		# if self.currentFile:
+			# self.ui.newVersionFilePathLineEdit.setText(self.currentFile)
+
 		# set regex for comment
 		self.ui.newVersionCommentLineEdit.setValidator(
 			QRegExpValidator(commentRegex, self.ui.newVersionCommentLineEdit))
-
 
 	def createNewAsset(self):
 		print "checking asset name & path"

@@ -40,6 +40,8 @@ class AssetManagerMaya():
 		loadVersionButton.clicked.connect(self.loadSelectedAssetVersion)
 		self.gui.ui.assetInfoHLayout.addWidget(loadVersionButton)
 
+		self.gui.currentFile = cmds.file(q = True, sn = True)
+
 	def main(self):
 		self.gui.show()
 

@@ -27,6 +27,7 @@ class AssetManagerUI(QWidget):
 		self.setWindowFlags(Qt.Window)
 		self.initUI()
 		self.selectedAsset = None
+		self.currentFile = None
 
 	def initUI(self):
 		# load .ui file
@@ -52,22 +53,22 @@ class AssetManagerUI(QWidget):
 			and not department.startswith('.')]
 		self.ui.departmentListWidget.addItems(self.departmentList)
 
-	def newAssetCallback(self):
-		diag = newAssetDialog.NewAssetDialog(self)
-		if diag.exec_():
-			asset = diag.createdAssetFile
-			department = os.path.split(asset)[0]
-			self.updateAssetWidget(department, asset)
-			self.assetChanged()
+	# def newAssetCallback(self):
+	# 	diag = newAssetDialog.NewAssetDialog(self)
+	# 	if diag.exec_():
+	# 		asset = diag.createdAssetFile
+	# 		department = os.path.split(asset)[0]
+	# 		self.updateAssetWidget(department, asset)
+	# 		self.assetChanged()
 
-	def updateAssetCallback(self):
-		if self.selectedAsset:
-			diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
-			if diag.exec_():
-				self.updateAssetInfo()
+	# def updateAssetCallback(self):
+	# 	if self.selectedAsset:
+	# 		diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
+	# 		if diag.exec_():
+	# 			self.updateAssetInfo()
 
 	def releaseAssetCallback(self):
-		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self)
+		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self.currentFile, self)
 		if diag.exec_():
 			print "diag accepted"
 			asset = diag.releasedAsset
