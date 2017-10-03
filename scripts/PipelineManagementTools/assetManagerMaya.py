@@ -81,13 +81,8 @@ class AssetManagerMaya():
 			referencePath = os.path.join(
 				"$MAYA_ASSET_DIR", assetFolder, masterFile)
 			print referencePath
-
-			# TODO NAMESPACE DIALOG
-			cmds.file(referencePath, r=True, namespace = selectedAsset)
-
-			# diag = nameSpaceDialog.NameSpaceDialog(referencePath, self.gui)
-
-			# if diag.exec_():
-			# 	namespace = diag.ui.nameSpaceLineEdit.text()
-			# 	cmds.file(
-			# 		referencePath, r=True, namespace=namespace)
+			diag = nameSpaceDialog.NameSpaceDialog(referencePath, self.gui)
+			if diag.exec_():
+				namespace = diag.ui.nameSpaceLineEdit.text()
+				cmds.file(
+					referencePath, r=True, namespace=namespace)
