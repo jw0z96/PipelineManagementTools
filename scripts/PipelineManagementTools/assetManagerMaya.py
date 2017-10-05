@@ -15,8 +15,8 @@ reload(assetManagerUI)
 import assetUtils
 reload(assetUtils)
 
-from gui import nameSpaceDialog
-reload(nameSpaceDialog)
+from gui import gatherDialog
+reload(gatherDialog)
 
 mayaMainWindowPtr = omui.MQtUtil.mainWindow()
 mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
@@ -28,13 +28,13 @@ class AssetManagerMaya():
 	def __init__(self, *args, **kwargs):
 		self.gui = assetManagerUI.AssetManagerUI(mayaMainWindow)
 
-		loadButton = QPushButton("Gather Asset")
+		loadButton = QPushButton("Load Asset")
 		loadButton.clicked.connect(self.loadSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(loadButton)
 
-		referenceButton = QPushButton("Reference Asset")
-		referenceButton.clicked.connect(self.referenceSelectedAssetTarget)
-		self.gui.ui.functionsHLayout.addWidget(referenceButton)
+		gatherButton = QPushButton("Gather Asset")
+		gatherButton.clicked.connect(self.gatherSelectedAssetTarget)
+		self.gui.ui.functionsHLayout.addWidget(gatherButton)
 
 		loadVersionButton = QPushButton("Load Version")
 		loadVersionButton.clicked.connect(self.loadSelectedAssetVersion)
@@ -71,7 +71,7 @@ class AssetManagerMaya():
 		# if version >= 0:
 			# print "loading " + version
 
-	def referenceSelectedAssetTarget(self):
+	def gatherSelectedAssetTarget(self):
 		print "referencing asset"
 		selectedAsset = self.gui.getSelectedAsset()
 		if selectedAsset:
@@ -81,8 +81,12 @@ class AssetManagerMaya():
 			referencePath = os.path.join(
 				"$MAYA_ASSET_DIR", assetFolder, masterFile)
 			print referencePath
-			diag = nameSpaceDialog.NameSpaceDialog(referencePath, self.gui)
+			diag = gatherDialog.GatherDialog(referencePath, self.gui)
 			if diag.exec_():
 				namespace = diag.ui.nameSpaceLineEdit.text()
-				cmds.file(
-					referencePath, r=True, namespace=namespace)
+				if diag.ui.referenceRadioButton.isChecked():
+					cmds.file(
+						referencePath, r=True, namespace=namespace)
+				elif diag.ui.importRadioButton.isChecked():
+					cmds.file(
+						referencePath, i=True, namespace=namespace)
