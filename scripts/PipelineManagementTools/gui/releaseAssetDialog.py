@@ -1,10 +1,16 @@
 #!/usr/bin/python
 import os.path
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtUiTools import *
+try:
+	from PySide2.QtCore import *
+	from PySide2.QtGui import *
+	from PySide2.QtWidgets import *
+	from PySide2.QtUiTools import *
+except ImportError:
+	from PySide.QtCore import *
+	from PySide.QtGui import *
+	from PySide.QtWidgets import *
+	from PySide.QtUiTools import *
 
 from PipelineManagementTools import assetUtils
 reload(assetUtils)
@@ -57,8 +63,13 @@ class ReleaseAssetDialog(QDialog):
 		self.ui.currentAssetNameLabel.setText("Updating asset: " + self.selectedAsset)
 
 		# check if the current file is in the selected asset dir??
-		# if self.currentFile:
-			# self.ui.newVersionFilePathLineEdit.setText(self.currentFile)
+		if self.currentFile:
+			containingFolder = os.path.join(
+				assetDir, os.path.dirname(self.selectedAsset))
+			if self.currentFile.startswith(containingFolder):
+				self.ui.newVersionFilePathLineEdit.setText(
+					self.currentFile.lstrip(containingFolder))
+
 
 		# set regex for comment
 		self.ui.newVersionCommentLineEdit.setValidator(

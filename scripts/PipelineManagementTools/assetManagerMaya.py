@@ -4,10 +4,16 @@ from shiboken2 import wrapInstance
 from maya import OpenMayaUI as omui
 import maya.cmds as cmds
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtUiTools import *
+try:
+	from PySide2.QtCore import *
+	from PySide2.QtGui import *
+	from PySide2.QtWidgets import *
+	from PySide2.QtUiTools import *
+except ImportError:
+	from PySide.QtCore import *
+	from PySide.QtGui import *
+	from PySide.QtWidgets import *
+	from PySide.QtUiTools import *
 
 from gui import assetManagerUI
 reload(assetManagerUI)

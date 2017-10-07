@@ -1,10 +1,16 @@
 #!/usr/bin/python
 import os.path
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtUiTools import *
+try:
+	from PySide2.QtCore import *
+	from PySide2.QtGui import *
+	from PySide2.QtWidgets import *
+	from PySide2.QtUiTools import *
+except ImportError:
+	from PySide.QtCore import *
+	from PySide.QtGui import *
+	from PySide.QtWidgets import *
+	from PySide.QtUiTools import *
 
 class GatherDialog(QDialog):
 	def __init__(self, asset, parentWindow = None, *args, **kwargs):

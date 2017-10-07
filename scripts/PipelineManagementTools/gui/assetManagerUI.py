@@ -1,16 +1,16 @@
 #!/usr/bin/python
 import os.path
 
-from PySide2.QtCore import *
-from PySide2.QtGui import *
-from PySide2.QtWidgets import *
-from PySide2.QtUiTools import *
-
-# import newAssetDialog
-# reload(newAssetDialog)
-
-# import updateAssetDialog
-# reload(updateAssetDialog)
+try:
+	from PySide2.QtCore import *
+	from PySide2.QtGui import *
+	from PySide2.QtWidgets import *
+	from PySide2.QtUiTools import *
+except ImportError:
+	from PySide.QtCore import *
+	from PySide.QtGui import *
+	from PySide.QtWidgets import *
+	from PySide.QtUiTools import *
 
 import releaseAssetDialog
 reload(releaseAssetDialog)
@@ -52,20 +52,6 @@ class AssetManagerUI(QWidget):
 			if os.path.isdir(os.path.join(assetDir, department))
 			and not department.startswith('.')]
 		self.ui.departmentListWidget.addItems(self.departmentList)
-
-	# def newAssetCallback(self):
-	# 	diag = newAssetDialog.NewAssetDialog(self)
-	# 	if diag.exec_():
-	# 		asset = diag.createdAssetFile
-	# 		department = os.path.split(asset)[0]
-	# 		self.updateAssetWidget(department, asset)
-	# 		self.assetChanged()
-
-	# def updateAssetCallback(self):
-	# 	if self.selectedAsset:
-	# 		diag = updateAssetDialog.UpdateAssetDialog(self.selectedAsset, self)
-	# 		if diag.exec_():
-	# 			self.updateAssetInfo()
 
 	def releaseAssetCallback(self):
 		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self.currentFile, self)
