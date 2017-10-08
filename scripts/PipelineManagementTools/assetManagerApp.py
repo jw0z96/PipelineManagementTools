@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import os.path
+import sys
 
 try:
 	from PySide2.QtCore import *
@@ -23,3 +23,4 @@ window.setStyleSheet(qdarkstyle.load_stylesheet())
 window.show()
 
 app.exec_()
+sys.exit()
