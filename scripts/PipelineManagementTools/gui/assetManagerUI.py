@@ -27,7 +27,6 @@ class AssetManagerUI(QWidget):
 		self.setWindowFlags(Qt.Window)
 		self.initUI()
 		self.selectedAsset = None
-		self.currentFile = None
 
 	def initUI(self):
 		# load .ui file
@@ -53,8 +52,8 @@ class AssetManagerUI(QWidget):
 			and not department.startswith('.')]
 		self.ui.departmentListWidget.addItems(self.departmentList)
 
-	def releaseAssetCallback(self):
-		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, self.currentFile, self)
+	def releaseAssetCallback(self, currentFile = None):
+		diag = releaseAssetDialog.ReleaseAssetDialog(self.selectedAsset, currentFile, self)
 		if diag.exec_():
 			print "diag accepted"
 			asset = diag.releasedAsset
@@ -103,7 +102,7 @@ class AssetManagerUI(QWidget):
 		# else get the widget to select the passed one
 		else:
 			self.ui.departmentListWidget.setCurrentRow(
-				self.departmentList.index(department))
+				self.departmentList.index(os.path.dirname(department)))
 
 		# clear the asset list widget
 		self.ui.assetListWidget.clear()

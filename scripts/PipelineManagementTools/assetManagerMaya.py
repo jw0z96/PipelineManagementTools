@@ -24,6 +24,8 @@ reload(assetUtils)
 from gui import gatherDialog
 reload(gatherDialog)
 
+import maya.OpenMaya as api
+
 mayaMainWindowPtr = omui.MQtUtil.mainWindow()
 mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
 
@@ -46,10 +48,15 @@ class AssetManagerMaya():
 		loadVersionButton.clicked.connect(self.loadSelectedAssetVersion)
 		self.gui.ui.assetInfoHLayout.addWidget(loadVersionButton)
 
-		self.gui.currentFile = cmds.file(q = True, sn = True)
-
+		# override release asset button callback
+		self.gui.ui.releaseAssetPushButton.clicked.disconnect()
+		self.gui.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
+		
 	def main(self):
 		self.gui.show()
+
+	def releaseAssetCallback(self):
+		self.gui.releaseAssetCallback(cmds.file(q = True, sn = True))
 
 	def loadSelectedAssetTarget(self):
 		selectedAsset = self.gui.getSelectedAsset()

@@ -62,14 +62,14 @@ class ReleaseAssetDialog(QDialog):
 		self.ui.newVersionFilePathPushButton.clicked.connect(self.versionFilePathDialog)
 		self.ui.currentAssetNameLabel.setText("Updating asset: " + self.selectedAsset)
 
-		# check if the current file is in the selected asset dir??
+		# check if the current file is in the selected asset directory
 		if self.currentFile:
 			containingFolder = os.path.join(
 				assetDir, os.path.dirname(self.selectedAsset))
+			# autofill the file path text if so
 			if self.currentFile.startswith(containingFolder):
-				self.ui.newVersionFilePathLineEdit.setText(
-					self.currentFile.lstrip(containingFolder))
-
+				fileText = os.path.relpath(self.currentFile, containingFolder)
+				self.ui.newVersionFilePathLineEdit.setText(fileText)
 
 		# set regex for comment
 		self.ui.newVersionCommentLineEdit.setValidator(
