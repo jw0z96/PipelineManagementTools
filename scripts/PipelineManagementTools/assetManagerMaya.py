@@ -18,7 +18,10 @@ except ImportError:
 from gui import assetManagerUI
 reload(assetManagerUI)
 
-import assetUtils
+try:
+	from PipelineManagementTools import assetUtils
+except ImportError:
+	import assetUtils
 reload(assetUtils)
 
 from gui import gatherDialog
@@ -51,7 +54,7 @@ class AssetManagerMaya():
 		# override release asset button callback
 		self.gui.ui.releaseAssetPushButton.clicked.disconnect()
 		self.gui.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
-		
+
 	def main(self):
 		self.gui.show()
 

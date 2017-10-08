@@ -6,16 +6,20 @@ try:
 	from PySide2.QtGui import *
 	from PySide2.QtWidgets import *
 	from PySide2.QtUiTools import *
+	from PySide2 import __version__
 except ImportError:
 	from PySide.QtCore import *
 	from PySide.QtGui import *
-	from PySide.QtWidgets import *
 	from PySide.QtUiTools import *
+	from PySide import __version__
 
 import releaseAssetDialog
 reload(releaseAssetDialog)
 
-from PipelineManagementTools import assetUtils
+try:
+	from PipelineManagementTools import assetUtils
+except ImportError:
+	import assetUtils
 reload(assetUtils)
 
 # assets directory specified by an environment variable
@@ -57,7 +61,14 @@ class AssetManagerUI(QWidget):
 		if diag.exec_():
 			print "diag accepted"
 			asset = diag.releasedAsset
-			department = os.path.split(asset)[0]
+
+			# get the first part of the path out
+			head,tail = os.path.split(asset)
+			department = None
+			while len(tail)>0: 
+				department = tail
+				head,tail = os.path.split(head)
+			
 			self.updateAssetWidget(department, asset)
 			self.updateAssetInfo(asset)
 
@@ -102,7 +113,7 @@ class AssetManagerUI(QWidget):
 		# else get the widget to select the passed one
 		else:
 			self.ui.departmentListWidget.setCurrentRow(
-				self.departmentList.index(os.path.dirname(department)))
+				self.departmentList.index(department))
 
 		# clear the asset list widget
 		self.ui.assetListWidget.clear()

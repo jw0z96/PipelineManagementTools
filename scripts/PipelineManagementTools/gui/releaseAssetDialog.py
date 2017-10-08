@@ -6,13 +6,17 @@ try:
 	from PySide2.QtGui import *
 	from PySide2.QtWidgets import *
 	from PySide2.QtUiTools import *
+	from PySide2 import __version__
 except ImportError:
 	from PySide.QtCore import *
 	from PySide.QtGui import *
-	from PySide.QtWidgets import *
 	from PySide.QtUiTools import *
+	from PySide import __version__
 
-from PipelineManagementTools import assetUtils
+try:
+	from PipelineManagementTools import assetUtils
+except ImportError:
+	import assetUtils
 reload(assetUtils)
 
 # assets directory specified by an environment variable
