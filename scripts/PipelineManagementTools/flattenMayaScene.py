@@ -1,9 +1,6 @@
 #!/usr/bin/python
+import maya.cmds as cmds
 import maya.mel as mel
 
-# sceneContents = cmds.ls(v = True)
-
-# print sceneContents
-
-# sceneGroup = cmds.group(sceneContents, n = 'test_scene_export')
-print mel.eval('SelectAll')
+mel.eval('SelectAll') # ugly mel eval to select all top level?
+cmds.group(cmds.ls(sl=1), n="test_scene_export")
