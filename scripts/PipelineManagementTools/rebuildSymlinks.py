@@ -19,7 +19,6 @@ for root, subFolder, files in os.walk(assetDir):
 	for item in files:
 		if item.endswith(".asset"):
 			assetList.append(os.path.relpath(os.path.join(root,item), assetDir))
-			# print os.path.join(root,subFolder,item)
 
 for asset in assetList:
 	assetUtils.rebuildAssetSymlink(asset)
