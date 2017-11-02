@@ -6,6 +6,9 @@ import time
 # assets directory specified by an environment variable
 assetDir = os.environ['MAYA_ASSET_DIR']
 
+# create a news asset file,
+# which is a pickle dump of a dict of metadeta
+# also creates a symlink
 def createAssetFile(name, fileType, target, master, asset, comment):
 	print "CREATING ASSET:"
 	print "name: " + name
@@ -42,10 +45,12 @@ def createAssetFile(name, fileType, target, master, asset, comment):
 
 	pickle.dump(assetDict, open(asset, 'wb'))
 
+# load an asset file and return a dict of it's contents
 def loadAssetFile(path):
 	assetPath = os.path.join(assetDir,path)
 	return pickle.load(open(assetPath, 'rb'))
 
+# update an asset file with a new target file
 def updateAssetFile(asset, target, comment):
 	assetDict = loadAssetFile(asset)
 
@@ -68,6 +73,7 @@ def updateAssetFile(asset, target, comment):
 
 	pickle.dump(assetDict, open(assetPath, 'wb'))
 
+# update the current version in a given asset file
 def updateAssetVersion(asset, version):
 	assetDict = loadAssetFile(asset)
 	assetDict['currentVersion'] = version
@@ -83,6 +89,21 @@ def updateAssetVersion(asset, version):
 	assetVersion = assetVersions[version]
 	os.unlink(master)
 	os.symlink(assetVersion['target'], master)
+
+# rebuild the symlink for a given asset file
+def rebuildAssetSymlink(asset):
+	containingFolder = os.path.dirname(asset)
+	assetDict = loadAssetFile(asset)
+	master = assetDict['master']
+	master = os.path.join(assetDir, containingFolder, master)
+	target = assetDict['versions'][assetDict['currentVersion']]['target']
+
+	if os.path.isfile(master):
+		print "removing: " + master
+		os.remove(master)
+
+	print "linking: " + master + " & " + target
+	os.symlink(target, master)
 
 # def createReferenceLink(linkDir, asset):
 # 	print "selected asset: " + asset
