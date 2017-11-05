@@ -25,7 +25,7 @@ endFrame = cmds.getAttr('defaultRenderGlobals.endFrame')
 fileName = "test_archive"
 
 # directory to export into
-exportDirectory = "/home/i7463769/MAJOR_PROJECT/3_prod/anim/shot_01/renderman/test_archive"
+exportDirectory = "anim/shot_01/renderman/test_archive"
 
 # set renderman export args
 rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(startFrame)+";rmanExportEndFrame="+str(endFrame)+";rmanExportByFrame=1"
@@ -34,18 +34,18 @@ rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLig
 mel.eval('rman setvar MAYA_ASSET_DIR "$MAYA_ASSET_DIR"')
 
 # export rib files
-cmds.file(os.path.join(exportDirectory,fileName+".rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, ea=True)
+cmds.file(os.path.join(assetDir, exportDirectory,fileName+".rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, ea=True)
 
 # gammy workaround, use rib compile to generate the textures
 jobCompileFilePath = os.path.join(currentProjectDir, 'renderman', fileNameOnly, 'rib/job/jobCompile.job.rib')
 os.system("prman " + jobCompileFilePath)
 
 # alembic export
-abcArgs = "-frameRange " + str(startFrame) + " " + str(endFrame) +" -root " + sceneGroup + " -stripNamespaces -dataFormat ogawa -file " + os.path.join(exportDirectory,fileName)+".abc"
-print abcArgs
+# this was a callback from a normal alembic export
+# AbcExport -j "-frameRange 1 120 -dataFormat ogawa -root |SHOT01_LIGHTING -file /home/jw0z/MAJOR_PROJECT/3_prod/anim/shot_01/cache/alembic/test.abc";
 
-# cmds.AbcExport(j = abcArgs)
+abcArgs = "-frameRange " + str(startFrame) + " " + str(endFrame) + " -dataFormat ogawa -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, fileName)+".abc"
 
-# mel.eval('AbcExport -j ' + abcArgs)
+cmds.AbcExport(j = abcArgs)
 
 print "done"
