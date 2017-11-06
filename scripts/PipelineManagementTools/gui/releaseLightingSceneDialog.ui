@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="warningLabel">
        <property name="text">
         <string>Make sure the scene is saved and the project is set before using this tool!</string>
        </property>
@@ -31,7 +31,7 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_1">
+       <widget class="QWidget" name="newSceneTab">
         <attribute name="title">
          <string>Export into new lighting scene</string>
         </attribute>
@@ -46,36 +46,36 @@
          </property>
          <layout class="QFormLayout" name="formLayout">
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="newSceneNameLineEdit"/>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
+           <widget class="QLabel" name="newSceneNameLabel">
             <property name="text">
              <string>New Scene Name</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="cacheNameLabel_1">
             <property name="text">
-             <string>New Scene Name</string>
+             <string>Cache Name</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_3"/>
+           <widget class="QLineEdit" name="cacheNameLineEdit_1"/>
           </item>
           <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="newScenePushButton">
             <property name="text">
-             <string>PushButton</string>
+             <string>Go!</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </widget>
-       <widget class="QWidget" name="tab_2">
+       <widget class="QWidget" name="updateSceneTab">
         <attribute name="title">
          <string>Update existing lighting scene</string>
         </attribute>
@@ -90,29 +90,43 @@
          </property>
          <layout class="QFormLayout" name="formLayout_2">
           <item row="0" column="0">
-           <widget class="QLabel" name="label_3">
+           <widget class="QLabel" name="selectedSceneLabel">
             <property name="text">
-             <string>TextLabel</string>
+             <string>Scene</string>
             </property>
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="selectedSceneNameListWidget"/>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_4">
+          <item row="2" column="0">
+           <widget class="QLabel" name="cacheNameLabel_2">
+            <property name="text">
+             <string>Cache Name</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="cacheNameLineEdit_2"/>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="updateScenePushButton">
+            <property name="text">
+             <string>Go!</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="selectedSceneDirectoryTextLabel">
             <property name="text">
              <string>TextLabel</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_2"/>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton">
+          <item row="1" column="0">
+           <widget class="QLabel" name="selectedSceneDirectoryLabel">
             <property name="text">
-             <string>PushButton</string>
+             <string>Directory</string>
             </property>
            </widget>
           </item>

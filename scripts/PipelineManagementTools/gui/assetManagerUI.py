@@ -65,10 +65,10 @@ class AssetManagerUI(QWidget):
 			# get the first part of the path out
 			head,tail = os.path.split(asset)
 			department = None
-			while len(tail)>0: 
+			while len(tail)>0:
 				department = tail
 				head,tail = os.path.split(head)
-			
+
 			self.updateAssetWidget(department, asset)
 			self.updateAssetInfo(asset)
 

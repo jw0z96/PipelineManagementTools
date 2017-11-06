@@ -12,28 +12,92 @@ global proc shelf_Pipeline_Tools () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "Load asset manager GUI"
+        -annotation "Load asset manager GUI" 
         -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098
-        -align "center"
-        -label "ASSMAN"
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "ASSMAN" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
-        -font "plainLabelFont"
-        -imageOverlayLabel "ASSMAN"
-        -overlayLabelColor 0.8 0.8 0.8
-        -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
-        -style "iconOnly"
+        -font "plainLabelFont" 
+        -imageOverlayLabel "ASSMAN" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\nam = assetManagerMaya.AssetManagerMaya();\nam.main();\n"
-        -sourceType "python"
+        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\nam = assetManagerMaya.AssetManagerMaya();\nam.main();\n" 
+        -sourceType "python" 
         -commandRepeatable 1
         -flat 1
     ;
-}
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "release current scene to a lighting scene" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "RLS_LIGHTING" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "RLS_LIGHT" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "pythonFamily.png" 
+        -image1 "pythonFamily.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\napp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\napp.main();\n" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "set MAYA_ASSET_DIR as a rman variable" 
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "rman env variable" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "textureEditorCheckered.png" 
+        -image1 "textureEditorCheckered.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "rman setvar MAYA_ASSET_DIR \"$MAYA_ASSET_DIR\"" 
+        -sourceType "mel" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+
+} 
