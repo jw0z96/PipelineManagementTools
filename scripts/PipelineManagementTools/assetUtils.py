@@ -18,7 +18,7 @@ def createAssetFile(name, fileType, target, master, asset, comment):
 	print "proposed master file: " + asset
 
 	relMaster = os.path.basename(os.path.normpath(master))
-	relTarget = os.path.basename(os.path.normpath(target))
+	relTarget = os.path.relpath(target, os.path.dirname(master))
 
 	print "relative master: " + relMaster
 	print "relative target: " + relTarget
@@ -52,8 +52,12 @@ def loadAssetFile(path):
 
 # update an asset file with a new target file
 def updateAssetFile(asset, target, comment):
+	'''
+	@asset: asset path relative to assetDir, e.g. lighting/shot_01/shot_01.asset
+	@target: target file path relative to the directory in which the asset exists, e.g. scenes/shot_01.ma
+	@comment: string comment for the version
+	'''
 	assetDict = loadAssetFile(asset)
-
 	newAssetInfo = {
 		'target': target,
 		'date': time.strftime("%c"),
@@ -75,6 +79,10 @@ def updateAssetFile(asset, target, comment):
 
 # update the current version in a given asset file
 def updateAssetVersion(asset, version):
+	'''
+	@asset: asset path relative to assetDir, e.g. lighting/shot_01/shot_01.asset
+	@version: integer for index into version array
+	'''
 	assetDict = loadAssetFile(asset)
 	assetDict['currentVersion'] = version
 	assetPath = os.path.join(assetDir, asset)
@@ -92,6 +100,9 @@ def updateAssetVersion(asset, version):
 
 # rebuild the symlink for a given asset file
 def rebuildAssetSymlink(asset):
+	'''
+	@asset: asset path relative to assetDir, e.g. lighting/shot_01/shot_01.asset
+	'''
 	containingFolder = os.path.dirname(asset)
 	assetDict = loadAssetFile(asset)
 	master = assetDict['master']
