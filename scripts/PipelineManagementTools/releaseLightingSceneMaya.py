@@ -95,63 +95,16 @@ class ReleaseLightingSceneMaya(QWidget):
 	def main(self):
 		self.show()
 
-	def updateLightingSceneCallback(self):
-		if not self.selectedAsset:
-			QMessageBox.critical(self,
-				"Error",
-				"No lighting asset selected!")
-			return
+	def create_folder(self, directory):
+		if not os.path.exists(directory):
+			os.makedirs(directory)
 
-		cacheName = self.ui.cacheNameLineEdit_2.text()
-		fullAssetPath = os.path.join(assetDir, self.selectedAsset)
-		sceneDir = os.path.dirname(fullAssetPath)
+	# UI CALLBACKS
 
-		msgBox = QMessageBox()
-		msgBox.setText("Caches will be sent to: " + sceneDir)
-		msgBox.setInformativeText("gucci?")
-		msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-		msgBox.setDefaultButton(QMessageBox.Ok)
-
-		ret = msgBox.exec_()
-
-		if ret != QMessageBox.Ok:
-			return
-
-		# we reload the file, in case the project was set after file load
-		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
-
-		# print "creating caches..."
-		self.createCaches(cacheName)
-
-		print "All ok, transferring caches to: " + sceneDir
-		os.system('cp -r ' + os.path.join(self.currentProjectDir, 'renderman') + ' ' + sceneDir)
-
-		# TODO: delete the original renderman folder
-
-		# LOAD THE LIGHTING SCENE
-		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
-		cmds.file(os.path.join(sceneDir, assetDict['versions'][assetDict['currentVersion']]['target']), open = True, force = True)
-
-		# set new project directory
-		print "SETTING PROJECT DIRECTORY..."
-		mel.eval('setProject \"' + sceneDir + '\"')
-		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
-
-		# update the file paths for the cache nodes
-		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'.abc', type="string")
-		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'.$F4.rib', type="string")
-
-		# increment and save scene
-		mel.eval('incrementAndSaveScene 0;')
-
-		# TODO: this is ugly, also if a user creates a new asset it's in the same directory as the first target
-		assetUtils.updateAssetFile(self.selectedAsset,
-			os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
-			"updated with cache: " + cacheName
-			)
-
-		print "done!"
-		self.close()
+	def lightingAssetChanged(self):
+		# new lighting asset selected
+		self.selectedAsset = self.assetList[self.ui.selectedSceneNameListWidget.currentRow()]
+		self.ui.selectedSceneDirectoryTextLabel.setText(self.selectedAsset)
 
 	def newLightingSceneCallback(self):
 		cacheName = self.ui.cacheNameLineEdit_1.text()
@@ -233,24 +186,78 @@ class ReleaseLightingSceneMaya(QWidget):
 		print "done!"
 		self.close()
 
-	def create_folder(self, directory):
-		if not os.path.exists(directory):
-			os.makedirs(directory)
+	def updateLightingSceneCallback(self):
+		if not self.selectedAsset:
+			QMessageBox.critical(self,
+				"Error",
+				"No lighting asset selected!")
+			return
+
+		cacheName = self.ui.cacheNameLineEdit_2.text()
+		fullAssetPath = os.path.join(assetDir, self.selectedAsset)
+		sceneDir = os.path.dirname(fullAssetPath)
+
+		msgBox = QMessageBox()
+		msgBox.setText("Caches will be sent to: " + sceneDir)
+		msgBox.setInformativeText("gucci?")
+		msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+		msgBox.setDefaultButton(QMessageBox.Ok)
+
+		ret = msgBox.exec_()
+
+		if ret != QMessageBox.Ok:
+			return
+
+		# we reload the file, in case the project was set after file load
+		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
+
+		# print "creating caches..."
+		self.createCaches(cacheName)
+
+		print "All ok, transferring caches to: " + sceneDir
+		os.system('cp -r ' + os.path.join(self.currentProjectDir, 'renderman') + ' ' + sceneDir)
+
+		# TODO: delete the original renderman folder
+
+		# LOAD THE LIGHTING SCENE
+		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
+		cmds.file(os.path.join(sceneDir, assetDict['versions'][assetDict['currentVersion']]['target']), open = True, force = True)
+
+		# set new project directory
+		print "SETTING PROJECT DIRECTORY..."
+		mel.eval('setProject \"' + sceneDir + '\"')
+		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
+
+		# update the file paths for the cache nodes
+		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'.abc', type="string")
+		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'.$F4.rib', type="string")
+
+		# increment and save scene
+		mel.eval('incrementAndSaveScene 0;')
+
+		# TODO: this is ugly, also if a user creates a new asset it's in the same directory as the first target
+		assetUtils.updateAssetFile(self.selectedAsset,
+			os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
+			"updated with cache: " + cacheName
+			)
+
+		print "done!"
+		self.close()
+
+	# CACHING FUNCTIONS
 
 	def createCaches(self, cacheName):
 		# directory to export into
 		exportDirectory = os.path.join(self.currentProjectDir,'renderman',cacheName)
 		if not os.path.exists(exportDirectory):
 			os.makedirs(exportDirectory)
-		# group everything in the scene (alembic probably wants this unfortunately) TODO: ask user
-		mel.eval("SelectAll")
-		sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 		# set a variable so all the textures load properly
 		mel.eval('rman setvar MAYA_ASSET_DIR "$MAYA_ASSET_DIR"')
 		# set renderman export args
 		rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(self.startFrame)+";rmanExportEndFrame="+str(self.endFrame)+";rmanExportByFrame=1"
 		# export rib files
 		cmds.file(os.path.join(assetDir, exportDirectory, cacheName+".rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, ea=True)
+		print "renderman export finished"
 		# gammy workaround, use rib compile to generate the textures
 		jobCompileFilePath = os.path.join(self.currentProjectDir, 'renderman', self.currentFileNameOnly, 'rib/job/jobCompile.job.rib')
 
@@ -262,11 +269,10 @@ class ReleaseLightingSceneMaya(QWidget):
 				"Error",
 				"Renderman didnt create this file: " + jobCompileFilePath)
 
+		# group everything in the scene (alembic probably wants this unfortunately) TODO: ask user
+		mel.eval("SelectAll")
+		sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 		# alembic export
-		abcArgs = "-frameRange " + str(self.startFrame) + " " + str(self.endFrame) + " -dataFormat ogawa -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
+		abcArgs = "-frameRange " + str(self.startFrame) + " " + str(self.endFrame) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
 		cmds.AbcExport(j = abcArgs)
 
-	def lightingAssetChanged(self):
-		# new lighting asset selected
-		self.selectedAsset = self.assetList[self.ui.selectedSceneNameListWidget.currentRow()]
-		self.ui.selectedSceneDirectoryTextLabel.setText(self.selectedAsset)
