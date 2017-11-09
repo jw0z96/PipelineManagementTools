@@ -3,6 +3,7 @@ import os
 from shiboken2 import wrapInstance
 from maya import OpenMayaUI as omui
 import maya.cmds as cmds
+import maya.mel as mel
 
 try:
 	from PySide2.QtCore import *
@@ -64,17 +65,18 @@ class AssetManagerMaya():
 	def loadSelectedAssetTarget(self):
 		selectedAsset = self.gui.getSelectedAsset()
 		if selectedAsset:
-			asset = assetUtils.loadAssetFile(selectedAsset)
-			currentVersion = asset['currentVersion']
-			assetVersions = asset['versions']
-			currentVersionInfo = assetVersions[currentVersion]
-			target = currentVersionInfo['target']
-			targetRelPath = os.path.join(
-				os.path.dirname(selectedAsset), target)
+			assetDict = assetUtils.loadAssetFile(selectedAsset)
+			target = assetDict['versions'][assetDict['currentVersion']]['target']
+			targetRelPath = os.path.join(os.path.dirname(selectedAsset), target)
 			targetAbsPath = os.path.join(assetDir, targetRelPath)
 			print "loading " + targetAbsPath
 			if os.path.isfile(targetAbsPath):
 				cmds.file(targetAbsPath, open = True, force = True)
+				# set new project directory
+				print "SETTING PROJECT DIRECTORY..."
+				mel.eval('setProject \"' + os.path.join(assetDir,
+					os.path.dirname(selectedAsset)) + '\"')
+				print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
 			else:
 				QMessageBox.critical(self.gui,
 				"Error",
@@ -82,10 +84,26 @@ class AssetManagerMaya():
 				+ targetAbsPath + " doesnt exist!")
 
 	def loadSelectedAssetVersion(self):
+		selectedAsset = self.gui.getSelectedAsset()
 		version = self.gui.ui.assetInfoTableWidget.currentRow()
-		print version
-		# if version >= 0:
-			# print "loading " + version
+		if selectedAsset and version >= 0:
+			assetDict = assetUtils.loadAssetFile(selectedAsset)
+			target = assetDict['versions'][version]['target']
+			targetRelPath = os.path.join(os.path.dirname(selectedAsset), target)
+			targetAbsPath = os.path.join(assetDir, targetRelPath)
+			print "loading " + targetAbsPath
+			if os.path.isfile(targetAbsPath):
+				cmds.file(targetAbsPath, open = True, force = True)
+				# set new project directory
+				print "SETTING PROJECT DIRECTORY..."
+				mel.eval('setProject \"' + os.path.join(assetDir,
+					os.path.dirname(selectedAsset)) + '\"')
+				print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
+			else:
+				QMessageBox.critical(self.gui,
+				"Error",
+				"File Target listed in .asset file: "
+				+ targetAbsPath + " doesnt exist!")
 
 	def gatherSelectedAssetTarget(self):
 		print "referencing asset"
