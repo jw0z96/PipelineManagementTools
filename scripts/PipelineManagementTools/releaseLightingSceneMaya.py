@@ -44,9 +44,6 @@ class ReleaseLightingSceneMaya(QWidget):
 		# get current file name
 		self.currentFileName = cmds.file(q=1, sn=1)
 		self.currentFileNameOnly = os.path.splitext(os.path.basename(self.currentFileName))[0]
-		# get the start frame and end frame from the render settings
-		self.startFrame = cmds.getAttr('defaultRenderGlobals.startFrame')
-		self.endFrame = cmds.getAttr('defaultRenderGlobals.endFrame')
 
 	def initUI(self):
 		# load .ui file
@@ -91,6 +88,12 @@ class ReleaseLightingSceneMaya(QWidget):
 
 		# connect callback for updating lighting scene with new caches
 		self.ui.updateScenePushButton.clicked.connect(self.updateLightingSceneCallback)
+
+		# get the start frame and end frame from the render settings
+		self.ui.startFrameSpinBox_1.setValue(cmds.getAttr('defaultRenderGlobals.startFrame'))
+		self.ui.startFrameSpinBox_2.setValue(cmds.getAttr('defaultRenderGlobals.startFrame'))
+		self.ui.endFrameSpinBox_1.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
+		self.ui.endFrameSpinBox_2.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
 
 	def main(self):
 		self.show()
@@ -149,7 +152,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		print "creating caches..."
-		self.createCaches(cacheName)
+		self.createCaches(cacheName, self.ui.startFrameSpinBox_1.value(), self.ui.endFrameSpinBox_1.value())
 
 		print "All ok, creating project directories"
 		os.system('cp -r '+os.path.join(assetDir,'lighting/templateScene')+' '+proposedSceneDir)
@@ -212,7 +215,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		# print "creating caches..."
-		self.createCaches(cacheName)
+		self.createCaches(cacheName, self.ui.startFrameSpinBox_2.value(), self.ui.endFrameSpinBox_2.value())
 
 		print "All ok, transferring caches to: " + sceneDir
 		os.system('cp -r ' + os.path.join(self.currentProjectDir, 'renderman') + ' ' + sceneDir)
@@ -246,7 +249,7 @@ class ReleaseLightingSceneMaya(QWidget):
 
 	# CACHING FUNCTIONS
 
-	def createCaches(self, cacheName):
+	def createCaches(self, cacheName, start, end):
 		# directory to export into
 		exportDirectory = os.path.join(self.currentProjectDir,'renderman',cacheName)
 		if not os.path.exists(exportDirectory):
@@ -254,7 +257,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		# set a variable so all the textures load properly
 		mel.eval('rman setvar MAYA_ASSET_DIR "$MAYA_ASSET_DIR"')
 		# set renderman export args
-		rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(self.startFrame)+";rmanExportEndFrame="+str(self.endFrame)+";rmanExportByFrame=1"
+		rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(end)+";rmanExportByFrame=1"
 		# export rib files
 		cmds.file(os.path.join(assetDir, exportDirectory, cacheName+".rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, ea=True)
 		print "renderman export finished"
@@ -273,6 +276,6 @@ class ReleaseLightingSceneMaya(QWidget):
 		mel.eval("SelectAll")
 		sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 		# alembic export
-		abcArgs = "-frameRange " + str(self.startFrame) + " " + str(self.endFrame) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
+		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
 		cmds.AbcExport(j = abcArgs)
 
