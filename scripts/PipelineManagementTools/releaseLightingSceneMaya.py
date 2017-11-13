@@ -276,6 +276,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		mel.eval("SelectAll")
 		sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 		# alembic export
-		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
+		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat hdf -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
+		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
 		cmds.AbcExport(j = abcArgs)
 
