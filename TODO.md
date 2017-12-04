@@ -14,3 +14,5 @@
 > load version - needs to work (open version)
 > only one instance of ui
 > autofill new asset path?
+> autofill namespace name (use asset name)
+> fuzzy search for assets
