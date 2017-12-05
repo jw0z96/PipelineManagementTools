@@ -13,9 +13,10 @@ except ImportError:
 	from PySide.QtUiTools import *
 
 class GatherDialog(QDialog):
-	def __init__(self, asset, parentWindow = None, *args, **kwargs):
+	def __init__(self, asset, masterPath, parentWindow = None, *args, **kwargs):
 		super(GatherDialog, self).__init__(parentWindow, *args, **kwargs)
 		self.selectedAsset = asset
+		self.masterPath = masterPath
 		self.initUI()
 
 	def initUI(self):
@@ -27,12 +28,16 @@ class GatherDialog(QDialog):
 		self.ui = loader.load(file, parentWidget=self)
 		file.close()
 
+		# set namespace autofill
+		autofill = os.path.splitext(os.path.basename(self.selectedAsset))[0]
+		self.ui.nameSpaceLineEdit.setText(autofill)
+
 		# set regex for namespace
 		nameSpaceRegex = QRegExp("[A-Za-z0-9_]+")
 		nameSpaceValidator = QRegExpValidator(nameSpaceRegex, self.ui.nameSpaceLineEdit)
 		self.ui.nameSpaceLineEdit.setValidator(nameSpaceValidator)
 
 		# set callbacks & ui text
-		self.ui.assetLabel.setText("Gathering " + self.selectedAsset)
+		self.ui.assetLabel.setText("Gathering " + self.masterPath)
 		self.ui.buttonBox.rejected.connect(self.close)
 		self.ui.buttonBox.accepted.connect(self.accept)

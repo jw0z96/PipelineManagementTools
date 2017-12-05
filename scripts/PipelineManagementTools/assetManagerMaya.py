@@ -112,15 +112,14 @@ class AssetManagerMaya():
 			asset = assetUtils.loadAssetFile(selectedAsset)
 			assetFolder = os.path.dirname(selectedAsset)
 			masterFile = asset['master']
-			referencePath = os.path.join(
+			masterPath = os.path.join(
 				"$MAYA_ASSET_DIR", assetFolder, masterFile)
-			print referencePath
-			diag = gatherDialog.GatherDialog(referencePath, self.gui)
+			diag = gatherDialog.GatherDialog(selectedAsset, masterPath, self.gui)
 			if diag.exec_():
 				namespace = diag.ui.nameSpaceLineEdit.text()
 				if diag.ui.referenceRadioButton.isChecked():
 					cmds.file(
-						referencePath, r=True, namespace=namespace)
+						masterPath, r=True, namespace=namespace)
 				elif diag.ui.importRadioButton.isChecked():
 					cmds.file(
-						referencePath, i=True, namespace=namespace)
+						masterPath, i=True, namespace=namespace)
