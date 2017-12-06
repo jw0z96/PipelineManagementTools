@@ -16,3 +16,5 @@
 > autofill new asset path?
 > autofill namespace name (use asset name)
 > fuzzy search for assets
+> changed to 'open asset' and 'open version'
+> create buttons to import and delete template lighting for lookdev

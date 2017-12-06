@@ -40,7 +40,7 @@ class AssetManagerMaya():
 	def __init__(self, *args, **kwargs):
 		self.gui = assetManagerUI.AssetManagerUI(mayaMainWindow)
 
-		loadButton = QPushButton("Load Asset")
+		loadButton = QPushButton("Open Asset")
 		loadButton.clicked.connect(self.loadSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(loadButton)
 
@@ -48,7 +48,7 @@ class AssetManagerMaya():
 		gatherButton.clicked.connect(self.gatherSelectedAssetTarget)
 		self.gui.ui.functionsHLayout.addWidget(gatherButton)
 
-		loadVersionButton = QPushButton("Load Version")
+		loadVersionButton = QPushButton("Open Version")
 		loadVersionButton.clicked.connect(self.loadSelectedAssetVersion)
 		self.gui.ui.assetInfoHLayout.addWidget(loadVersionButton)
 
