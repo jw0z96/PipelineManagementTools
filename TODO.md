@@ -20,3 +20,4 @@
 > autofill new asset path?
 > fuzzy search for assets
 > texture auto replace front of string with $MAYA_ASSET_DIR
+> texture auto assignment for PBR shaders
