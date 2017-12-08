@@ -10,11 +10,13 @@
 > DONE - creating new asset refresh ui
 > DONE - new version autofill target
 > DONE - referencing new file loses shading?
+> DONE - load version - needs to work (open version)
+> DONE - autofill namespace name (use asset name)
+> DONE - changed to 'open asset' and 'open version'
+> DONE -create buttons to import and delete template lighting for lookdev
 
-> load version - needs to work (open version)
+> export camera from anim to lighting
 > only one instance of ui
 > autofill new asset path?
-> autofill namespace name (use asset name)
 > fuzzy search for assets
-> changed to 'open asset' and 'open version'
-> create buttons to import and delete template lighting for lookdev
+> texture auto replace front of string with $MAYA_ASSET_DIR
