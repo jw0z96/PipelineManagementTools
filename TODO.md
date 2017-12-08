@@ -1,23 +1,23 @@
-> WONT FIX - set the project automatically (and inform the user)
-> WONT FIX - unique referenced asset link names
-> WONT FIX - referencing an asset needs to create the folder ../referencedAsset
-> WONT FIX (USE RIB ARCHIVES) - renderman alembic shader linking
+-  WONT FIX - set the project automatically (and inform the user)
+-  WONT FIX - unique referenced asset link names
+-  WONT FIX - referencing an asset needs to create the folder ../referencedAsset
+-  WONT FIX (USE RIB ARCHIVES) - renderman alembic shader linking
 
-> DONE - try link directly to master file using env variable, could fix texture
-> DONE - gather load/import/reference
-> DONE - set the reference path as relative
-> DONE - try catch pyside
-> DONE - creating new asset refresh ui
-> DONE - new version autofill target
-> DONE - referencing new file loses shading?
-> DONE - load version - needs to work (open version)
-> DONE - autofill namespace name (use asset name)
-> DONE - changed to 'open asset' and 'open version'
-> DONE -create buttons to import and delete template lighting for lookdev
+-  DONE - try link directly to master file using env variable, could fix texture
+-  DONE - gather load/import/reference
+-  DONE - set the reference path as relative
+-  DONE - try catch pyside
+-  DONE - creating new asset refresh ui
+-  DONE - new version autofill target
+-  DONE - referencing new file loses shading?
+-  DONE - load version - needs to work (open version)
+-  DONE - autofill namespace name (use asset name)
+-  DONE - changed to 'open asset' and 'open version'
+-  DONE -create buttons to import and delete template lighting for lookdev
 
-> export camera from anim to lighting
-> only one instance of ui
-> autofill new asset path?
-> fuzzy search for assets
-> texture auto replace front of string with $MAYA_ASSET_DIR
-> texture auto assignment for PBR shaders
+-  export camera from anim to lighting
+-  only one instance of ui
+-  autofill new asset path?
+-  fuzzy search for assets
+-  texture auto replace front of string with $MAYA_ASSET_DIR
+-  texture auto assignment for PBR shaders
