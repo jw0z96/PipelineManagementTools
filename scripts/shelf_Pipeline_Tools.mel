@@ -126,7 +126,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import referenceAssetChecker;\nreload(referenceAssetChecker);"
+        -command "from PipelineManagementTools import referenceAssetChecker;\nreload(referenceAssetChecker);\nreferenceAssetChecker.execute(True);"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
@@ -158,7 +158,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import dereferenceAssetChecker;\nreload(dereferenceAssetChecker);"
+        -command "from PipelineManagementTools import referenceAssetChecker;\nreload(referenceAssetChecker);\nreferenceAssetChecker.execute(False);"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
