@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>632</width>
-    <height>493</height>
+    <width>631</width>
+    <height>491</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -67,20 +67,17 @@
     </item>
     <item>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QListWidget" name="assetListWidget"/>
+      <item row="1" column="0">
+       <widget class="QListWidget" name="departmentListWidget">
+        <property name="toolTip">
+         <string/>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="departmentLabel">
         <property name="text">
          <string>Department</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QListWidget" name="departmentListWidget">
-        <property name="toolTip">
-         <string/>
         </property>
        </widget>
       </item>
@@ -90,6 +87,16 @@
          <string>Asset</string>
         </property>
        </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLineEdit" name="assetListFilterLineEdit"/>
+        </item>
+        <item>
+         <widget class="QListWidget" name="assetListWidget"/>
+        </item>
+       </layout>
       </item>
      </layout>
     </item>

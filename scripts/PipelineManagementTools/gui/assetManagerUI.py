@@ -50,6 +50,9 @@ class AssetManagerUI(QWidget):
 		# set current version button callback
 		self.ui.setSelectedVersionPushButton.clicked.connect(self.setSelectedVersionCallback)
 
+		# set filter line edit changed callback
+		self.ui.assetListFilterLineEdit.textChanged.connect(self.filterAssetListCallback)
+
 		# populate department list widget
 		self.departmentList = [department for department in os.listdir(assetDir)
 			if os.path.isdir(os.path.join(assetDir, department))
@@ -122,15 +125,37 @@ class AssetManagerUI(QWidget):
 		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, department)):
 			for x in files:
 				if x.endswith(".asset"):
-					self.ui.assetListWidget.addItem(x)
+					# remove .asset from end of string and add it to the widget
+					self.ui.assetListWidget.addItem(x[:-len('.asset')])
 					self.assetList.append(os.path.relpath(
 						os.path.join(dirpath, x), assetDir))
 
-		# if an asset was passed, select it
+		#set the filtered asset list equal to the unfiltered asset list
+		self.filteredAssetList = self.assetList
+		# if an asset was passed, select it (used after an asset is released)
 		if asset:
 			self.ui.assetListWidget.setCurrentRow(self.assetList.index(asset))
 
 	def assetChanged(self):
 		# new asset chosen
-		chosenAsset = self.assetList[self.ui.assetListWidget.currentRow()]
+		chosenAsset = self.filteredAssetList[self.ui.assetListWidget.currentRow()]
 		self.updateAssetInfo(chosenAsset)
+
+	def filterAssetListCallback(self):
+		# TODO: look at putting this into updateAssetWidget
+		# clear the asset list widget
+		self.ui.assetListWidget.clear()
+		# get the filter string
+		filterString = self.ui.assetListFilterLineEdit.text()
+		# clear the filtered asset list
+		self.filteredAssetList = []
+		# for each asset in the unfiltered asset list
+		for asset in self.assetList:
+			# get just the asset name
+			name = os.path.basename(os.path.normpath(asset))
+			# check if name matches string
+			if filterString.lower() in name.lower():
+				# remove .asset from end of string and add it to the widget
+				self.ui.assetListWidget.addItem(name[:-len('.asset')])
+				# add asset to the filtered asset list
+				self.filteredAssetList.append(asset)
