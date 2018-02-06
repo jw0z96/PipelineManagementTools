@@ -48,7 +48,11 @@ def createAssetFile(name, fileType, target, master, asset, comment):
 # load an asset file and return a dict of it's contents
 def loadAssetFile(path):
 	assetPath = os.path.join(assetDir,path)
-	return pickle.load(open(assetPath, 'rb'))
+	print "assetPath: " + assetPath
+	with open(assetPath, 'r') as f:
+		pos = pickle.load(f)
+	# return pickle.load(open(assetPath, 'rb'))
+	return pos
 
 # update an asset file with a new target file
 def updateAssetFile(asset, target, comment):
@@ -108,6 +112,11 @@ def rebuildAssetSymlink(asset):
 	master = assetDict['master']
 	master = os.path.join(assetDir, containingFolder, master)
 	target = assetDict['versions'][assetDict['currentVersion']]['target']
+
+	print "containingFolder: " + containingFolder
+	# print "assetDict: " + assetDict
+	print "master: " + master
+	print "target: " + target
 
 	if os.path.isfile(master):
 		print "removing: " + master

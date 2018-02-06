@@ -21,44 +21,65 @@ def startsWithEnv(path):
 
 def setAbsolute():
 	for fileNode in getAllFileNodes():
+		print "================================================================"
 		path = cmds.getAttr(fileNode+".fileTextureName")
 		if path.startswith("$MAYA_ASSET_DIR"):
 			print "this file node : " +  fileNode
+			print "----------------------------------------------------------------"
 			print "changed from this: " + path
 			fixedPath = path.replace("$MAYA_ASSET_DIR", assetDir)
 			cmds.setAttr(fileNode+".fileTextureName", fixedPath, type = "string")
+			print "----------------------------------------------------------------"
 			print "to this: " + fixedPath
 		else:
 			print "this file node doesnt seem right: " +  fileNode
+			print "----------------------------------------------------------------"
 			print "it has this path: " +  path
+		print "================================================================"
+
 
 def setRelative():
 	for fileNode in getAllFileNodes():
+		print "================================================================"
 		path = cmds.getAttr(fileNode+".fileTextureName")
 		if path.startswith(assetDir):
 			print "this file node : " +  fileNode
+			print "----------------------------------------------------------------"
 			print "changed from this: " + path
+			print "----------------------------------------------------------------"
 			fixedPath = path.replace(assetDir, "$MAYA_ASSET_DIR")
 			cmds.setAttr(fileNode+".fileTextureName", fixedPath, type = "string")
 			print "to this: " + fixedPath
 		else:
 			print "this file node doesnt seem right: " + fileNode
+			print "----------------------------------------------------------------"
 			print "it has this path: " + path
+		print "================================================================"
+
 
 def fixPaths():
 	for fileNode in getAllFileNodes():
+		print "================================================================"
 		path = cmds.getAttr(fileNode+".fileTextureName")
 		prefix = startsWithEnv(path)
 		if prefix:
+			print "----------------------------------------------------------------"
 			print "this file node : " +  fileNode
+			print "----------------------------------------------------------------"
 			print "changed from this: " + path
 			fixedPath = path.replace(prefix, "$MAYA_ASSET_DIR")
 			cmds.setAttr(fileNode+".fileTextureName", fixedPath, type = "string")
+			print "----------------------------------------------------------------"
 			print "to this: " + fixedPath
 		else:
 			print "this file node doesnt seem right: " + fileNode
 			print "it has this path: " + path
+		print "================================================================"
 
 def printAllPaths():
 	for fileNode in getAllFileNodes():
-		print fileNode + " " + cmds.getAttr(fileNode+".fileTextureName")
+		print "================================================================"
+		print fileNode
+		print "----------------------------------------------------------------"
+		print cmds.getAttr(fileNode+".fileTextureName")
+		print "================================================================"

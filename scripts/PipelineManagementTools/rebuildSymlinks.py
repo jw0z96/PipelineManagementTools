@@ -20,5 +20,11 @@ for root, subFolder, files in os.walk(assetDir):
 		if item.endswith(".asset"):
 			assetList.append(os.path.relpath(os.path.join(root,item), assetDir))
 
+# for asset in assetList:
+# 	print asset
+
 for asset in assetList:
+	print "asset: " + asset
 	assetUtils.rebuildAssetSymlink(asset)
+	raw_input("Press Enter to continue...")
+	os.system('clear')
