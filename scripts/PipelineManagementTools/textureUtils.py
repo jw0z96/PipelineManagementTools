@@ -1,4 +1,5 @@
 import maya.cmds as cmds
+import maya.mel as mel
 
 import os
 
@@ -83,3 +84,11 @@ def printAllPaths():
 		print "----------------------------------------------------------------"
 		print cmds.getAttr(fileNode+".fileTextureName")
 		print "================================================================"
+
+def generateAllPreviews():
+	for fileNode in getAllFileNodes():
+		if cmds.getAttr(fileNode + ".uvTilingMode") == 3:
+			print "================================================================"
+			print "generating UDIM previews for " + fileNode
+			mel.eval('generateUvTilePreview ' + fileNode)
+			print "================================================================"
