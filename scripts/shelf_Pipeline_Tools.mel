@@ -68,6 +68,18 @@ global proc shelf_Pipeline_Tools () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 34
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -style "shelf"
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -132,6 +144,18 @@ global proc shelf_Pipeline_Tools () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 34
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -style "shelf"
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -164,6 +188,18 @@ global proc shelf_Pipeline_Tools () {
         -commandRepeatable 1
         -flat 1
     ;
+    separator
+        -enable 1
+        -width 34
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -style "shelf"
+        -horizontal 0
+    ;
     shelfButton
         -enableCommandRepeat 1
         -enable 1
@@ -194,6 +230,18 @@ global proc shelf_Pipeline_Tools () {
         -sourceType "mel"
         -commandRepeatable 1
         -flat 1
+    ;
+    separator
+        -enable 1
+        -width 34
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -style "shelf"
+        -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
@@ -354,6 +402,18 @@ global proc shelf_Pipeline_Tools () {
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
+    ;
+    separator
+        -enable 1
+        -width 34
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -style "shelf"
+        -horizontal 0
     ;
     shelfButton
         -enableCommandRepeat 1
