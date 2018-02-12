@@ -23,11 +23,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "ASSMAN"
+        // -imageOverlayLabel "ASSMAN"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/assman_icon.png"
+        -image1 "icons/assman_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -55,47 +55,16 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "RLS_LIGHT"
+        // -imageOverlayLabel "RLS_LIGHT"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/rlsLight_icon.png"
+        -image1 "icons/rlsLight_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
         -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\napp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\napp.main();\n"
         -sourceType "python"
-        -commandRepeatable 1
-        -flat 1
-    ;
-    shelfButton
-        -enableCommandRepeat 1
-        -enable 1
-        -width 35
-        -height 35
-        -manage 1
-        -visible 1
-        -preventOverride 0
-        -annotation "set MAYA_ASSET_DIR as a rman variable"
-        -enableBackground 0
-        -highlightColor 0.321569 0.521569 0.65098
-        -align "center"
-        -label "rman env variable"
-        -labelOffset 0
-        -rotation 0
-        -flipX 0
-        -flipY 0
-        -useAlpha 1
-        -font "plainLabelFont"
-        -overlayLabelColor 0.8 0.8 0.8
-        -overlayLabelBackColor 0 0 0 0.5
-        -image "textureEditorCheckered.png"
-        -image1 "textureEditorCheckered.png"
-        -style "iconOnly"
-        -marginWidth 1
-        -marginHeight 1
-        -command "rman setvar MAYA_ASSET_DIR \"$MAYA_ASSET_DIR\""
-        -sourceType "mel"
         -commandRepeatable 1
         -flat 1
     ;
@@ -118,11 +87,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "+LIGHTING"
+        // -imageOverlayLabel "+LIGHTING"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/refChecker_icon.png"
+        -image1 "icons/refChecker_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -150,11 +119,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "-LIGHTING"
+        // -imageOverlayLabel "-LIGHTING"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/derefChecker_icon.png"
+        -image1 "icons/derefChecker_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -182,16 +151,47 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "+GRPS"
+        // -imageOverlayLabel "+GRPS"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/outlinerGroups_icon.png"
+        -image1 "icons/outlinerGroups_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
         -command "from PipelineManagementTools import createOutlinerGroups;\nreload(createOutlinerGroups);\ncreateOutlinerGroups.createGroups();"
         -sourceType "python"
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "set MAYA_ASSET_DIR as a rman variable"
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -align "center"
+        -label "rman env variable"
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont"
+        -overlayLabelColor 0.8 0.8 0.8
+        -overlayLabelBackColor 0 0 0 0.5
+        -image "icons/setVar_icon.png"
+        -image1 "icons/setVar_icon.png"
+        -style "iconOnly"
+        -marginWidth 1
+        -marginHeight 1
+        -command "rman setvar MAYA_ASSET_DIR \"$MAYA_ASSET_DIR\""
+        -sourceType "mel"
         -commandRepeatable 1
         -flat 1
     ;
@@ -214,11 +214,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "ABSOLUTE"
+        // -imageOverlayLabel "ABSOLUTE"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/texAbsolute_icon.png"
+        -image1 "icons/texAbsolute_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -246,11 +246,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "RELATIVE"
+        // -imageOverlayLabel "RELATIVE"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/texRelative_icon.png"
+        -image1 "icons/texRelative_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -278,11 +278,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "FIX"
+        // -imageOverlayLabel "FIX"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/texFix_icon.png"
+        -image1 "icons/texFix_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -310,11 +310,11 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "PRINT"
+        // -imageOverlayLabel "PRINT"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/texPrint_icon.png"
+        -image1 "icons/texPrint_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
@@ -342,15 +342,47 @@ global proc shelf_Pipeline_Tools () {
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont"
-        -imageOverlayLabel "PREVIEW"
+        // -imageOverlayLabel "PREVIEW"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "pythonFamily.png"
-        -image1 "pythonFamily.png"
+        -image "icons/texPreview_icon.png"
+        -image1 "icons/texPreview_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
         -command "from PipelineManagementTools import textureUtils;\nreload(textureUtils);\ntextureUtils.generateAllPreviews();"
+        -sourceType "python"
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "create renderable set"
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -align "center"
+        -label "CREATE RENDER SET"
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont"
+        // -imageOverlayLabel "CREATE RENDER SET"
+        -overlayLabelColor 0.8 0.8 0.8
+        -overlayLabelBackColor 0 0 0 0.5
+        -image "icons/addRenderSet_icon.png"
+        -image1 "icons/addRenderSet_icon.png"
+        -style "iconOnly"
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nif not cmds.objExists(\"RENDERABLE_GEO_SET\"):\n    cmds.sets(n = \"RENDERABLE_GEO_SET\")\nelse:\n    for item in cmds.ls(sl = True):\n        cmds.sets(item, add = \"RENDERABLE_GEO_SET\")"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1

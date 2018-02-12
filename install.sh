@@ -18,6 +18,13 @@ else
 	echo "can't find maya shelves directory!"
 fi
 
+mayaPrefsDir=$HOME/maya/2017/prefs
 
+if [ -d $mayaPrefsDir ]; then
+	echo "copying icons!"
+	cp -r scripts/PipelineManagementTools/gui/icons/ $mayaPrefsDir
+else
+	echo "can't find maya prefs directory!"
+fi
 
 echo "done!"
