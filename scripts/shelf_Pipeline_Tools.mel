@@ -423,11 +423,11 @@ global proc shelf_Pipeline_Tools () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "create renderable set"
+        -annotation "create static renderable set"
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098
         -align "center"
-        -label "CREATE RENDER SET"
+        -label "CREATE STATIC RENDER SET"
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -437,12 +437,44 @@ global proc shelf_Pipeline_Tools () {
         // -imageOverlayLabel "CREATE RENDER SET"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "icons/addRenderSet_icon.png"
-        -image1 "icons/addRenderSet_icon.png"
+        -image "icons/addStaticRenderSet_icon.png"
+        -image1 "icons/addStaticRenderSet_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as cmds\nif not cmds.objExists(\"RENDERABLE_GEO_SET\"):\n    cmds.sets(n = \"RENDERABLE_GEO_SET\")\nelse:\n    for item in cmds.ls(sl = True):\n        cmds.sets(item, add = \"RENDERABLE_GEO_SET\")"
+        -command "import maya.cmds as cmds\nif not cmds.objExists(\"STATIC_RENDERABLE_GEO_SET\"):\n    cmds.sets(n = \"STATIC_RENDERABLE_GEO_SET\")\nelse:\n    for item in cmds.ls(sl = True):\n        cmds.sets(item, add = \"STATIC_RENDERABLE_GEO_SET\")"
+        -sourceType "python"
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "create animated renderable set"
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -align "center"
+        -label "CREATE ANIM RENDER SET"
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont"
+        // -imageOverlayLabel "CREATE RENDER SET"
+        -overlayLabelColor 0.8 0.8 0.8
+        -overlayLabelBackColor 0 0 0 0.5
+        -image "icons/addAnimRenderSet_icon.png"
+        -image1 "icons/addAnimRenderSet_icon.png"
+        -style "iconOnly"
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nif not cmds.objExists(\"ANIMATED_RENDERABLE_GEO_SET\"):\n    cmds.sets(n = \"ANIMATED_RENDERABLE_GEO_SET\")\nelse:\n    for item in cmds.ls(sl = True):\n        cmds.sets(item, add = \"ANIMATED_RENDERABLE_GEO_SET\")"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
