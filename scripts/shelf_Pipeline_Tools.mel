@@ -479,4 +479,36 @@ global proc shelf_Pipeline_Tools () {
         -commandRepeatable 1
         -flat 1
     ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "create animated preview set"
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -align "center"
+        -label "CREATE ANIM PREVIEW SET"
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont"
+        // -imageOverlayLabel "CREATE RENDER SET"
+        -overlayLabelColor 0.8 0.8 0.8
+        -overlayLabelBackColor 0 0 0 0.5
+        -image "icons/addAnimRenderSet_icon.png"
+        -image1 "icons/addAnimRenderSet_icon.png"
+        -style "iconOnly"
+        -marginWidth 1
+        -marginHeight 1
+        -command "import maya.cmds as cmds\nif not cmds.objExists(\"ANIMATED_PROXY_GEO_SET\"):\n    cmds.sets(n = \"ANIMATED_PROXY_GEO_SET\")\nelse:\n    for item in cmds.ls(sl = True):\n        cmds.sets(item, add = \"ANIMATED_PROXY_GEO_SET\")"
+        -sourceType "python"
+        -commandRepeatable 1
+        -flat 1
+    ;
 }

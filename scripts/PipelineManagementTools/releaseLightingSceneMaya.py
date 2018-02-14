@@ -175,7 +175,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
 		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
 		cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
-		cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.'+str(startFrame).zfill(4)+'.rib', type="string")
+		cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
 
 		# save the file, makes it easier to query :^)
 		cmds.file(save=True, type='mayaAscii')
@@ -237,7 +237,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
 		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
 		cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
-		# cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.0001.rib', type="string")
+		cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
 
 		# increment and save scene
 		mel.eval('incrementAndSaveScene 0;')
@@ -247,6 +247,8 @@ class ReleaseLightingSceneMaya(QWidget):
 			os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
 			"updated with cache: " + cacheName
 			)
+
+		# set time slider
 
 		print "done!"
 		self.close()
@@ -293,15 +295,21 @@ class ReleaseLightingSceneMaya(QWidget):
 		# mel.eval("SelectAll")
 		# sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 
-		# renderablesString = ""
-		# for renderable in list(set(renderableGeoList)):
-		# 	renderablesString += " -root "
-		# 	renderablesString += str(renderable)
+		cmds.select("*:ANIMATED_PROXY_GEO_SET")
+		animatedProxyGeoList = cmds.ls(sl = 1)
+		renderablesString = ""
+		for renderable in list(set(animatedProxyGeoList)):
+			renderablesString += " -root "
+			renderablesString += str(renderable)
 
 		# renderablesString = " -root chars_GRP -root assets_GRP"
 
 		# alembic export
-		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+
+		print abcArgs
+
 		cmds.AbcExport(j = abcArgs)
 
 		# alembic export
