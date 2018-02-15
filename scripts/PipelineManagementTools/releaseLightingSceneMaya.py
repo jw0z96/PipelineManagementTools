@@ -113,6 +113,9 @@ class ReleaseLightingSceneMaya(QWidget):
 		cacheName = self.ui.cacheNameLineEdit_1.text()
 		newSceneName = self.ui.newSceneNameLineEdit.text()
 
+		exportAnim = self.ui.exportAnimatedCheckBox.isChecked()
+		exportStatic = self.ui.exportStaticCheckBox.isChecked()
+
 		# scene name checks
 		if newSceneName == '':
 			QMessageBox.critical(self,
@@ -152,7 +155,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		print "creating caches..."
-		self.createCaches(cacheName, self.ui.startFrameSpinBox_1.value(), self.ui.endFrameSpinBox_1.value())
+		self.createCaches(cacheName, self.ui.startFrameSpinBox_1.value(), self.ui.endFrameSpinBox_1.value(), exportAnim, exportStatic)
 
 		print "All ok, creating project directories"
 		os.system('cp -r '+os.path.join(assetDir,'lighting/templateScene')+' '+proposedSceneDir)
@@ -172,10 +175,12 @@ class ReleaseLightingSceneMaya(QWidget):
 		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
 
 		# update the file paths for the cache nodes
-		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
-		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
-		cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
-		cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
+		if exportAnim:
+			cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
+			cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
+		if exportStatic:
+			cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
+			cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
 
 		# save the file, makes it easier to query :^)
 		cmds.file(save=True, type='mayaAscii')
@@ -202,6 +207,9 @@ class ReleaseLightingSceneMaya(QWidget):
 		fullAssetPath = os.path.join(assetDir, self.selectedAsset)
 		sceneDir = os.path.dirname(fullAssetPath)
 
+		updateAnim = self.ui.updateAnimatedCheckBox.isChecked()
+		updateStatic = self.ui.updateStaticCheckBox.isChecked()
+
 		msgBox = QMessageBox()
 		msgBox.setText("Caches will be sent to: " + sceneDir)
 		msgBox.setInformativeText("gucci?")
@@ -217,7 +225,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		# print "creating caches..."
-		self.createCaches(cacheName, self.ui.startFrameSpinBox_2.value(), self.ui.endFrameSpinBox_2.value())
+		self.createCaches(cacheName, self.ui.startFrameSpinBox_2.value(), self.ui.endFrameSpinBox_2.value(), updateAnim, updateStatic)
 
 		print "All ok, transferring caches to: " + sceneDir
 		os.system('cp -r ' + os.path.join(self.currentProjectDir, 'renderman') + ' ' + sceneDir)
@@ -234,10 +242,12 @@ class ReleaseLightingSceneMaya(QWidget):
 		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
 
 		# update the file paths for the cache nodes
-		cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
-		cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
-		cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
-		cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
+		if updateAnim:
+			cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
+			cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
+		if updateStatic:
+			cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
+			cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
 
 		# increment and save scene
 		mel.eval('incrementAndSaveScene 0;')
@@ -255,7 +265,7 @@ class ReleaseLightingSceneMaya(QWidget):
 
 	# CACHING FUNCTIONS
 
-	def createCaches(self, cacheName, start, end):
+	def createCaches(self, cacheName, start, end, doAnimated, doStatic):
 		# directory to export into
 		exportDirectory = os.path.join(self.currentProjectDir,'renderman',cacheName)
 		if not os.path.exists(exportDirectory):
@@ -263,22 +273,37 @@ class ReleaseLightingSceneMaya(QWidget):
 		# set a variable so all the textures load properly
 		mel.eval('rman setvar MAYA_ASSET_DIR "$MAYA_ASSET_DIR"')
 
-		# set renderman export args
-		rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(end)+";rmanExportByFrame=1"
-		# select only the renderable geo
-		cmds.select("*:ANIMATED_RENDERABLE_GEO_SET")
-		animatedRenderableGeoList = cmds.ls(sl = 1)
-		# export rib files
-		cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_animated.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
-		# set renderman export args
-		rmanArgs = "rmanExportRIBCompression=0;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(start)+";rmanExportByFrame=1"
-		# select only the renderable geo
-		cmds.select("*:STATIC_RENDERABLE_GEO_SET")
-		staticRenderableGeoList = cmds.ls(sl = 1)
-		# export rib files
-		cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_static.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
+		if(doAnimated):
+			# set renderman export args
+			rmanArgs = "rmanExportRIBCompression=1;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(end)+";rmanExportByFrame=1"
+			# select only the renderable geo
+			cmds.select("*:ANIMATED_RENDERABLE_GEO_SET")
+			animatedRenderableGeoList = cmds.ls(sl = 1)
+			# export rib files
+			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_animated.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
+			print "renderman export finished"
+			cmds.select("*:ANIMATED_PROXY_GEO_SET")
+			animatedProxyGeoList = cmds.ls(sl = 1)
+			renderablesString = ""
+			for renderable in list(set(animatedProxyGeoList)):
+				renderablesString += " -root "
+				renderablesString += str(renderable)
+			# alembic export
+			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+			cmds.AbcExport(j = abcArgs)
 
-		print "renderman export finished"
+		if(doStatic):
+			# set renderman export args
+			rmanArgs = "rmanExportRIBCompression=1;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(start)+";rmanExportByFrame=1"
+			# select only the renderable geo
+			cmds.select("*:STATIC_RENDERABLE_GEO_SET")
+			staticRenderableGeoList = cmds.ls(sl = 1)
+			# export rib files
+			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_static.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
+			print "renderman export finished"
+			# alembic export
+			abcArgs = "-frameRange " + str(start) + " " + str(start) + " -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
+			cmds.AbcExport(j = abcArgs)
 
 		# # gammy workaround, use rib compile to generate the textures
 		# jobCompileFilePath = os.path.join(self.currentProjectDir, 'renderman', self.currentFileNameOnly, 'rib/job/jobCompile.job.rib')
@@ -295,26 +320,23 @@ class ReleaseLightingSceneMaya(QWidget):
 		# mel.eval("SelectAll")
 		# sceneGroup = cmds.group(n=self.currentFileNameOnly+'_GRP')
 
-		cmds.select("*:ANIMATED_PROXY_GEO_SET")
-		animatedProxyGeoList = cmds.ls(sl = 1)
-		renderablesString = ""
-		for renderable in list(set(animatedProxyGeoList)):
-			renderablesString += " -root "
-			renderablesString += str(renderable)
+		# cmds.select("*:ANIMATED_PROXY_GEO_SET")
+		# animatedProxyGeoList = cmds.ls(sl = 1)
+		# renderablesString = ""
+		# for renderable in list(set(animatedProxyGeoList)):
+		# 	renderablesString += " -root "
+		# 	renderablesString += str(renderable)
 
-		# renderablesString = " -root chars_GRP -root assets_GRP"
+		# # renderablesString = " -root chars_GRP -root assets_GRP"
 
-		# alembic export
-		abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
-		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+		# # alembic export
+		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+		# # abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
 
-		print abcArgs
+		# print abcArgs
 
-		cmds.AbcExport(j = abcArgs)
+		# cmds.AbcExport(j = abcArgs)
 
-		# alembic export
-		abcArgs = "-frameRange " + str(start) + " " + str(start) + " -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
-		cmds.AbcExport(j = abcArgs)
 
 		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat hdf -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
 		# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -dataFormat ogawa -uvWrite -root " + sceneGroup + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+".abc"
