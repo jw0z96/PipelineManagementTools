@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+%Gummi|065|=)
+\title{\textbf{Major Project Documentation}}
+\author{Joe Withers}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Pipeline}
+
+\subsection{Goals}
+
+\begin{itemize}
+
+\item Reliably store all of the project data in such a way that is accessible to all team members.
+
+\item Provide artists with a tool that manages assets, allowing them to update, reference,
+
+
+% \item Provide artists with a simple method for releasing new versions of assets.
+
+% \item Provide artists with a simple method for gathering assets, so that they can be referenced into a scene.
+
+% \item Manage versioning of assets, accompanied by information regarding each versions release date, author, and  description.
+
+% \item Automatically update references to assets whenever an asset or one of it's depenencies has been updated.
+
+\item Provide an automated method for caching the entire scene, with the aim of 'flattening' the project to make it easier to transfer to other machines for rendering.
+
+\end{itemize}
+
+\subsection{Limitations}
+
+Prior to developing the pipeline and associated tools, it was important to address the limitations imposed by the environment in which we would be working. The most important of these were:
+
+\begin{itemize}
+
+\item Lack of unified storage amongst users. Due to the way the university network is set up, it isn't possible to have a single network location for our shared data storage, without sacrificing one members allocated user storage.
+
+\item Lack of storage per user. The approximate storage limit per user is 50gb, which would quickly be hit in a complex production environment. It is therefore imperative that we are concious of the data that we keep hold of.
+
+\item Lack of storage space on the renderfarm. The approximate storage limit on the renderfarm is 10gb, meaning that all of the data required to render a scene or shot must fit well within this limit, as rendered frames are written to the same location.
+
+\end{itemize}
+
+\subsection{Solution}
+
+For file storage we chose to use Resilio Sync, a peer-to-peer file synchronization service
+to store all of our working files. This ensured that each team member has their own local copy of the entire working directory, which is beneficial when creating backups. We chose Resilio Sync primarily because it is a free service that is compatible with the university computer network, however it does present us with some problems.
+
+Due to being it peer-to-peer service, we often found that directories would fail to synchronize properly if not syncronized frequently with the other peers. This would not be a problem in a cloud hosted service as the directory state of the working directory would be reliably centralized, reducing the possibility of files becoming desynchronized, however these services are typically expensive and it was difficult to predict our exact storage requirements.
+
+We also noticed a strange problem with Resilio Sync, in which the contents of files would be reduced to 0 bytes. Fortunately the data is usually not lost as it is sent to the 'Archive', which functions as a temporary recycle bin, though restoring these files manually each time it happened proved to become quite tedious. I decided to write a simple bash script to check through the working directory to identify any files with a size of 0 bytes, and to check if a matching file was present in the Archive. However, this wasn't particularly effective as often they would be missing from both the main working directory and the Archive, meaning I would have to search through backups to find the file to restore, which at times felt a bit like baby-sitting.
+
+\section{Character Rigs}
+
+Prior to working on the character rigs, it was important to outline features that would be required to achieve an appealing animation. This ranged from features that would allow the animator (Yves Bedenikovic) to work with them more efficiently, to features that would improve the overall aesthetic of the animation such as cloth and hair simulation. The following features were found to be of highest importance:
+
+\begin{itemize}
+
+\item Controls should be familiar to the animator to allow them to work intuitively with the rig. This can be achieved by using previous rigs that the animator has used as reference when setting up controllers.
+
+\item Rigs should be capable of achieving the desired facial expressions and poses as dictated by the story. To achieve this, skinning needs to be as accurate as possible, and corrective blendshapes need to be implemented where necessary.
+
+\item Rigs should include the necessary geometry and nodes to allow for cloth simulation to be applied to clothes. To achieve this, proxy geometry needs to be created which will serve as a 'driver' for the higher resolution clothing geometry.
+
+\item Rigs should include the necessary curves to not only allow the animator to manipulate the groom, but also to allow dynamic hair simulation to be applied.
+
+\end{itemize}
+
+With these features in mind, I decided to use an automated rigging system to speed up the creation of the character rigs. This allowed me to focus primarily on the features listed above, and let a tool automate the creation of the basic bipedal rig.
+
+I first looked at Kraken\cite{kraken}, a rigging system included within Fabric Engine. This appealed to me as it was easily extensible through it's scripting language, which I thought I would find intuitive given that I had produced a basic automated rigging system for the specialism assignment in second year. Unfortunately, Fabric software went bankrupt at the beginning of the academic year so we were unable to get it working on the university computers.
+
+I then found Advanced Skeleton 5\cite{advancedSkeleton}, an extensive rigging tool for Autodesk Maya, which I found to be extremely capable and was more than adequate for my needs.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
