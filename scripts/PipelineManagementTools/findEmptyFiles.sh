@@ -6,10 +6,10 @@ print_zero_file () {
 	fullPath=$archive/$1
 
 	if [ -f "$fullPath" ]; then
-		echo "file found in archive."
+        echo "$1 FOUND in archive."
 	else
-		# echo "file not found in archive"
-		echo " "
+		echo "$1 NOT in archive"
+		# echo " "
 	fi
 }
 
