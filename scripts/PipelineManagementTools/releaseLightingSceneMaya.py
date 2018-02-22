@@ -305,16 +305,23 @@ class ReleaseLightingSceneMaya(QWidget):
 			abcArgs = "-frameRange " + str(start) + " " + str(start) + " -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
 			cmds.AbcExport(j = abcArgs)
 
-		# # gammy workaround, use rib compile to generate the textures
-		# jobCompileFilePath = os.path.join(self.currentProjectDir, 'renderman', self.currentFileNameOnly, 'rib/job/jobCompile.job.rib')
+		# gammy workaround, use rib compile to generate the textures
+		jobCompileFilePath = os.path.join(self.currentProjectDir, 'renderman', self.currentFileNameOnly, 'rib/job/jobCompile.job.rib')
 
-		# # TODO: the following error check fails if the project is set after file load, so we force a reload?
-		# if os.path.isfile(jobCompileFilePath):
-		# 	os.system("prman " + jobCompileFilePath)
-		# else:
-		# 	QMessageBox.critical(self,
-		# 		"Error",
-		# 		"Renderman didnt create this file: " + jobCompileFilePath)
+		# TODO: the following error check fails if the project is set after file load, so we force a reload?
+		if os.path.isfile(jobCompileFilePath):
+			msgBox = QMessageBox()
+			msgBox.setText("Renderman DID create this file: " + jobCompileFilePath)
+			msgBox.setInformativeText("run txmake?")
+			msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+			msgBox.setDefaultButton(QMessageBox.Ok)
+			ret = msgBox.exec_()
+			if ret != QMessageBox.Ok:
+				os.system("prman " + jobCompileFilePath)
+		else:
+			QMessageBox.critical(self,
+				"Error",
+				"Renderman didnt create this file: " + jobCompileFilePath)
 
 		# group everything in the scene (alembic probably wants this unfortunately) TODO: ask user
 		# mel.eval("SelectAll")

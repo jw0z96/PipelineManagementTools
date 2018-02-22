@@ -7,6 +7,7 @@ assetDirs = []
 assetDir = os.environ['MAYA_ASSET_DIR']
 assetDirs.append(assetDir)
 assetDirs.append("/Users/Alin/Desktop/3D/02-PROJECTS/jay/3_prod")
+assetDirs.append("/home/i7463669/Documents/jay/3_prod")
 
 def getAllFileNodes():
 	files = []
