@@ -292,6 +292,17 @@ class ReleaseLightingSceneMaya(QWidget):
 			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
 			cmds.AbcExport(j = abcArgs)
 
+			# select scalp geo
+			cmds.select("*:SCALP_GEO_SET")
+			scalpGeoList = cmds.ls(sl = 1)
+			scalpsString = ""
+			for scalpGeo in list(set(scalpGeoList)):
+				scalpsString += " -root "
+				scalpsString += str(scalpGeo)
+			# alembic export
+			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -stripNamespaces -dataFormat hdf -uvWrite" + scalpsString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_scalps.abc"
+
+
 		if(doStatic):
 			# set renderman export args
 			rmanArgs = "rmanExportRIBCompression=1;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(start)+";rmanExportByFrame=1"
