@@ -66,10 +66,17 @@ class ShaderScript(QWidget):
 		self.ui.texturePathLineEdit.setText(QFileDialog.getExistingDirectory(self, "Texture folder", assetDir))
 
 	def applyMaterial(self):
+		# get selected object
+		selectedObject = cmds.ls(sl=True)
+		if not selectedObject: # TODO: give the option to create shader without assigning
+			QMessageBox.critical(self,
+				"Error",
+				"No object selected!")
+			return
+
 		# query material name
 		materialName = self.ui.materialNameLineEdit.text()
 		# material name checks
-		# scene name checks
 		if materialName == '':
 			QMessageBox.critical(self,
 				"Error",
@@ -92,9 +99,6 @@ class ShaderScript(QWidget):
 				"Error",
 				"texture location not within $MAYA_ASSET_DIR!")
 			return
-
-		# selected object
-		selectedObject = cmds.ls(sl=True)
 
 		# create shader node and MSG
 		shaderNode = cmds.shadingNode('PxrSurface', asShader=True, name= materialName + '_MAT')
@@ -141,7 +145,6 @@ class ShaderScript(QWidget):
 		cmds.setAttr(specFileNode + '.fileTextureName', os.path.join(projectPath, "%s_spec.tif" %materialName), type="string")
 		cmds.setAttr(roughFileNode + '.fileTextureName', os.path.join(projectPath, "%s_rough.tif" %materialName), type="string")
 		cmds.setAttr(dispFileNode + '.fileTextureName', os.path.join(projectPath, "%s_disp.tif" %materialName), type="string")
-
 		# set node attributes
 		cmds.setAttr(diffGammaNode + '.gamma', 0.454)
 		cmds.setAttr(specGammaNode + '.gamma', 0.400)
@@ -154,6 +157,6 @@ class ShaderScript(QWidget):
 		cmds.setAttr(dispNode + '.dispAmount', 0.15)
 		cmds.setAttr(shaderNode + '.specularModelType', 1)
 
-		## Assign Material
+		# assign Material
 		cmds.select(selectedObject)
 		cmds.sets(e=True, forceElement= materialName + '_MSG')

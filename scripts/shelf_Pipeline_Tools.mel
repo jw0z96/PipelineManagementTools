@@ -545,8 +545,8 @@ global proc shelf_Pipeline_Tools () {
         // -imageOverlayLabel "RLS_LIGHT"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "icons/rlsLight_icon.png"
-        -image1 "icons/rlsLight_icon.png"
+        -image "icons/shader_icon.png"
+        -image1 "icons/shader_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
