@@ -403,6 +403,38 @@ global proc shelf_Pipeline_Tools () {
         -commandRepeatable 1
         -flat 1
     ;
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "alin's shader script"
+        -enableBackground 0
+        -highlightColor 0.321569 0.521569 0.65098
+        -align "center"
+        -label "SHADER"
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont"
+        // -imageOverlayLabel "RLS_LIGHT"
+        -overlayLabelColor 0.8 0.8 0.8
+        -overlayLabelBackColor 0 0 0 0.5
+        -image "icons/shader_icon.png"
+        -image1 "icons/shader_icon.png"
+        -style "iconOnly"
+        -marginWidth 1
+        -marginHeight 1
+        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\napp = shaderScript.ShaderScript();\napp.main();\n"
+        -sourceType "python"
+        -commandRepeatable 1
+        -flat 1
+    ;
     separator
         -enable 1
         -width 34
@@ -531,11 +563,11 @@ global proc shelf_Pipeline_Tools () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "alin's shader script"
+        -annotation "character picker script"
         -enableBackground 0
         -highlightColor 0.321569 0.521569 0.65098
         -align "center"
-        -label "SHADER"
+        -label "PICKER"
         -labelOffset 0
         -rotation 0
         -flipX 0
@@ -545,12 +577,12 @@ global proc shelf_Pipeline_Tools () {
         // -imageOverlayLabel "RLS_LIGHT"
         -overlayLabelColor 0.8 0.8 0.8
         -overlayLabelBackColor 0 0 0 0.5
-        -image "icons/shader_icon.png"
-        -image1 "icons/shader_icon.png"
+        -image "icons/picker_icon.png"
+        -image1 "icons/picker_icon.png"
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\napp = shaderScript.ShaderScript();\napp.main();\n"
+        -command "from PipelineManagementTools import characterPicker;\nreload(characterPicker);\napp = characterPicker.CharacterPicker();\napp.main();\n"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
