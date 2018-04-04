@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>466</width>
-    <height>91</height>
+    <height>195</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,60 +20,137 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="1">
+    <widget class="QLabel" name="displacementPathLabel">
+     <property name="text">
+      <string>None</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="4">
+    <widget class="QPushButton" name="applyMaterialPushButton">
+     <property name="text">
+      <string>Apply Material</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QToolButton" name="displacementToolButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="QToolButton" name="roughnessToolButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QToolButton" name="specularToolButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="diffusePathLabel">
+     <property name="text">
+      <string>None</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QToolButton" name="pathToolButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QCheckBox" name="displacementCheckBox">
+     <property name="text">
+      <string>Displacement</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QToolButton" name="diffuseToolButton">
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="diffuseCheckBox">
+     <property name="text">
+      <string>Diffuse</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QCheckBox" name="specularCheckBox">
+     <property name="text">
+      <string>Specular</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QCheckBox" name="roughnessCheckBox">
+     <property name="text">
+      <string>Roughness</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
+    <widget class="QLabel" name="pathLabelLabel">
+     <property name="text">
+      <string>Path</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1">
+    <widget class="QLabel" name="specularPathLabel">
+     <property name="text">
+      <string>None</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="roughnessPathLabel">
+     <property name="text">
+      <string>None</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
     <widget class="QLabel" name="materialNameLabel">
      <property name="text">
       <string>Material Name</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="texturePathLabel">
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="materialNameLineEdit"/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="pathLabel">
      <property name="text">
-      <string>Texture Path</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLineEdit" name="texturePathLineEdit">
-     <property name="clearButtonEnabled">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="browsePushButton">
-     <property name="text">
-      <string>Browse...</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QLineEdit" name="materialNameLineEdit">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="sizeIncrement">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="baseSize">
-      <size>
-       <width>0</width>
-       <height>0</height>
-      </size>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="3">
-    <widget class="QPushButton" name="applyMaterialPushButton">
-     <property name="text">
-      <string>Apply Material</string>
+      <string>None</string>
      </property>
     </widget>
    </item>
