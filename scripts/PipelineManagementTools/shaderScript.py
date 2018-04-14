@@ -58,6 +58,7 @@ class ShaderScript(QWidget):
 		self.ui.applyMaterialPushButton.clicked.connect(self.applyMaterial)
 
 	def main(self):
+		self.close()
 		self.show()
 
 	def clearUI(self):

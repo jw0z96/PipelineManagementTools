@@ -57,6 +57,7 @@ class AssetManagerMaya():
 		self.gui.ui.releaseAssetPushButton.clicked.connect(self.releaseAssetCallback)
 
 	def main(self):
+		self.gui.close()
 		self.gui.show()
 
 	def releaseAssetCallback(self):

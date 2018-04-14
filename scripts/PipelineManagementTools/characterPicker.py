@@ -28,8 +28,6 @@ mayaMainWindow = wrapInstance(long(mayaMainWindowPtr), QWidget)
 # assets directory specified by an environment variable
 assetDir = os.environ['MAYA_ASSET_DIR']
 
-
-
 class CharacterPicker(QWidget):
 	def __init__(self, *args, **kwargs):
 		super(CharacterPicker, self).__init__(*args, **kwargs)
@@ -57,6 +55,7 @@ class CharacterPicker(QWidget):
 		self.ui.selectBodyControlsPushButton.clicked.connect(self.keyBodyControls)
 
 	def main(self):
+		self.close()
 		self.show()
 
 	def keyFacialControls(self):

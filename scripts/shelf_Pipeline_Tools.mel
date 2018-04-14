@@ -31,7 +31,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\nam = assetManagerMaya.AssetManagerMaya();\nam.main();\n"
+        -command "from PipelineManagementTools import assetManagerMaya;\nreload(assetManagerMaya);\n\ntry:\n    assetManagerApp\nexcept NameError:\n    assetManagerApp = assetManagerMaya.AssetManagerMaya();\n    assetManagerApp.main()\n    print \"showing: \" + str(assetManagerApp)\nelse:\n    print \"showing: \" + str(assetManagerApp)\n    assetManagerApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
@@ -63,7 +63,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\napp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\napp.main();\n"
+        -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\n\ntry:\n    releaseLightingSceneApp\nexcept NameError:\n    releaseLightingSceneApp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\n    releaseLightingSceneApp.main()\n    print \"showing: \" + str(releaseLightingSceneApp)\nelse:\n    print \"showing: \" + str(releaseLightingSceneApp)\n    releaseLightingSceneApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
@@ -430,7 +430,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\napp = shaderScript.ShaderScript();\napp.main();\n"
+        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\n\ntry:\n    shaderScriptApp\nexcept NameError:\n    shaderScriptApp = shaderScript.ShaderScript();\n    shaderScriptApp.main()\n    print \"showing: \" + str(shaderScriptApp)\nelse:\n    print \"showing: \" + str(shaderScriptApp)\n    shaderScriptApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
@@ -582,7 +582,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import characterPicker;\nreload(characterPicker);\napp = characterPicker.CharacterPicker();\napp.main();\n"
+        -command "from PipelineManagementTools import characterPicker;\nreload(characterPicker);\n\ntry:\n    characterPickerApp\nexcept NameError:\n    characterPickerApp = characterPicker.CharacterPicker();\n    characterPickerApp.main()\n    print \"showing: \" + str(characterPickerApp)\nelse:\n    print \"showing: \" + str(characterPickerApp)\n    characterPickerApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1

@@ -96,6 +96,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		self.ui.endFrameSpinBox_2.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
 
 	def main(self):
+		self.close()
 		self.show()
 
 	def create_folder(self, directory):
