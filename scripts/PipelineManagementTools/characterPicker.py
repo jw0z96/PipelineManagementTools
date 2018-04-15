@@ -53,10 +53,16 @@ class CharacterPicker(QWidget):
 		# connect callback for keying buttons
 		self.ui.selectFacialControlsPushButton.clicked.connect(self.keyFacialControls)
 		self.ui.selectBodyControlsPushButton.clicked.connect(self.keyBodyControls)
+		self.ui.selectAllControlsPushButton.clicked.connect(self.selectAllControls)
 
 	def main(self):
 		self.close()
 		self.show()
+
+	def selectAllControls(self):
+		selectedChar = self.ui.selectedCharacterComboBox.currentText()
+		cmds.select(selectedChar + ":BODY_CTRLS_SET")
+		cmds.select(selectedChar + ":FACIAL_CTRLS_SET", add = True)
 
 	def keyFacialControls(self):
 		selectedChar = self.ui.selectedCharacterComboBox.currentText()
