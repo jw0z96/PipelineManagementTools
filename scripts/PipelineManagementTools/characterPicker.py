@@ -46,9 +46,9 @@ class CharacterPicker(QWidget):
 		file.close()
 
 		# populate comboBox
-		for nameSpace in cmds.namespaceInfo(lon=1):
-			if nameSpace.startswith("char") and cmds.objExists(nameSpace + ":rigGroup"):
-				self.ui.selectedCharacterComboBox.addItem(nameSpace)
+		#for nameSpace in cmds.namespaceInfo(lon=1):
+		#	if nameSpace.startswith("char") and cmds.objExists(nameSpace + ":rigGroup"):
+		#		self.ui.selectedCharacterComboBox.addItem(nameSpace)
 
 		# connect callback for keying buttons
 		self.ui.selectFacialControlsPushButton.clicked.connect(self.keyFacialControls)
@@ -56,6 +56,11 @@ class CharacterPicker(QWidget):
 		self.ui.selectAllControlsPushButton.clicked.connect(self.selectAllControls)
 
 	def main(self):
+		self.ui.selectedCharacterComboBox.clear()
+		# populate comboBox
+		for nameSpace in cmds.namespaceInfo(lon=1):
+			if nameSpace.startswith("char") and cmds.objExists(nameSpace + ":rigGroup"):
+				self.ui.selectedCharacterComboBox.addItem(nameSpace)
 		self.close()
 		self.show()
 
