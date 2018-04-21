@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>466</width>
-    <height>195</height>
+    <height>219</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -151,6 +151,16 @@
     <widget class="QLabel" name="pathLabel">
      <property name="text">
       <string>None</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QCheckBox" name="triplanarCheckbox">
+     <property name="text">
+      <string>Triplanar</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

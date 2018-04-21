@@ -81,6 +81,8 @@ class ShaderScript(QWidget):
 		self.ui.specularCheckBox.setCheckable(False)
 		self.ui.specularCheckBox.setChecked(False)
 
+		self.ui.triplanarCheckbox.setChecked(False)
+
 	def browseTexturePathCallback(self):
 		chosenTexture = QFileDialog.getOpenFileName(self, "Update target file", assetDir, "Textures (*.tif *.tiff);;All files (*)")[0]
 
@@ -186,6 +188,7 @@ class ShaderScript(QWidget):
 		displacementChecked = self.ui.displacementCheckBox.isChecked()
 		roughnessChecked = self.ui.roughnessCheckBox.isChecked()
 		specularChecked = self.ui.specularCheckBox.isChecked()
+		triplanarChecked = self.ui.triplanarCheckbox.isChecked()
 
 		# check that at least one is checked...
 		if not diffuseChecked and not displacementChecked and not roughnessChecked and not specularChecked:
@@ -202,75 +205,167 @@ class ShaderScript(QWidget):
 		# create shader node and MSG
 		shaderNode = cmds.shadingNode('PxrSurface', asShader = True, name = materialName + '_MAT')
 		shadingGroupNode = cmds.sets(renderable = True, noSurfaceShader = True, empty = True, name = materialName + '_MSG')
-		# create UV coords
-		UVNode = cmds.shadingNode('place2dTexture', asShader = True, name = materialName + '_place2dTexture')
+
+		# create UV coords or Triplanar projection
+		UVNode = None
+		if triplanarChecked:
+			UVNode = cmds.shadingNode('PxrRoundCube', asShader=True, name= materialName+ '_roundCube')
+			cmds.setAttr(UVNode + '.randomOrientation', 1)
+			cmds.setAttr(UVNode + '.randomOffset', 1)
+			cmds.setAttr(UVNode + '.randomFlip', 1)
+			cmds.setAttr(UVNode + '.transitionWidth', 0.65)
+		else:
+			UVNode = cmds.shadingNode('place2dTexture', asShader = True, name = materialName + '_place2dTexture')
+
 		# connect shading nodes
 		cmds.connectAttr(shaderNode + '.outColor', shadingGroupNode + '.surfaceShader')
 		# set node attributes
 		cmds.setAttr(shaderNode + '.specularModelType', 1)
 
+		# DIFFUSE
+
 		if diffuseChecked:
-			# create file read nodes
-			diffFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_diff_file')
-			# create shading utility nodes
-			diffGammaNode = cmds.shadingNode('PxrGamma', asShader = True, name = materialName + '_diff_gamma')
-			# _diff connections
-			cmds.connectAttr(UVNode + '.outUV', diffFileNode + '.uvCoord')
-			cmds.connectAttr(diffFileNode + '.outColor', diffGammaNode + '.inputRGB')
-			cmds.connectAttr(diffGammaNode + '.resultRGB', shaderNode + '.diffuseColor')
-			# set texture Paths # TODO: check if file exists
-			cmds.setAttr(diffFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", diffusePath), type = "string")
-			# set node attributes
-			cmds.setAttr(diffGammaNode + '.gamma', 0.454)
+			# create utility nodes
+			diffHSLNode = cmds.shadingNode('PxrHSL', asShader=True, name = materialName + '_diff_HSL')
+			# connect attributes
+			cmds.connectAttr(diffHSLNode + '.resultRGB', shaderNode + '.diffuseColor' )
+			cmds.connectAttr(diffHSLNode + '.resultRGB', shaderNode + '.subsurfaceColor' )
+			cmds.connectAttr(diffHSLNode + '.resultRGB', shaderNode + '.singlescatterColor' )
+
+			if triplanarChecked:
+				# create file read nodes
+				diffTriplanarNode = cmds.shadingNode('PxrMultiTexture', asShader=True, name = materialName + '_diff_triplanar')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(diffTriplanarNode + '.filename0', os.path.join("$MAYA_ASSET_DIR", diffusePath), type = "string")
+				# set node attributes
+				cmds.setAttr(diffTriplanarNode + '.linearize', 1)
+				cmds.setAttr(diffTriplanarNode + '.filter', 5)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.resultMulti', diffTriplanarNode + '.manifoldMulti' )
+				cmds.connectAttr(diffTriplanarNode + '.resultRGB', diffHSLNode + '.inputRGB' )
+			else:
+				# create file read nodes
+				diffFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_diff_file')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(diffFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", diffusePath), type = "string")
+				# create shading utility nodes
+				diffGammaNode = cmds.shadingNode('PxrGamma', asShader = True, name = materialName + '_diff_gamma')
+				# set node attributes
+				cmds.setAttr(diffGammaNode + '.gamma', 0.454)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.outUV', diffFileNode + '.uvCoord')
+				cmds.connectAttr(diffFileNode + '.outColor', diffGammaNode + '.inputRGB')
+				cmds.connectAttr(diffGammaNode + '.resultRGB', diffHSLNode + '.inputRGB')
+
+		# DISPLACEMENT
 
 		if displacementChecked:
-			# create file read nodes
-			dispFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_disp_file')
+			# create utility nodes
 			dispTransformNode = cmds.shadingNode('PxrDispTransform', asShader = True, name = materialName+ '_disp_transform')
 			dispNode = cmds.shadingNode('PxrDisplace', asShader = True, name = materialName+ '_disp')
-			# _disp connections
-			cmds.connectAttr(UVNode + '.outUV', dispFileNode + '.uvCoord')
-			cmds.connectAttr(dispFileNode + '.outAlpha', dispTransformNode + '.dispScalar')
+			# set node attributes
+			cmds.setAttr(dispTransformNode + '.dispRemapMode', 2)
+			# connect attributes
 			cmds.connectAttr(dispTransformNode + '.resultF', dispNode + '.dispScalar')
 			cmds.connectAttr(dispNode + '.outColor', shadingGroupNode + '.displacementShader')
-			# set texture Paths # TODO: check if file exists
-			cmds.setAttr(dispFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", displacementPath), type = "string")
-			# set node attributes
-			cmds.setAttr(dispFileNode + '.colorSpace', "Raw", type = "string")
-			cmds.setAttr(dispFileNode + '.alphaIsLuminance', 1)
-			cmds.setAttr(dispTransformNode + '.dispRemapMode', 2)
-			cmds.setAttr(dispNode + '.dispAmount', 0.15)
+
+			if triplanarChecked:
+				# create file read nodes
+				dispTriplanarNode = cmds.shadingNode('PxrMultiTexture', asShader=True, name= materialName+ '_disp_triplanar')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(dispTriplanarNode + '.filename0', os.path.join("$MAYA_ASSET_DIR", displacementPath), type = "string")
+				# set node attributes
+				cmds.setAttr(dispNode + '.dispAmount', 0.01)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.resultMulti', dispTriplanarNode + '.manifoldMulti' )
+				cmds.connectAttr(dispTriplanarNode + '.resultA', dispTransformNode + '.dispScalar')
+
+			else:
+				# create file read nodes
+				dispFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_disp_file')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(dispFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", displacementPath), type = "string")
+				# set node attributes
+				cmds.setAttr(dispFileNode + '.colorSpace', "Raw", type = "string")
+				cmds.setAttr(dispFileNode + '.alphaIsLuminance', 1)
+				cmds.setAttr(dispNode + '.dispAmount', 0.15)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.outUV', dispFileNode + '.uvCoord')
+				cmds.connectAttr(dispFileNode + '.outAlpha', dispTransformNode + '.dispScalar')
+
+		# ROUGHNESS
 
 		if roughnessChecked:
-			# create file read nodes
-			roughFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_rough_file')
-			# _rough connections
-			cmds.connectAttr(UVNode + '.outUV', roughFileNode + '.uvCoord ')
-			cmds.connectAttr(roughFileNode + '.outAlpha', shaderNode + '.specularRoughness')
-			cmds.connectAttr(roughFileNode + '.outAlpha', shaderNode + '.glassRoughness')
-			# set texture Paths # TODO: check if file exists
-			cmds.setAttr(roughFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", roughnessPath), type = "string")
+			# create utility nodes
+			roughRemapNode = cmds.shadingNode('PxrRemap', asShader = True, name = materialName + '_rough_remap')
+			roughFloatNode = cmds.shadingNode('PxrToFloat', asShader = True, name = materialName + '_rough_float')
 			# set node attributes
-			cmds.setAttr(roughFileNode + '.colorSpace', "Raw", type="string")
-			cmds.setAttr(roughFileNode + '.alphaIsLuminance', 1)
+			cmds.setAttr(roughFloatNode + '.mode', 3)
+			# connect attributes
+			cmds.connectAttr(roughRemapNode + '.resultRGB', roughFloatNode + '.input')
+			cmds.connectAttr(roughFloatNode + '.resultF', shaderNode + '.specularRoughness' )
+			cmds.connectAttr(roughFloatNode + '.resultF', shaderNode + '.glassRoughness' )
+
+			if triplanarChecked:
+				# create file read nodes
+				roughTriplanarNode = cmds.shadingNode('PxrMultiTexture', asShader = True, name = materialName + '_rough_triplanar')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(roughTriplanarNode + '.filename0', os.path.join("$MAYA_ASSET_DIR", roughnessPath), type = "string")
+				# set node attributes
+				cmds.setAttr(roughTriplanarNode + '.filter', 5)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.resultMulti', roughTriplanarNode + '.manifoldMulti')
+				cmds.connectAttr(roughTriplanarNode + '.resultRGB', roughRemapNode + '.inputRGB' )
+			else:
+				# create file read nodes
+				roughFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_rough_file')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(roughFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", roughnessPath), type = "string")
+				# set node attributes
+				cmds.setAttr(roughFileNode + '.colorSpace', "Raw", type = "string")
+				cmds.setAttr(roughFileNode + '.alphaIsLuminance', 1)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.outUV', roughFileNode + '.uvCoord')
+				cmds.connectAttr(roughFileNode + '.outColor', roughRemapNode + '.inputRGB')
+
+		# SPECULAR
 
 		if specularChecked:
-			# create file read nodes
-			specFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_spec_file')
-			specGammaNode = cmds.shadingNode('PxrGamma', asShader= True, name = materialName + '_spec_gamma')
+			# create utility nodes
+			specHSLNode = cmds.shadingNode('PxrHSL', asShader = True, name = materialName + '_spec_HSL')
 			specFloatNode = cmds.shadingNode('PxrToFloat', asShader = True, name = materialName + '_spec_float')
-			# _spec connections
-			cmds.connectAttr(UVNode + '.outUV', specFileNode + '.uvCoord')
-			cmds.connectAttr(specFileNode + '.outColor', specGammaNode + '.inputRGB')
-			cmds.connectAttr(specGammaNode + '.resultRGB', shaderNode + '.specularFaceColor')
-			cmds.connectAttr(specGammaNode + '.resultRGB', shaderNode + '.specularEdgeColor')
-			cmds.connectAttr(specGammaNode + '.resultRGB', specFloatNode + '.input')
-			cmds.connectAttr(specFloatNode + '.resultF', shaderNode + '.reflectionGain')
-			# set texture Paths # TODO: check if file exists
-			cmds.setAttr(specFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", specularPath), type = "string")
-			cmds.setAttr(specGammaNode + '.gamma', 0.400)
 			# set node attributes
 			cmds.setAttr(specFloatNode + '.mode', 3)
+			# connect attributes
+			cmds.connectAttr(specHSLNode + '.resultRGB', shaderNode + '.specularFaceColor')
+			cmds.connectAttr(specHSLNode + '.resultRGB', shaderNode + '.specularEdgeColor')
+			cmds.connectAttr(specHSLNode + '.resultRGB', specFloatNode + '.input')
+			cmds.connectAttr(specFloatNode + '.resultF', shaderNode + '.reflectionGain')
+
+			if triplanarChecked:
+				# create file read nodes
+				specTriplanarNode = cmds.shadingNode('PxrMultiTexture', asShader=True, name = materialName + '_spec_triplanar')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(specTriplanarNode + '.filename0', os.path.join("$MAYA_ASSET_DIR", specularPath), type = "string")
+				# set node attributes
+				cmds.setAttr(specTriplanarNode + '.linearize', 1)
+				cmds.setAttr(specTriplanarNode + '.filter', 5)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.resultMulti', specTriplanarNode + '.manifoldMulti' )
+				cmds.connectAttr(specTriplanarNode + '.resultRGB', specHSLNode + '.inputRGB' )
+			else:
+				# create file read nodes
+				specFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_spec_file')
+				# set texture Paths # TODO: check if file exists
+				cmds.setAttr(specFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", specularPath), type = "string")
+				# create shading utility nodes
+				specGammaNode = cmds.shadingNode('PxrGamma', asShader = True, name = materialName + 'spec_gamma')
+				# set node attributes
+				cmds.setAttr(specGammaNode + '.gamma', 0.454)
+				# connect attributes
+				cmds.connectAttr(UVNode + '.outUV', specFileNode + '.uvCoord')
+				cmds.connectAttr(specFileNode + '.outColor', specGammaNode + '.inputRGB')
+				cmds.connectAttr(specGammaNode + '.resultRGB', specHSLNode + '.inputRGB')
 
 		# assign Material
 		if selectedObject:
