@@ -10,7 +10,7 @@ try:
 	from PipelineManagementTools import assetUtils
 except ImportError:
 	import assetUtils
-reload(assetUtils)
+	reload(assetUtils)
 
 try:
 	from PySide2.QtCore import *
@@ -33,7 +33,7 @@ def getAllAssets(assetType = ""):
 		for x in files:
 			if x.endswith(assetType + ".asset"):
 				assetList.append(os.path.relpath(os.path.join(dirpath, x), assetDir))
-	return assetList
+				return assetList
 
 def loadAssetFileMaya(asset):
 	# get asset dict
@@ -86,29 +86,42 @@ def addRenderAttributesToAssets():
 		sceneDir = os.path.dirname(fullAssetPath)
 		meshesList = cmds.listRelatives(cmds.ls(type = "mesh", long = True, referencedNodes = False), p = True, fullPath = True)
 		madeChanges = False
+		#
 		for item in meshesList:
 			madeChanges = madeChanges or addRenderAttributesToItem(item)
-
+		#
 		if madeChanges:
 			print "MADE CHANGES"
-			msgBox = QMessageBox()
-			msgBox.setText("increment and save?")
-			currentAssetDict = assetUtils.loadAssetFile(buildAsset)
-			currentText = currentAssetDict['versions'][currentAssetDict['currentVersion']]['comment']
-			msgBox.setInformativeText("last comment: " + currentText)
-			msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-			msgBox.setDefaultButton(QMessageBox.Ok)
-			ret = msgBox.exec_()
-			if ret == QMessageBox.Ok:
-				# increment and save scene
-				mel.eval('incrementAndSaveScene 0;')
-				try:
-					assetUtils.updateAssetFile(buildAsset,
-					os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
-					"added render attributes to mesh objects (automated)"
-					)
-				except IOError:
-					print 'permissions error most likely'
+			# msgBox = QMessageBox()
+			# msgBox.setText("increment and save?")
+			# currentAssetDict = assetUtils.loadAssetFile(buildAsset)
+			# currentText = currentAssetDict['versions'][currentAssetDict['currentVersion']]['comment']
+			# msgBox.setInformativeText("last comment: " + currentText)
+			# overwrite = QPushButton()
+			# overwrite.setText(QApplication.translate("Dialogs", "overwrite"))
+			# increment = QPushButton()
+			# increment.setText(QApplication.translate("Dialogs", "increment"))
+			# cancel = QPushButton()
+			# cancel.setText(QApplication.translate("Dialogs", "cancel"))
+			# msgBox.addButton(overwrite, QMessageBox.AcceptRole)
+			# msgBox.addButton(increment, QMessageBox.NoRole)
+			# msgBox.addButton(cancel, QMessageBox.RejectRole)
+			# msgBox.setDefaultButton(QMessageBox.Ok)
+			# ret = msgBox.exec_()
+			# if ret == QMessageBox.NoRole:
+			# 	print "incrementing and saving"
+			# 	# increment and save scene
+			# 	mel.eval('incrementAndSaveScene 0;')
+			# 	try:
+			# 		assetUtils.updateAssetFile(buildAsset,
+			# 			os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
+			# 			"added render attributes to mesh objects (automated)"
+			# 			)
+			# 	except IOError:
+			# 		print 'permissions error most likely'
+			# elif ret == QMessageBox.AcceptRole:
+			# 	print "overwriting"
+			# 	cmds.file(save=True, type='mayaAscii')
 		else:
 			print "DIDNT MAKE CHANGES"
 
@@ -116,9 +129,11 @@ def auditAssets():
 	print "------------------------------------------------------------------"
 	print "AUDITING BUILD ASSETS"
 	print "------------------------------------------------------------------"
+
 	auditInfo = {}
 	for buildAsset in getAllAssets("build"):
 		auditInfo[buildAsset] = checkAssetGeo(buildAsset)
+
 	print "------------------------------------------------------------------"
 	print "DONE AUDIT"
 	print "------------------------------------------------------------------"
