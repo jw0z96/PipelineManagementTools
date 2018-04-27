@@ -430,7 +430,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\n\ntry:\n    shaderScriptApp\nexcept NameError:\n    shaderScriptApp = shaderScript.ShaderScript();\n    shaderScriptApp.main()\n    print \"showing: \" + str(shaderScriptApp)\nelse:\n    print \"showing: \" + str(shaderScriptApp)\n    shaderScriptApp.main()"
+        -command "from PipelineManagementTools import shaderScript;\nreload(shaderScript);\nshaderScriptApp = shaderScript.ShaderScript();\nshaderScriptApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1

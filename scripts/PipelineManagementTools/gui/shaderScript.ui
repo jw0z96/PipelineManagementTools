@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>466</width>
-    <height>219</height>
+    <height>244</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -27,7 +27,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="4">
+   <item row="8" column="0" colspan="4">
     <widget class="QPushButton" name="applyMaterialPushButton">
      <property name="text">
       <string>Apply Material</string>
@@ -130,6 +130,9 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLineEdit" name="materialNameLineEdit"/>
+   </item>
    <item row="4" column="1">
     <widget class="QLabel" name="roughnessPathLabel">
      <property name="text">
@@ -143,9 +146,6 @@
       <string>Material Name</string>
      </property>
     </widget>
-   </item>
-   <item row="1" column="1" colspan="2">
-    <widget class="QLineEdit" name="materialNameLineEdit"/>
    </item>
    <item row="0" column="1">
     <widget class="QLabel" name="pathLabel">
@@ -161,6 +161,16 @@
      </property>
      <property name="checkable">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QCheckBox" name="udimCheckbox">
+     <property name="text">
+      <string>UDIM</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
      </property>
     </widget>
    </item>

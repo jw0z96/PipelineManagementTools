@@ -82,6 +82,10 @@ class ShaderScript(QWidget):
 		self.ui.specularCheckBox.setChecked(False)
 
 		self.ui.triplanarCheckbox.setChecked(False)
+		self.ui.triplanarCheckbox.setCheckable(True)
+
+		self.ui.udimCheckbox.setCheckable(False)
+		self.ui.udimCheckbox.setChecked(False)
 
 	def browseTexturePathCallback(self):
 		chosenTexture = QFileDialog.getOpenFileName(self, "Update target file", assetDir, "Textures (*.tif *.tiff);;All files (*)")[0]
@@ -104,6 +108,27 @@ class ShaderScript(QWidget):
 		chosenDirectory, chosenFileName = os.path.split(chosenTexture)
 		chosenFileName, chosenFileType = os.path.splitext(chosenFileName)
 
+		print "chosenFileName original: " + chosenFileName
+
+		print "chosenFileName[:-5] " + chosenFileName[:-5]
+		print "chosenFileName[-4:] " + chosenFileName[-4:]
+
+		UDIMString = ""
+		# udim file name is like fudge_diff.1001.tif
+		if (chosenFileName[-4:]).isdigit() and chosenFileName[-5] == '.':
+			print "is udim"
+			chosenFileName = chosenFileName[:-5]
+			UDIMString = ".1001"
+			self.ui.udimCheckbox.setCheckable(True)
+			self.ui.udimCheckbox.setChecked(True)
+			self.ui.triplanarCheckbox.setCheckable(False)
+			self.ui.triplanarCheckbox.setChecked(False)
+		else:
+			self.ui.udimCheckbox.setCheckable(False)
+			self.ui.udimCheckbox.setChecked(False)
+			self.ui.triplanarCheckbox.setCheckable(True)
+			self.ui.triplanarCheckbox.setChecked(True)
+
 		# strip the texture type
 		chosenFileName = chosenFileName.replace("_diff", "")
 		chosenFileName = chosenFileName.replace("_disp", "")
@@ -115,40 +140,52 @@ class ShaderScript(QWidget):
 		print "chosenFileType " + chosenFileType
 
 		# check for diffuse file and autofill
-		diffFile = None
-		diffFilePath = os.path.join(chosenDirectory, chosenFileName + "_diff" + chosenFileType)
+		diffFilePath = os.path.join(chosenDirectory, chosenFileName + "_diff" + UDIMString + chosenFileType)
+		print "diffFilePath: " + diffFilePath
 		if os.path.isfile(os.path.join(assetDir, diffFilePath)):
-			diffFile = diffFilePath
-			self.ui.diffusePathLabel.setText(diffFile)
+			self.ui.diffusePathLabel.setText(diffFilePath)
 			self.ui.diffuseCheckBox.setCheckable(True)
 			self.ui.diffuseCheckBox.setChecked(True)
+		else:
+			self.ui.diffusePathLabel.setText("None")
+			self.ui.diffuseCheckBox.setCheckable(False)
+			self.ui.diffuseCheckBox.setChecked(False)
 
 		# check for displacement file and autofill
-		dispFile = None
-		dispFilePath = os.path.join(chosenDirectory, chosenFileName + "_disp" + chosenFileType)
+		dispFilePath = os.path.join(chosenDirectory, chosenFileName + "_disp" + UDIMString + chosenFileType)
+		print "dispFilePath: " + dispFilePath
 		if os.path.isfile(os.path.join(assetDir, dispFilePath)):
-			dispFile = dispFilePath
-			self.ui.displacementPathLabel.setText(dispFile)
+			self.ui.displacementPathLabel.setText(dispFilePath)
 			self.ui.displacementCheckBox.setCheckable(True)
 			self.ui.displacementCheckBox.setChecked(True)
+		else:
+			self.ui.displacementPathLabel.setText("None")
+			self.ui.displacementCheckBox.setCheckable(False)
+			self.ui.displacementCheckBox.setChecked(False)
 
 		# check for roughness file and autofill
-		roughFile = None
-		roughFilePath = os.path.join(chosenDirectory, chosenFileName + "_rough" + chosenFileType)
+		roughFilePath = os.path.join(chosenDirectory, chosenFileName + "_rough" + UDIMString + chosenFileType)
+		print "roughFilePath: " + roughFilePath
 		if os.path.isfile(os.path.join(assetDir, roughFilePath)):
-			roughFile = roughFilePath
-			self.ui.roughnessPathLabel.setText(roughFile)
+			self.ui.roughnessPathLabel.setText(roughFilePath)
 			self.ui.roughnessCheckBox.setCheckable(True)
 			self.ui.roughnessCheckBox.setChecked(True)
+		else:
+			self.ui.roughnessPathLabel.setText("None")
+			self.ui.roughnessCheckBox.setCheckable(False)
+			self.ui.roughnessCheckBox.setChecked(False)
 
 		# check for specular file and autofill
-		specFile = None
-		specFilePath = os.path.join(chosenDirectory, chosenFileName + "_spec" + chosenFileType)
+		specFilePath = os.path.join(chosenDirectory, chosenFileName + "_spec" + UDIMString + chosenFileType)
+		print "specFilePath: " + specFilePath
 		if os.path.isfile(os.path.join(assetDir, specFilePath)):
-			specFile = specFilePath
-			self.ui.specularPathLabel.setText(specFile)
+			self.ui.specularPathLabel.setText(specFilePath)
 			self.ui.specularCheckBox.setCheckable(True)
 			self.ui.specularCheckBox.setChecked(True)
+		else:
+			self.ui.specularPathLabel.setText("None")
+			self.ui.specularCheckBox.setCheckable(False)
+			self.ui.specularCheckBox.setChecked(False)
 
 		# autofill path label
 		self.ui.pathLabel.setText(os.path.join(chosenDirectory, chosenFileName))
@@ -202,6 +239,8 @@ class ShaderScript(QWidget):
 		roughnessPath = self.ui.roughnessPathLabel.text()
 		specularPath = self.ui.specularPathLabel.text()
 
+		isUDIM = self.ui.udimCheckbox.isChecked()
+
 		# create shader node and MSG
 		shaderNode = cmds.shadingNode('PxrSurface', asShader = True, name = materialName + '_MAT')
 		shadingGroupNode = cmds.sets(renderable = True, noSurfaceShader = True, empty = True, name = materialName + '_MSG')
@@ -248,6 +287,9 @@ class ShaderScript(QWidget):
 				diffFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_diff_file')
 				# set texture Paths # TODO: check if file exists
 				cmds.setAttr(diffFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", diffusePath), type = "string")
+				# set to use udims if we're using udims
+				if isUDIM:
+					cmds.setAttr(diffFileNode + '.uvTilingMode', 3)
 				# create shading utility nodes
 				diffGammaNode = cmds.shadingNode('PxrGamma', asShader = True, name = materialName + '_diff_gamma')
 				# set node attributes
@@ -279,12 +321,14 @@ class ShaderScript(QWidget):
 				# connect attributes
 				cmds.connectAttr(UVNode + '.resultMulti', dispTriplanarNode + '.manifoldMulti' )
 				cmds.connectAttr(dispTriplanarNode + '.resultA', dispTransformNode + '.dispScalar')
-
 			else:
 				# create file read nodes
 				dispFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_disp_file')
 				# set texture Paths # TODO: check if file exists
 				cmds.setAttr(dispFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", displacementPath), type = "string")
+				# set to use udims if we're using udims
+				if isUDIM:
+					cmds.setAttr(dispFileNode + '.uvTilingMode', 3)
 				# set node attributes
 				cmds.setAttr(dispFileNode + '.colorSpace', "Raw", type = "string")
 				cmds.setAttr(dispFileNode + '.alphaIsLuminance', 1)
@@ -321,6 +365,9 @@ class ShaderScript(QWidget):
 				roughFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_rough_file')
 				# set texture Paths # TODO: check if file exists
 				cmds.setAttr(roughFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", roughnessPath), type = "string")
+				# set to use udims if we're using udims
+				if isUDIM:
+					cmds.setAttr(roughFileNode + '.uvTilingMode', 3)
 				# set node attributes
 				cmds.setAttr(roughFileNode + '.colorSpace', "Raw", type = "string")
 				cmds.setAttr(roughFileNode + '.alphaIsLuminance', 1)
@@ -358,6 +405,9 @@ class ShaderScript(QWidget):
 				specFileNode = cmds.shadingNode('file', asTexture = True, isColorManaged = True, name = materialName + '_spec_file')
 				# set texture Paths # TODO: check if file exists
 				cmds.setAttr(specFileNode + '.fileTextureName', os.path.join("$MAYA_ASSET_DIR", specularPath), type = "string")
+				# set to use udims if we're using udims
+				if isUDIM:
+					cmds.setAttr(specFileNode + '.uvTilingMode', 3)
 				# create shading utility nodes
 				specGammaNode = cmds.shadingNode('PxrGamma', asShader = True, name = materialName + 'spec_gamma')
 				# set node attributes
