@@ -274,12 +274,26 @@ class ReleaseLightingSceneMaya(QWidget):
 		# set a variable so all the textures load properly
 		mel.eval('rman setvar MAYA_ASSET_DIR "$MAYA_ASSET_DIR"')
 
+		animatedRenderableGeoList = []
+		staticRenderableGeoList = []
+		cmds.select("*_GEO")
+		for selected in cmds.ls(sl = 1):
+			if cmds.objExists(selected + ".JAY_Renderable"): # if it has the attribute
+				if cmds.getAttr(selected + ".JAY_Renderable") == True:
+					if cmds.objExists(selected + ".JAY_RenderMode"):
+						mode = cmds.getAttr(selected + ".JAY_Renderable") == True:
+						if mode == 0:
+							staticRenderableGeoList.append(selected)
+						elif mode == 1:
+							animatedRenderableGeoList.append(selected)
+			else:
+				print selected + " doesn't have the attribute... skipping..."
+
 		if(doAnimated):
 			# set renderman export args
 			rmanArgs = "rmanExportRIBCompression=1;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(end)+";rmanExportByFrame=1"
-			# select only the renderable geo
-			cmds.select("*:ANIMATED_RENDERABLE_GEO_SET")
-			animatedRenderableGeoList = cmds.ls(sl = 1)
+			# select animated renderable geo
+			cmds.select(animatedRenderableGeoList)
 			# export rib files
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_animated.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
 			print "renderman export finished"
@@ -303,13 +317,11 @@ class ReleaseLightingSceneMaya(QWidget):
 			# alembic export
 			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -stripNamespaces -dataFormat hdf -uvWrite" + scalpsString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_scalps.abc"
 
-
 		if(doStatic):
 			# set renderman export args
 			rmanArgs = "rmanExportRIBCompression=1;rmanExportFullPaths=0;rmanExportGlobalLights=1;rmanExportLocalLights=1;rmanExportCoordinateSystems=0;rmanExportShaders=1;rmanExportAttributeBlock=0;rmanExportMultipleFrames=1;rmanExportStartFrame="+str(start)+";rmanExportEndFrame="+str(start)+";rmanExportByFrame=1"
 			# select only the renderable geo
-			cmds.select("*:STATIC_RENDERABLE_GEO_SET")
-			staticRenderableGeoList = cmds.ls(sl = 1)
+			cmds.select(staticRenderableGeoList)
 			# export rib files
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_static.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
 			print "renderman export finished"

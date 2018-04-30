@@ -63,7 +63,7 @@ global proc shelf_Pipeline_Tools () {
         -style "iconOnly"
         -marginWidth 1
         -marginHeight 1
-        -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\n\ntry:\n    releaseLightingSceneApp\nexcept NameError:\n    releaseLightingSceneApp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\n    releaseLightingSceneApp.main()\n    print \"showing: \" + str(releaseLightingSceneApp)\nelse:\n    print \"showing: \" + str(releaseLightingSceneApp)\n    releaseLightingSceneApp.main()"
+        -command "from PipelineManagementTools import releaseLightingSceneMaya;\nreload(releaseLightingSceneMaya);\nreleaseLightingSceneApp = releaseLightingSceneMaya.ReleaseLightingSceneMaya();\nreleaseLightingSceneApp.main()"
         -sourceType "python"
         -commandRepeatable 1
         -flat 1
