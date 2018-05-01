@@ -123,6 +123,10 @@ def rebuildAssetSymlink(asset):
 		os.remove(master)
 
 	print "linking: " + master + " & " + target
+
+	if os.stat(os.path.join(assetDir, containingFolder, target)).st_size == 0:
+		print "WARNING, TARGET FILE IS EMPTY!!!!!!"
+
 	os.symlink(target, master)
 
 # def createReferenceLink(linkDir, asset):
