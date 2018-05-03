@@ -242,6 +242,9 @@ class ReleaseLightingSceneMaya(QWidget):
 		mel.eval('setProject \"' + sceneDir + '\"')
 		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
 
+		print "done"
+		return
+
 		# update the file paths for the cache nodes
 		if updateAnim:
 			cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
@@ -276,18 +279,18 @@ class ReleaseLightingSceneMaya(QWidget):
 
 		animatedRenderableGeoList = []
 		staticRenderableGeoList = []
-		cmds.select("*_GEO")
-		for selected in cmds.ls(sl = 1):
-			if cmds.objExists(selected + ".JAY_Renderable"): # if it has the attribute
-				if cmds.getAttr(selected + ".JAY_Renderable") == True:
-					if cmds.objExists(selected + ".JAY_RenderMode"):
-						mode = cmds.getAttr(selected + ".JAY_Renderable") == True:
-						if mode == 0:
-							staticRenderableGeoList.append(selected)
-						elif mode == 1:
-							animatedRenderableGeoList.append(selected)
+
+		for mesh in cmds.ls("*_GEO", r = True):
+			if cmds.objExists(mesh + ".JAY_Renderable"):
+				if cmds.getAttr(mesh + ".JAY_Renderable"):
+					if cmds.getAttr(mesh + ".JAY_RenderMode") == 0:
+						staticRenderableGeoList.append(mesh)
+					else:
+						animatedRenderableGeoList.append(mesh)
+				else:
+					print mesh + " not being rendered"
 			else:
-				print selected + " doesn't have the attribute... skipping..."
+				print mesh + " not being rendered (no attribute)"
 
 		if(doAnimated):
 			# set renderman export args
@@ -296,7 +299,7 @@ class ReleaseLightingSceneMaya(QWidget):
 			cmds.select(animatedRenderableGeoList)
 			# export rib files
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_animated.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
-			print "renderman export finished"
+			print "renderman animated export finished"
 			cmds.select("*:ANIMATED_PROXY_GEO_SET")
 			animatedProxyGeoList = cmds.ls(sl = 1)
 			renderablesString = ""
@@ -305,17 +308,18 @@ class ReleaseLightingSceneMaya(QWidget):
 				renderablesString += str(renderable)
 			# alembic export
 			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+			# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -root props_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
 			cmds.AbcExport(j = abcArgs)
 
-			# select scalp geo
-			cmds.select("*:SCALP_GEO_SET")
-			scalpGeoList = cmds.ls(sl = 1)
-			scalpsString = ""
-			for scalpGeo in list(set(scalpGeoList)):
-				scalpsString += " -root "
-				scalpsString += str(scalpGeo)
-			# alembic export
-			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -stripNamespaces -dataFormat hdf -uvWrite" + scalpsString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_scalps.abc"
+			# # select scalp geo
+			# cmds.select("*:SCALP_GEO_SET")
+			# scalpGeoList = cmds.ls(sl = 1)
+			# scalpsString = ""
+			# for scalpGeo in list(set(scalpGeoList)):
+			# 	scalpsString += " -root "
+			# 	scalpsString += str(scalpGeo)
+			# # alembic export
+			# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -stripNamespaces -dataFormat hdf -uvWrite" + scalpsString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_scalps.abc"
 
 		if(doStatic):
 			# set renderman export args
@@ -324,7 +328,7 @@ class ReleaseLightingSceneMaya(QWidget):
 			cmds.select(staticRenderableGeoList)
 			# export rib files
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_static.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
-			print "renderman export finished"
+			print "renderman static export finished"
 			# alembic export
 			abcArgs = "-frameRange " + str(start) + " " + str(start) + " -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
 			cmds.AbcExport(j = abcArgs)

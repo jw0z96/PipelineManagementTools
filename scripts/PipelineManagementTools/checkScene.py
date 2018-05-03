@@ -44,3 +44,11 @@ print '====================================='
 for x in notAttributeGeo:
 	print x
 print '====================================='
+print ''
+print '====================================='
+print '           BADLY NAMED GEO           '
+print '====================================='
+for x in cmds.listRelatives(cmds.ls(type = "mesh"), p=True, path=True):
+	if not x.endswith("_GEO"):
+		print x
+print '====================================='
