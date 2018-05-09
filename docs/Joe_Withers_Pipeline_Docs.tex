@@ -7,7 +7,10 @@
 
 \maketitle
 
-\section{Pipeline}
+\tableofcontents
+\newpage
+
+\section{Pipeline Management}
 
 \subsection{Goals}
 
@@ -53,7 +56,9 @@ Due to being it peer-to-peer service, we often found that directories would fail
 
 We also noticed a strange problem with Resilio Sync, in which the contents of files would be reduced to 0 bytes. Fortunately the data is usually not lost as it is sent to the 'Archive', which functions as a temporary recycle bin, though restoring these files manually each time it happened proved to become quite tedious. I decided to write a simple bash script to check through the working directory to identify any files with a size of 0 bytes, and to check if a matching file was present in the Archive. However, this wasn't particularly effective as often they would be missing from both the main working directory and the Archive, meaning I would have to search through backups to find the file to restore, which at times felt a bit like baby-sitting.
 
-\section{Character Rigs}
+\section{Character Rigging}
+
+\subsection{Requirements}
 
 Prior to working on the character rigs, it was important to outline features that would be required to achieve an appealing animation. This ranged from features that would allow the animator (Yves Bedenikovic) to work with them more efficiently, to features that would improve the overall aesthetic of the animation such as cloth and hair simulation. The following features were found to be of highest importance:
 
@@ -69,11 +74,25 @@ Prior to working on the character rigs, it was important to outline features tha
 
 \end{itemize}
 
+\subsection{Solution}
+
 With these features in mind, I decided to use an automated rigging system to speed up the creation of the character rigs. This allowed me to focus primarily on the features listed above, and let a tool automate the creation of the basic bipedal rig.
 
 I first looked at Kraken\cite{kraken}, a rigging system included within Fabric Engine. This appealed to me as it was easily extensible through it's scripting language, which I thought I would find intuitive given that I had produced a basic automated rigging system for the specialism assignment in second year. Unfortunately, Fabric software went bankrupt at the beginning of the academic year so we were unable to get it working on the university computers.
 
 I then found Advanced Skeleton 5\cite{advancedSkeleton}, an extensive rigging tool for Autodesk Maya, which I found to be extremely capable and was more than adequate for my needs.
+
+\section{Groom}
+
+Xgen stuff
+
+\subsection{Pipeline}
+\subsection{Results}
+
+\section{Rendering}
+\subsection{Tools}
+
+\section{Compositing}
 
 \bibliographystyle{plain}
 \bibliography{references}
