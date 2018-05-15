@@ -1,7 +1,7 @@
 PWD /home/jw0z/dev/PipelineManagementTools/docs
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /usr/share/texlive/texmf-var/web2c/xetex/xelatex.fmt
 INPUT Joe_Withers_Pipeline_Docs.tex
 OUTPUT Joe_Withers_Pipeline_Docs.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -31,16 +31,10 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 OUTPUT Joe_Withers_Pipeline_Docs.toc
-OUTPUT Joe_Withers_Pipeline_Docs.pdf
-INPUT /usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map
+OUTPUT Joe_Withers_Pipeline_Docs.xdv
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT Joe_Withers_Pipeline_Docs.bbl
 INPUT Joe_Withers_Pipeline_Docs.bbl
 INPUT Joe_Withers_Pipeline_Docs.aux
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
-INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb

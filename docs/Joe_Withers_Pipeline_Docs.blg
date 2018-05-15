@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Joe_Withers_Pipeline_Docs.aux
 The style file: plain.bst
 Database file #1: references.bib
-You've used 2 entries,
+You've used 4 entries,
             2118 wiz_defined-function locations,
-            507 strings with 4170 characters,
-and the built_in function-call counts, 432 in all, are:
-= -- 38
-> -- 14
+            517 strings with 4416 characters,
+and the built_in function-call counts, 835 in all, are:
+= -- 74
+> -- 28
 < -- 0
-+ -- 6
-- -- 4
-* -- 14
-:= -- 77
-add.period$ -- 6
-call.type$ -- 2
-change.case$ -- 8
++ -- 12
+- -- 8
+* -- 26
+:= -- 143
+add.period$ -- 11
+call.type$ -- 4
+change.case$ -- 16
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 14
-empty$ -- 45
-format.name$ -- 4
-if$ -- 91
+cite$ -- 4
+duplicate$ -- 28
+empty$ -- 89
+format.name$ -- 8
+if$ -- 179
 int.to.chr$ -- 0
-int.to.str$ -- 2
+int.to.str$ -- 4
 missing$ -- 0
-newline$ -- 13
-num.names$ -- 4
-pop$ -- 18
+newline$ -- 22
+num.names$ -- 8
+pop$ -- 36
 preamble$ -- 1
-purify$ -- 6
+purify$ -- 12
 quote$ -- 0
-skip$ -- 14
+skip$ -- 29
 stack$ -- 0
-substring$ -- 10
-swap$ -- 2
+substring$ -- 20
+swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 8
+type$ -- 16
 warning$ -- 0
-while$ -- 4
-width$ -- 3
-write$ -- 22
+while$ -- 8
+width$ -- 5
+write$ -- 40

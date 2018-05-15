@@ -12,7 +12,7 @@
 
 \section{Pipeline Management}
 
-\subsection{Goals}
+\subsection{Requirements}
 
 \begin{itemize}
 
@@ -20,16 +20,15 @@
 
 \item Provide artists with a tool that manages assets, allowing them to update, reference,
 
+\item Provide artists with a simple method for releasing new versions of assets.
 
-% \item Provide artists with a simple method for releasing new versions of assets.
+\item Provide artists with a simple method for gathering assets, so that they can be referenced into a scene.
 
-% \item Provide artists with a simple method for gathering assets, so that they can be referenced into a scene.
+\item Manage versioning of assets, accompanied by information regarding each versions release date, author, and  description.
 
-% \item Manage versioning of assets, accompanied by information regarding each versions release date, author, and  description.
+\item Automatically update references to assets whenever an asset or one of it's depenencies has been updated.
 
-% \item Automatically update references to assets whenever an asset or one of it's depenencies has been updated.
-
-\item Provide an automated method for caching the entire scene, with the aim of 'flattening' the project to make it easier to transfer to other machines for rendering.
+\item Provide an automated method for caching the entire scene, with the aim of 'packaging' the project to make it suitable for rendering on different machines.
 
 \end{itemize}
 
@@ -43,11 +42,11 @@ Prior to developing the pipeline and associated tools, it was important to addre
 
 \item Lack of storage per user. The approximate storage limit per user is 50gb, which would quickly be hit in a complex production environment. It is therefore imperative that we are concious of the data that we keep hold of.
 
-\item Lack of storage space on the renderfarm. The approximate storage limit on the renderfarm is 10gb, meaning that all of the data required to render a scene or shot must fit well within this limit, as rendered frames are written to the same location.
+\item Lack of storage space on the renderfarm. The approximate storage limit on the renderfarm is 30gb, meaning that all of the data required to render a scene or shot must fit well within this limit, as rendered frames are written to the same location.
 
 \end{itemize}
 
-\subsection{Solution}
+\subsection{Storage}
 
 For file storage we chose to use Resilio Sync, a peer-to-peer file synchronization service
 to store all of our working files. This ensured that each team member has their own local copy of the entire working directory, which is beneficial when creating backups. We chose Resilio Sync primarily because it is a free service that is compatible with the university computer network, however it does present us with some problems.
@@ -55,6 +54,10 @@ to store all of our working files. This ensured that each team member has their 
 Due to being it peer-to-peer service, we often found that directories would fail to synchronize properly if not syncronized frequently with the other peers. This would not be a problem in a cloud hosted service as the directory state of the working directory would be reliably centralized, reducing the possibility of files becoming desynchronized, however these services are typically expensive and it was difficult to predict our exact storage requirements.
 
 We also noticed a strange problem with Resilio Sync, in which the contents of files would be reduced to 0 bytes. Fortunately the data is usually not lost as it is sent to the 'Archive', which functions as a temporary recycle bin, though restoring these files manually each time it happened proved to become quite tedious. I decided to write a simple bash script to check through the working directory to identify any files with a size of 0 bytes, and to check if a matching file was present in the Archive. However, this wasn't particularly effective as often they would be missing from both the main working directory and the Archive, meaning I would have to search through backups to find the file to restore, which at times felt a bit like baby-sitting.
+
+\subsection{Asset Management}
+
+\subsection{Asset Pipeline}
 
 \section{Character Rigging}
 
@@ -87,10 +90,17 @@ I then found Advanced Skeleton 5\cite{advancedSkeleton}, an extensive rigging to
 Xgen stuff
 
 \subsection{Pipeline}
+
 \subsection{Results}
 
 \section{Rendering}
-\subsection{Tools}
+
+\subsection{Optimisation}
+
+\subsection{Distributed Rendering Tools}
+
+\cite{pssh}
+\cite{martin_2008}
 
 \section{Compositing}
 

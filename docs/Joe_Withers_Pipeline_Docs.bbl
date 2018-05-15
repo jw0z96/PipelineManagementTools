@@ -1,13 +1,22 @@
 \begin{thebibliography}{1}
 
+\bibitem{martin_2008}
+Ben Martin.
+\newblock Parallel ssh execution and a single shell to control them all, 2008.
+
 \bibitem{kraken}
 Fabric Software.
 \newblock Kraken - rigging framework, 2015.
-\newblock 23 December 2017.
+\newblock Accessed 23 December 2017.
 
 \bibitem{advancedSkeleton}
 Animation Studios.
 \newblock Advanced skeleton, 2016.
-\newblock 23 December 2017.
+\newblock Accessed 23 December 2017.
+
+\bibitem{pssh}
+www.parallel ssh.org.
+\newblock Parallelssh - asynchronous parallel ssh client library., 2014.
+\newblock Accessed 8 October 2017.
 
 \end{thebibliography}
