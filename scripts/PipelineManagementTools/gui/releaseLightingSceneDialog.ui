@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>416</height>
+    <width>418</width>
+    <height>257</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -44,221 +44,93 @@
       </widget>
      </item>
      <item>
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="newSceneTab">
-        <attribute name="title">
-         <string>Export into new lighting scene</string>
-        </attribute>
-        <widget class="QWidget" name="formLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>9</x>
-           <y>9</y>
-           <width>441</width>
-           <height>291</height>
-          </rect>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="selectedSceneDirectoryLabel">
+         <property name="text">
+          <string>Directory</string>
          </property>
-         <layout class="QFormLayout" name="formLayout">
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="newSceneNameLineEdit"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="newSceneNameLabel">
-            <property name="text">
-             <string>New Scene Name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="cacheNameLabel_1">
-            <property name="text">
-             <string>Cache Name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="cacheNameLineEdit_1"/>
-          </item>
-          <item row="6" column="1">
-           <widget class="QPushButton" name="newScenePushButton">
-            <property name="text">
-             <string>Go!</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="startFrameSpinBox_1">
-            <property name="minimum">
-             <number>-10000</number>
-            </property>
-            <property name="maximum">
-             <number>10000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="endFrameSpinBox_1">
-            <property name="minimum">
-             <number>-10000</number>
-            </property>
-            <property name="maximum">
-             <number>10000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="startFrameLabel_1">
-            <property name="text">
-             <string>Start Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="endFrameLabel_1">
-            <property name="text">
-             <string>End Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QCheckBox" name="exportAnimatedCheckBox">
-            <property name="text">
-             <string>Animated</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QCheckBox" name="exportStaticCheckBox">
-            <property name="text">
-             <string>Static</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
-       </widget>
-       <widget class="QWidget" name="updateSceneTab">
-        <attribute name="title">
-         <string>Update existing lighting scene</string>
-        </attribute>
-        <widget class="QWidget" name="formLayoutWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>9</x>
-           <y>9</y>
-           <width>441</width>
-           <height>291</height>
-          </rect>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="selectedSceneDirectoryTextLabel">
+         <property name="text">
+          <string/>
          </property>
-         <layout class="QFormLayout" name="formLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="selectedSceneLabel">
-            <property name="text">
-             <string>Scene</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QListWidget" name="selectedSceneNameListWidget"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="cacheNameLabel_2">
-            <property name="text">
-             <string>Cache Name</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="cacheNameLineEdit_2"/>
-          </item>
-          <item row="7" column="1">
-           <widget class="QPushButton" name="updateScenePushButton">
-            <property name="text">
-             <string>Go!</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="selectedSceneDirectoryTextLabel">
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="selectedSceneDirectoryLabel">
-            <property name="text">
-             <string>Directory</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QSpinBox" name="startFrameSpinBox_2">
-            <property name="minimum">
-             <number>-10000</number>
-            </property>
-            <property name="maximum">
-             <number>10000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="startFrameLabel_2">
-            <property name="text">
-             <string>Start Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QSpinBox" name="endFrameSpinBox_2">
-            <property name="minimum">
-             <number>-10000</number>
-            </property>
-            <property name="maximum">
-             <number>10000</number>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="endFrameLabel_2">
-            <property name="text">
-             <string>End Frame</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QCheckBox" name="updateStaticCheckBox">
-            <property name="text">
-             <string>Static</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QCheckBox" name="updateAnimatedCheckBox">
-            <property name="text">
-             <string>Animated</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
-       </widget>
-      </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="cacheNameLabel">
+         <property name="text">
+          <string>Cache Name</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="cacheNameLineEdit"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="startFrameLabel">
+         <property name="text">
+          <string>Start Frame</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="startFrameSpinBox">
+         <property name="minimum">
+          <number>-10000</number>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="endFrameLabel">
+         <property name="text">
+          <string>End Frame</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QSpinBox" name="endFrameSpinBox">
+         <property name="minimum">
+          <number>-10000</number>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="updateAnimatedCheckBox">
+         <property name="text">
+          <string>Animated</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QCheckBox" name="updateStaticCheckBox">
+         <property name="text">
+          <string>Static</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QPushButton" name="updateScenePushButton">
+         <property name="text">
+          <string>Go!</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

@@ -36,7 +36,6 @@ class ReleaseLightingSceneMaya(QWidget):
 		self.setWindowFlags(Qt.Window)
 		self.getCurrentSceneInfo()
 		self.initUI()
-		self.selectedAsset = None
 
 	def getCurrentSceneInfo(self):
 		# current project directory
@@ -55,45 +54,20 @@ class ReleaseLightingSceneMaya(QWidget):
 		file.close()
 
 		# autofill fields
-		self.ui.cacheNameLineEdit_1.setText(self.currentFileNameOnly.replace('.', '_')+'_cache')
-		self.ui.cacheNameLineEdit_2.setText(self.currentFileNameOnly.replace('.', '_')+'_cache')
+		self.ui.cacheNameLineEdit.setText(self.currentFileNameOnly.replace('.', '_')+'_cache')
+		self.ui.selectedSceneDirectoryTextLabel.setText(self.currentProjectDir)
 
 		# set regex for cache name
 		cacheNameRegex = QRegExp("[A-Za-z0-9_]+")
-		cacheNameValidator = QRegExpValidator(cacheNameRegex, self.ui.cacheNameLineEdit_1)
-		self.ui.cacheNameLineEdit_1.setValidator(cacheNameValidator)
-		cacheNameValidator = QRegExpValidator(cacheNameRegex, self.ui.cacheNameLineEdit_2)
-		self.ui.cacheNameLineEdit_2.setValidator(cacheNameValidator)
-
-		# set regex for scene name
-		sceneNameRegex = QRegExp("[A-Za-z0-9_]+")
-		sceneNameValidator = QRegExpValidator(sceneNameRegex, self.ui.newSceneNameLineEdit)
-		self.ui.newSceneNameLineEdit.setValidator(sceneNameValidator)
-
-		# connect callback for new lighting scene creation
-		self.ui.newScenePushButton.clicked.connect(self.newLightingSceneCallback)
-
-		# clear the asset list widget
-		self.ui.selectedSceneNameListWidget.clear()
-		# populate asset list widget
-		self.assetList = []
-		for dirpath, subdirs, files in os.walk(os.path.join(assetDir, 'lighting')):
-			for x in files:
-				if x.endswith(".asset"):
-					self.ui.selectedSceneNameListWidget.addItem(x)
-					self.assetList.append(os.path.relpath(
-						os.path.join(dirpath, x), assetDir))
-		# connect callback for lighting scene selection
-		self.ui.selectedSceneNameListWidget.itemClicked.connect(self.lightingAssetChanged)
+		cacheNameValidator = QRegExpValidator(cacheNameRegex, self.ui.cacheNameLineEdit)
+		self.ui.cacheNameLineEdit.setValidator(cacheNameValidator)
 
 		# connect callback for updating lighting scene with new caches
 		self.ui.updateScenePushButton.clicked.connect(self.updateLightingSceneCallback)
 
 		# get the start frame and end frame from the render settings
-		self.ui.startFrameSpinBox_1.setValue(cmds.getAttr('defaultRenderGlobals.startFrame'))
-		self.ui.startFrameSpinBox_2.setValue(cmds.getAttr('defaultRenderGlobals.startFrame'))
-		self.ui.endFrameSpinBox_1.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
-		self.ui.endFrameSpinBox_2.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
+		self.ui.startFrameSpinBox.setValue(cmds.getAttr('defaultRenderGlobals.startFrame'))
+		self.ui.endFrameSpinBox.setValue(cmds.getAttr('defaultRenderGlobals.endFrame'))
 
 	def main(self):
 		self.close()
@@ -103,110 +77,11 @@ class ReleaseLightingSceneMaya(QWidget):
 		if not os.path.exists(directory):
 			os.makedirs(directory)
 
-	# UI CALLBACKS
-
-	def lightingAssetChanged(self):
-		# new lighting asset selected
-		self.selectedAsset = self.assetList[self.ui.selectedSceneNameListWidget.currentRow()]
-		self.ui.selectedSceneDirectoryTextLabel.setText(self.selectedAsset)
-
-	def newLightingSceneCallback(self):
-		cacheName = self.ui.cacheNameLineEdit_1.text()
-		newSceneName = self.ui.newSceneNameLineEdit.text()
-
-		exportAnim = self.ui.exportAnimatedCheckBox.isChecked()
-		exportStatic = self.ui.exportStaticCheckBox.isChecked()
-
-		# scene name checks
-		if newSceneName == '':
-			QMessageBox.critical(self,
-				"Error",
-				"No scene name given!")
-			return
-		# proposed scene directory
-		proposedSceneDir = os.path.join(assetDir, 'lighting', newSceneName)
-		if os.path.isdir(proposedSceneDir):
-			QMessageBox.critical(self,
-				"Error",
-				"Asset folder already exists! " + proposedSceneDir)
-			return
-
-		if os.path.isdir(os.path.join(self.currentProjectDir, 'renderman')):
-			msgBox1 = QMessageBox()
-			msgBox1.setText("renderman export folder already exists in this project, which may not be empty... " + os.path.join(self.currentProjectDir, 'renderman'))
-			msgBox1.setInformativeText("continue?")
-			msgBox1.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-			msgBox1.setDefaultButton(QMessageBox.Ok)
-			ret = msgBox1.exec_()
-			if ret != QMessageBox.Ok:
-				return
-
-		msgBox = QMessageBox()
-		msgBox.setText("Asset will be created in: " + proposedSceneDir)
-		msgBox.setInformativeText("gucci?")
-		msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-		msgBox.setDefaultButton(QMessageBox.Ok)
-
-		ret = msgBox.exec_()
-
-		if ret != QMessageBox.Ok:
-			return
-
-		# we reload the file, in case the project was set after file load
-		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
-
-		print "creating caches..."
-		self.createCaches(cacheName, self.ui.startFrameSpinBox_1.value(), self.ui.endFrameSpinBox_1.value(), exportAnim, exportStatic)
-
-		print "All ok, creating project directories"
-		os.system('cp -r '+os.path.join(assetDir,'lighting/templateScene')+' '+proposedSceneDir)
-		renameArg = 'mv '+os.path.join(assetDir, proposedSceneDir, 'scenes/templateScene.ma')+' '+os.path.join(assetDir, proposedSceneDir, 'scenes', newSceneName)+'.0001.ma'
-		os.system(renameArg)
-
-		print "copying caches into directory..."
-		os.system("cp -r "+os.path.join(self.currentProjectDir,'renderman')+' '+proposedSceneDir+'/')
-
-		# TODO: delete the original renderman folder
-
-		# open new file
-		cmds.file(os.path.join(assetDir, proposedSceneDir, 'scenes', newSceneName)+'.0001.ma', open = True, force = True)
-		# set new project directory
-		print "SETTING PROJECT DIRECTORY..."
-		mel.eval('setProject \"' + proposedSceneDir + '\"')
-		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
-
-		# update the file paths for the cache nodes
-		if exportAnim:
-			cmds.setAttr('ANIM_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_animated.abc', type="string")
-			cmds.setAttr('ANIM_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_animated.$F4.rib', type="string")
-		if exportStatic:
-			cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
-			cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
-
-		# save the file, makes it easier to query :^)
-		cmds.file(save=True, type='mayaAscii')
-
-		# TODO: this is ugly, also if a user creates a new asset it's in the same directory as the first target
-		assetUtils.createAssetFile(newSceneName, '.ma',
-			cmds.file(q=1, sn=1),
-			os.path.join(assetDir, proposedSceneDir, 'master.' + newSceneName + '.ma'),
-			os.path.join(assetDir, proposedSceneDir, newSceneName + '.asset'),
-			"initial automated release of this scene"
-			)
-
-		print "done!"
-		self.close()
-
 	def updateLightingSceneCallback(self):
-		if not self.selectedAsset:
-			QMessageBox.critical(self,
-				"Error",
-				"No lighting asset selected!")
-			return
 
-		cacheName = self.ui.cacheNameLineEdit_2.text()
-		fullAssetPath = os.path.join(assetDir, self.selectedAsset)
-		sceneDir = os.path.dirname(fullAssetPath)
+		cacheName = self.ui.cacheNameLineEdit.text()
+		fullAssetPath = os.path.join(self.currentProjectDir, self.currentFileName)
+		sceneDir = self.currentProjectDir
 
 		updateAnim = self.ui.updateAnimatedCheckBox.isChecked()
 		updateStatic = self.ui.updateStaticCheckBox.isChecked()
@@ -226,24 +101,7 @@ class ReleaseLightingSceneMaya(QWidget):
 		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		# print "creating caches..."
-		self.createCaches(cacheName, self.ui.startFrameSpinBox_2.value(), self.ui.endFrameSpinBox_2.value(), updateAnim, updateStatic)
-
-		print "All ok, transferring caches to: " + sceneDir
-		os.system('cp -r ' + os.path.join(self.currentProjectDir, 'renderman') + ' ' + sceneDir)
-
-		# TODO: delete the original renderman folder
-
-		# LOAD THE LIGHTING SCENE
-		assetDict = assetUtils.loadAssetFile(self.selectedAsset)
-		cmds.file(os.path.join(sceneDir, assetDict['versions'][assetDict['currentVersion']]['target']), open = True, force = True)
-
-		# set new project directory
-		print "SETTING PROJECT DIRECTORY..."
-		mel.eval('setProject \"' + sceneDir + '\"')
-		print "PROJECT SET TO: " + cmds.workspace(q=True, rd=True)
-
-		print "done"
-		return
+		self.createCaches(cacheName, self.ui.startFrameSpinBox.value(), self.ui.endFrameSpinBox.value(), updateAnim, updateStatic)
 
 		# update the file paths for the cache nodes
 		if updateAnim:
@@ -252,17 +110,6 @@ class ReleaseLightingSceneMaya(QWidget):
 		if updateStatic:
 			cmds.setAttr('STATIC_GPU_CACHEShape.cacheFileName', 'renderman/'+cacheName+'/'+cacheName+'_static.abc', type="string")
 			cmds.setAttr('STATIC_RIB_ARCHIVEShape.filename', 'renderman/'+cacheName+'/'+cacheName+'_static.rib', type="string")
-
-		# increment and save scene
-		mel.eval('incrementAndSaveScene 0;')
-
-		# TODO: this is ugly, also if a user creates a new asset it's in the same directory as the first target
-		assetUtils.updateAssetFile(self.selectedAsset,
-			os.path.relpath(cmds.file(q=1, sn=1), sceneDir),
-			"updated with cache: " + cacheName
-			)
-
-		# set time slider
 
 		print "done!"
 		self.close()
