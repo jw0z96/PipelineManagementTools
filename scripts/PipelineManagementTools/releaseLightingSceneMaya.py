@@ -98,7 +98,7 @@ class ReleaseLightingSceneMaya(QWidget):
 			return
 
 		# we reload the file, in case the project was set after file load
-		cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
+		# cmds.file(cmds.file(q=1, sn=1), o=1, f=1)
 
 		# print "creating caches..."
 		self.createCaches(cacheName, self.ui.startFrameSpinBox.value(), self.ui.endFrameSpinBox.value(), updateAnim, updateStatic)
@@ -147,14 +147,14 @@ class ReleaseLightingSceneMaya(QWidget):
 			# export rib files
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_animated.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
 			print "renderman animated export finished"
-			cmds.select("*:ANIMATED_PROXY_GEO_SET")
+			cmds.select("*::ANIMATED_PROXY_GEO_SET")
 			animatedProxyGeoList = cmds.ls(sl = 1)
 			renderablesString = ""
 			for renderable in list(set(animatedProxyGeoList)):
 				renderablesString += " -root "
 				renderablesString += str(renderable)
 			# alembic export
-			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
+			abcArgs = "-frameRange " + str(start) + " " + str(end) + " -stripNamespaces -writeVisibility -dataFormat hdf -uvWrite" + renderablesString + " -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
 			# abcArgs = "-frameRange " + str(start) + " " + str(end) + " -writeVisibility -dataFormat hdf -uvWrite -root chars_GRP -root props_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_animated.abc"
 			cmds.AbcExport(j = abcArgs)
 
@@ -177,7 +177,8 @@ class ReleaseLightingSceneMaya(QWidget):
 			cmds.file(os.path.join(assetDir, exportDirectory, cacheName+"_static.rib"), f=True, op=rmanArgs, type="RIB_Archive", pr=True, es=True)
 			print "renderman static export finished"
 			# alembic export
-			abcArgs = "-frameRange " + str(start) + " " + str(start) + " -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
+			assetsGrp = cmds.ls("*assets_GRP")
+			abcArgs = "-frameRange " + str(start) + " " + str(start) + " -stripNamespaces -writeVisibility -dataFormat hdf -uvWrite -root assets_GRP -file " + os.path.join(assetDir, exportDirectory, cacheName)+"_static.abc"
 			cmds.AbcExport(j = abcArgs)
 
 		# gammy workaround, use rib compile to generate the textures

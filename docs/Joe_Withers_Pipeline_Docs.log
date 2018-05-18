@@ -1,15 +1,16 @@
-This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.5.19)  15 MAY 2018 15:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2016.5.26)  18 MAY 2018 15:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Joe_Withers_Pipeline_Docs.tex
 (./Joe_Withers_Pipeline_Docs.tex
-LaTeX2e <2016/03/31>
-Babel <3.9r> and hyphenation patterns for 3 language(s) loaded.
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
-File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -53,23 +54,34 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
  [1
 
-]
+{/usr/share/texlive/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 19.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
  [2] [3] [4]
 (./Joe_Withers_Pipeline_Docs.bbl) [5] (./Joe_Withers_Pipeline_Docs.aux) ) 
 Here is how much of TeX's memory you used:
- 260 strings out of 495561
- 3086 string characters out of 6186972
- 50562 words of memory out of 5000000
- 3607 multiletter control sequences out of 15000+600000
- 9118 words of font info for 32 fonts, out of 8000000 for 9000
+ 262 strings out of 495063
+ 3180 string characters out of 3182201
+ 50048 words of memory out of 3000000
+ 3511 multiletter control sequences out of 15000+200000
+ 9118 words of font info for 32 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 22i,6n,19p,788b,187s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 22i,6n,19p,788b,187s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on Joe_Withers_Pipeline_Docs.pdf (5 pages, 74234 bytes).
+PDF statistics:
+ 40 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Output written on Joe_Withers_Pipeline_Docs.xdv (5 pages, 13428 bytes).

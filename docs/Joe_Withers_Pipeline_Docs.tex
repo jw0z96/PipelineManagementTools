@@ -63,17 +63,15 @@ We also noticed a strange problem with Resilio Sync, in which the contents of fi
 
 \subsection{Requirements}
 
-Prior to working on the character rigs, it was important to outline features that would be required to achieve an appealing animation. This ranged from features that would allow the animator (Yves Bedenikovic) to work with them more efficiently, to features that would improve the overall aesthetic of the animation such as cloth and hair simulation. The following features were found to be of highest importance:
+For this project I was responsible for the rigging of both characters, as well as the rigging of any props that the characters interact with. Prior to working on the character rigs, it was important to outline features that would be required to achieve an appealing animation. This ranged from features that would allow the animator (Yves Bedenikovic) to work with them more efficiently, to features that would improve the overall aesthetic of the animation such as cloth and hair simulation. The following features were found to be of highest importance:
 
 \begin{itemize}
 
 \item Controls should be familiar to the animator to allow them to work intuitively with the rig. This can be achieved by using previous rigs that the animator has used as reference when setting up controllers.
 
-\item Rigs should be capable of achieving the desired facial expressions and poses as dictated by the story. To achieve this, skinning needs to be as accurate as possible, and corrective blendshapes need to be implemented where necessary.
+\item Rigs should be capable of achieving the desired facial expressions and poses as dictated by the story.
 
-\item Rigs should include the necessary geometry and nodes to allow for cloth simulation to be applied to clothes. To achieve this, proxy geometry needs to be created which will serve as a 'driver' for the higher resolution clothing geometry.
-
-\item Rigs should include the necessary curves to not only allow the animator to manipulate the groom, but also to allow dynamic hair simulation to be applied.
+\item Rigs should include the necessary geometry and nodes to allow for cloth simulation to be applied to clothes.
 
 \end{itemize}
 
@@ -98,6 +96,8 @@ Xgen stuff
 \subsection{Optimisation}
 
 \subsection{Distributed Rendering Tools}
+
+Due to inconsistencies with the renderfarm, our only other immediate option was to
 
 \cite{pssh}
 \cite{martin_2008}
