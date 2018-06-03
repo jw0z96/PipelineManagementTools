@@ -4,6 +4,11 @@
 Ben Martin.
 \newblock Parallel ssh execution and a single shell to control them all, 2008.
 
+\bibitem{muller_2015}
+Stefan Muller.
+\newblock Firefly removal, Feb 2015.
+\newblock Accessed 16 May 2018.
+
 \bibitem{kraken}
 Fabric Software.
 \newblock Kraken - rigging framework, 2015.
