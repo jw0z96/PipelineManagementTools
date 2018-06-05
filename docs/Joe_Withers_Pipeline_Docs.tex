@@ -73,6 +73,11 @@ We also noticed a strange problem with Resilio Sync, in which the contents of fi
 
 \subsection{Asset Pipeline}
 
+\begin{figure}[htbp]\centering
+	\includegraphics[width=1.0\linewidth]{images/pipeline.png}
+	\caption{\label{figure:pipelineFlow} A Flowchart describing the asset pipeline, colours indicating the responsibilities of each group member.}
+\end{figure}
+
 \section{Character Rigging}
 
 \subsection{Requirements}
@@ -103,22 +108,25 @@ Xgen stuff
 
 \subsection{Pipeline}
 
+
 \subsection{Results}
 
 \section{Rendering}
 
 \subsection{Optimisation}
 
+Due to storage limits imposed by the renderfarm, it was necessary to cache the scene geometry to remove the need for large assets to be stored as part of the project. Whilst it would have been possible to use the Alembic file format for this, I opted to use RenderMan's RIB archive format, as it is capable of storing shading networks and render attributes in addition to scene geometry. One downside of this approach is that shaders cannot easily be changed after the cache has been made, however it eliminates the need for reassignment of shaders, which would be necessary in a comparable Alembic caching workflow.
+
 \subsection{Distributed Rendering Tools}
 
-Due to inconsistencies with the renderfarm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allows me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
+% Due to inconsistencies with the renderfarm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allows me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
 
-> downsides
-	> slow network throughput
-	> unreliable (people turn pc off)
+% > downsides
+% 	> slow network throughput
+% 	> unreliable (people turn pc off)
 
-> upsides
-	> hella fast
+% > upsides
+% 	> hella fast
 
 \cite{pssh}
 \cite{martin_2008}
