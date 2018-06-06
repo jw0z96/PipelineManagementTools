@@ -144,7 +144,7 @@ In addition to being responsible for rendering, I took responsibility for compos
 
 \item Removing Fireflies or any high variance visual noise from the individual passes, either through use of Nuke's denoiser or a third party 'Firefly Killer' gizmo found online \cite{muller_2015}.
 
-\item Setting the display colour space as ACES Filmic, and setting up a node to bake the colour space prior to writing.
+\item Setting the view transform as ACES Filmic, and setting up a node to bake the colour space prior to writing.
 
 \item Adding depth of field to shots where depth of field wasn't calculated in RenderMan.
 
@@ -156,6 +156,8 @@ As these tasks were common to all shots, I created a template Nuke script which 
 	\includegraphics[width=1.0\linewidth]{images/compTemplate.png}
 	\caption{\label{figure:compTemplate} The template Nuke script which was used as the basis for all shots.}
 \end{figure}
+
+As mentioned above, it was necessary to choose a view transform as RenderMan outputs images in linear colour space. The default option for this would be sRGB, however we opted to use ACES Filmic as it provides a very wide dynamic range, and avoids oversaturation of highlights on skin tones. Figure~\ref{figure:filmic} illustrates the difference between sRGB and Filmic, using one of our renders.
 
 For the opening shot, a more complex Nuke script was necessary as we needed to integrate FX elements, all of which were rendered seperately. We also chose to render the foreground and background seperately so that we could make adjustments to them independently.
 \begin{figure}[htbp]\centering
