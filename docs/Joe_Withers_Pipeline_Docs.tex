@@ -78,6 +78,8 @@ We also noticed a strange problem with Resilio Sync, in which the contents of fi
 	\caption{\label{figure:pipelineFlow} A Flowchart describing the asset pipeline, colours indicating the responsibilities of each group member.}
 \end{figure}
 
+\subsection{Production Management}
+
 \section{Character Rigging}
 
 \subsection{Requirements}
@@ -158,6 +160,14 @@ As these tasks were common to all shots, I created a template Nuke script which 
 \end{figure}
 
 As mentioned above, it was necessary to choose a view transform as RenderMan outputs images in linear colour space. The default option for this would be sRGB, however we opted to use ACES Filmic as it provides a very wide dynamic range, and avoids oversaturation of highlights on skin tones. Figure~\ref{figure:filmic} illustrates the difference between sRGB and Filmic, using one of our renders.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.45\linewidth]{images/srgb_nellie.png}
+\hfill
+\includegraphics[width=0.45\linewidth]{images/filmic_nellie.png}
+\caption{\label{figure:filmic} Comparison between sRGB viewing transform (Left) and Filmic 'Medium High Contrast' (Right). Note how skin highlights become oversaturated in the sRGB viewing transform, giving a 'sunburned' look.}
+\end{figure}
 
 For the opening shot, a more complex Nuke script was necessary as we needed to integrate FX elements, all of which were rendered seperately. We also chose to render the foreground and background seperately so that we could make adjustments to them independently.
 \begin{figure}[htbp]\centering

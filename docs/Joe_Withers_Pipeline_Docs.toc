@@ -5,6 +5,7 @@
 \contentsline {subsection}{\numberline {2.3}Storage}{3}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Asset Management}{4}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Asset Pipeline}{4}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Production Management}{4}{subsection.2.6}
 \contentsline {section}{\numberline {3}Character Rigging}{4}{section.3}
 \contentsline {subsection}{\numberline {3.1}Requirements}{4}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Solution}{5}{subsection.3.2}
