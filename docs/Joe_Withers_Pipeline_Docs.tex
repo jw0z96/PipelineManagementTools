@@ -122,16 +122,19 @@ Due to storage limits imposed by the renderfarm, it was necessary to cache the s
 
 \subsection{Distributed Rendering Tools}
 
-% Due to inconsistencies with the renderfarm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allows me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
+Due to inconsistent availability of the renderfarm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allows me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
 
-% > downsides
-% 	> slow network throughput
-% 	> unreliable (people turn pc off)
+I was able to write a short Python script which used the \texttt{ping} command to check which of the computers on the university network were online and running linux, relying on the hostname naming convention using the name of the room in which the computer is located. Upon connecting to a computer, I could then check whether another user is logged into the computer by capturing the output of the \texttt{who} command, so that I could render without impacting another user's session. In situations where a computer was found to be logged in by another user, I could check the current CPU and memory usage by capturing the output of the commands in Listing~\ref{lst:cpumem}.
 
+As linux does not natively support issuing commands in parallel to multiple hosts over SSH, I made use of the \texttt{parallel-ssh}\cite{pssh} Python library to provide this functionality. By following an article from \texttt{Linux.com}\cite{martin_2008}, I was able to use an array of hostnames combined with an array of arguments to render multiple frames using multiple hosts with ease.
+
+Unfortunately I soon found the limit of the university network infrastructure, as having multiple computers reading from and writing to a single directory proved to extremely slow. It was therefore necessary to extend my original command to copy the project directory onto the transfer drive of that computer, execute the render, and finally copy the rendered frames back into the desired directory. Whilst this increased the time required to start a render, the speed of the render itself was much improved.
+
+Whilst this method proved to be extremely powerful, it was certainly not reliable; If a computer is restarted into Windows it cannot be accessed over SSH, meaning that frames were often lost if someone needed to use the computer.
 % > upsides
 % 	> hella fast
 
-\cite{pssh}
+
 \cite{martin_2008}
 
 \section{Compositing}
@@ -177,5 +180,15 @@ For the opening shot, a more complex Nuke script was necessary as we needed to i
 
 \bibliographystyle{plain}
 \bibliography{references}
+
+\newpage
+\appendix
+
+\begin{lstlisting}[language=bash, label={lst:cpumem}, caption={Extract from the Python script used to determine which of the computers on the university network are suitable for rendering on. By capturing the output of the following commands I was able to get the current CPU and memory usage.}]
+# return the current cpu usage
+top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\([0-9.]*\)
+# return the current memory usage
+free | grep Mem | awk '{print $3/$2 * 100.0}'
+\end{lstlisting}
 
 \end{document}
