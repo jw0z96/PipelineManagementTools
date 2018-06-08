@@ -130,7 +130,7 @@ As linux does not natively support issuing commands in parallel to multiple host
 
 Unfortunately I soon found the limit of the university network infrastructure, as having multiple computers reading from and writing to a single directory proved to extremely slow. It was therefore necessary to extend my original command to copy the project directory onto the transfer drive of that computer, execute the render, and finally copy the rendered frames back into the desired directory. Whilst this increased the time required to start a render, the speed of the render itself was much improved.
 
-Whilst this method proved to be extremely powerful, it was certainly not reliable; If a computer is restarted into Windows it cannot be accessed over SSH, meaning that frames were often lost if someone needed to use the computer.
+Whilst this method proved to be extremely powerful, it was certainly not reliable; If a computer is restarted into Windows it cannot be accessed over SSH, meaning that frames were often lost if someone needed to use the computer. As a result we primarily used this technique for test renders and shorter sequences, using the renderfarm to render shots which were known to render without error and for longer sequences.
 % > upsides
 % 	> hella fast
 
@@ -166,9 +166,14 @@ As mentioned above, it was necessary to choose a view transform as RenderMan out
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.45\linewidth]{images/srgb_nellie.png}
+\includegraphics[width=0.48\linewidth]{images/srgb_nellie.png}
 \hfill
-\includegraphics[width=0.45\linewidth]{images/filmic_nellie.png}
+\includegraphics[width=0.48\linewidth]{images/filmic_nellie.png}
+\newline
+\newline
+\includegraphics[width=0.48\linewidth]{images/james_srgb.png}
+\hfill
+\includegraphics[width=0.48\linewidth]{images/james_filmic.png}
 \caption{\label{figure:filmic} Comparison between sRGB viewing transform (Left) and Filmic 'Medium High Contrast' (Right). Note how skin highlights become oversaturated in the sRGB viewing transform, giving a 'sunburned' look.}
 \end{figure}
 
