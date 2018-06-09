@@ -63,7 +63,7 @@ We also noticed a strange problem with Resilio Sync, in which the contents of fi
 
 \subsection{Asset Pipeline}
 
-
+When establishing the asset pipeline it was important to seperate pipeline steps not just by the type of work being done, but also by which of the team members is assigned to each discipline. Figure~\ref{figure:pipelineFlow} describes the flow of the data between pipeline steps and the corresponding team member(s) that they are assigned to.
 
 \begin{figure}[htbp]\centering
 	\includegraphics[width=1.0\linewidth]{images/pipeline.png}
@@ -72,9 +72,7 @@ We also noticed a strange problem with Resilio Sync, in which the contents of fi
 
 \subsection{Asset Management}
 
-With the Asset Pipeline established, I decided to design and develop an asset management system as it was clear that we would be working with a large number of assets.
-
-\subsubsection{Requirements}
+With the Asset Pipeline established, I decided to design and develop an asset management system as it was clear that we would be working with a large number of assets. The asset management system would need to provide the following:
 
 \begin{itemize}
 
@@ -86,9 +84,51 @@ With the Asset Pipeline established, I decided to design and develop an asset ma
 
 \item Automatically update references to assets whenever an asset or one of it's depenencies has been updated.
 
+\end{itemize}
+
+With this in mind I developed a system that made extensive use of symbolic links (Symlinks). Symlinks create a file which acts like a reference to another file. By creating a master symlink for each asset, updating the version of an asset is as simple as changing the target file. Files such as Maya scene files which contain references to existing file paths can have these paths substituted for symlinks, allowing me to change the version of any file in the asset pipeline non-destructively, with changes being propagated automatically. An example of data flow for multiple assets consisting of symlinks can be seen in Figure~\ref{figure:assetPipeline}.
+
+\begin{figure}[htbp]\centering
+	\includegraphics[width=1.0\linewidth]{images/asset_pipeline.png}
+	\caption{\label{figure:assetPipeline} A Flowchart describing the data flow between pipeline steps for the 'charJames' asset. Note how the file versions for each pipeline step can be easily changed by retargeting the symlink.}
+\end{figure}
+
+With this in place the next step was to develop a way of storing metadata for each asset, so that a list of the released versions could be stored alongside important information about them, and that the current asset version could be easily identified. To implement this I created a simple Python dictionary that could be written to a file using the \texttt{cpickle} Python library~\cite{cpickle}; An example of the data stored within the asset file can be seen in Figure~\ref{figure:exampleAsset}.
+
+\begin{figure}[htbp]\centering
+	\includegraphics[width=0.8\linewidth]{images/assetExample.png}
+	\caption{\label{figure:exampleAsset} An excerpt from the file \texttt{charJames\_build.asset}, showing how the data is structured.}
+\end{figure}
+
+The asset file contains the associated file type for the asset, the filename for the asset's symbolic link, and an index for where the current asset version is stored in the \texttt{versions} array. The \texttt{versions} array consists of Python dictionaries containing the target filename, the date of release, and a comment for each version in the array.
+
+After testing this approach on a selection of non-production assets, I decided that this method of storing assets was fit for purpose, and decided to proceed by implementing a graphical asset manager that the other team members could use to author their own assets. For this I made use of Qt Designer to generate the user interface, primarily because I have experience using it to develop tools, but also because Maya 2017 supports Qt widgets with the inclusion of the PySide Python bindings. After multiple iterations per the requests of other team members, the GUI design shown in Figure~\ref{figure:assetManagerGui} was used for both the standalone version of the asset manager, and the Maya version which extends upon the functionality of the standalone version.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{images/amStandalone.png}
+\includegraphics[width=0.8\linewidth]{images/amGuiMaya.png}
+\caption{\label{figure:assetManagerGui} Comparison between the standalone version of the asset manager (Top), and the version of the asset manager designed for use within Autodesk Maya (Bottom). Note that the Maya version provides functionality for opening or 'gathering' assets directly into the current Maya session.}
+\end{figure}
+
 \subsection{Production Management}
 
+%TODO
+
+For this project I was assigned the role of the production manager, a role I had previously fulfilled somewhat successfully during the second year group project. Early in the project I had decided to use Shotgun Studio to create an overall schedule for the project, allowing us to create tasks corresponding to each asset, and to assign them to one of the team members with a specified time frame. Figure~\ref{figure:schedule} shows the schedule created during the first term of the project.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=1.0\linewidth]{images/schedule01.png}
+\includegraphics[width=1.0\linewidth]{images/schedule02.png}
+\caption{\label{figure:schedule} The production schedule created during the first term of the project, grouped by each team member.}
+\end{figure}
+
+Unfortunately, after the first term I found it difficult to convince the other team members to continue using the Shotgun schedule, and we decided to abandon it as a result. Certain group members also found it difficult to adhere to the allocated deadlines for each task, be it a result of the scheduling of other univeristy assignments, or a reluctance to move onto other tasks. Regrettably, this concluded my attempts at production management during the project.
+
 \section{Character Rigging}
+
+%TODO
 
 \subsection{Requirements}
 
@@ -116,13 +156,19 @@ I then found Advanced Skeleton 5~\cite{advancedSkeleton}, an extensive rigging t
 
 Xgen stuff
 
+%TODO
+
 \subsection{Pipeline}
 
 As shown in Figure~\ref{figure:pipelineFlow}, Groom assets were not passed through the full asset pipeline, due to Maya not supporting referencing of XGen content. To solve this, the XGen collections and descriptions were exported, and later applied to Alembic caches of the scalp geometries in the cached scene for rendering.
 
 \subsection{Results}
 
+%TODO
+
 \section{Rendering}
+
+%TODO
 
 \subsection{Optimisation}
 
@@ -147,7 +193,9 @@ Whilst this method proved to be extremely powerful, it was certainly not reliabl
 
 \section{Compositing}
 
-\section{Workflow}
+%TODO
+
+\subsection{Workflow}
 
 In addition to being responsible for rendering, I took responsibility for compositing the shots, which was convinient as I was managing the storage of the raw renders and would be the first member of the team to get a chance to do any compositing. Being more technically inclined my compositing responsibilities mainly consisted of:
 
@@ -193,7 +241,11 @@ For the opening shot, a more complex Nuke script was necessary as we needed to i
 	\caption{\label{figure:shot010comp} The Nuke script which was used for the opening shot.}
 \end{figure}
 
-\section{Results}
+%TODO
+
+\subsection{Results}
+
+%TODO
 
 \begin{figure}[htbp]
 \centering
@@ -213,6 +265,7 @@ For the opening shot, a more complex Nuke script was necessary as we needed to i
 \caption{\label{figure:compcomparison} Comparison between the 'beauty' pass generated by RenderMan (Left), and the compositing I was responsible for (Right).}
 \end{figure}
 
+\section{Reflection}
 
 \bibliographystyle{plain}
 \bibliography{references}

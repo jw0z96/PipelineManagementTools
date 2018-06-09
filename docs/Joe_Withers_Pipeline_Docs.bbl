@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{cpickle}
+Python~Software Foundation.
+\newblock pickle — python object serialization, 2018.
+\newblock Accessed 09 June 2018.
+
 \bibitem{martin_2008}
 Ben Martin.
 \newblock Parallel ssh execution and a single shell to control them all, 2008.
