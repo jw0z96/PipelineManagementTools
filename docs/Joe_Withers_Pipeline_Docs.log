@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  9 JUN 2018 03:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.11.8)  9 JUN 2018 03:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -387,65 +387,65 @@ LaTeX Info: Redefining \nameref on input line 15.
  [1
 
 {/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 33.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 35.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 33.
- [2]
-<images/pipeline.png, id=125, 1468.48625pt x 896.34875pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
+ [2] [3]
+<images/pipeline.png, id=130, 1468.48625pt x 896.34875pt>
 File: images/pipeline.png Graphic file (type png)
 
 <use images/pipeline.png>
-Package pdftex.def Info: images/pipeline.png used on input line 69.
+Package pdftex.def Info: images/pipeline.png used on input line 71.
 (pdftex.def)             Requested size: 360.0pt x 219.7373pt.
- [3]
-<images/asset_pipeline.png, id=133, 987.69pt x 686.565pt>
+ [4 <./images/pipeline.png>]
+<images/asset_pipeline.png, id=138, 987.69pt x 686.565pt>
 File: images/asset_pipeline.png Graphic file (type png)
 
 <use images/asset_pipeline.png>
-Package pdftex.def Info: images/asset_pipeline.png used on input line 92.
+Package pdftex.def Info: images/asset_pipeline.png used on input line 94.
 (pdftex.def)             Requested size: 360.0pt x 250.2432pt.
- [4 <./images/pipeline.png>] [5 <./images/asset_pipeline.png>] <images/assetExa
-mple.png, id=147, 477.785pt x 352.31625pt>
+
+<images/assetExample.png, id=141, 477.785pt x 352.31625pt>
 File: images/assetExample.png Graphic file (type png)
 
 <use images/assetExample.png>
-Package pdftex.def Info: images/assetExample.png used on input line 99.
+Package pdftex.def Info: images/assetExample.png used on input line 101.
 (pdftex.def)             Requested size: 288.0011pt x 212.36978pt.
-
-<images/amStandalone.png, id=149, 649.42625pt x 508.90125pt>
+ [5 <./images/asset_pipeline.png>]
+<images/amStandalone.png, id=152, 649.42625pt x 508.90125pt>
 File: images/amStandalone.png Graphic file (type png)
 
 <use images/amStandalone.png>
-Package pdftex.def Info: images/amStandalone.png used on input line 109.
+Package pdftex.def Info: images/amStandalone.png used on input line 111.
 (pdftex.def)             Requested size: 288.0011pt x 225.6877pt.
 
-<images/amGuiMaya.png, id=150, 652.4375pt x 509.905pt>
+<images/amGuiMaya.png, id=153, 652.4375pt x 509.905pt>
 File: images/amGuiMaya.png Graphic file (type png)
 
 <use images/amGuiMaya.png>
-Package pdftex.def Info: images/amGuiMaya.png used on input line 110.
+Package pdftex.def Info: images/amGuiMaya.png used on input line 112.
 (pdftex.def)             Requested size: 288.0011pt x 225.09026pt.
- [6 <./images/assetExample.png>]
-<images/schedule01.png, id=160, 1877.0125pt x 800.9925pt>
+ [6 <./images/assetExample.png>] [7 <./images/amStandalone.png> <./images/amGui
+Maya.png>]
+<images/schedule01.png, id=166, 1877.0125pt x 800.9925pt>
 File: images/schedule01.png Graphic file (type png)
 
 <use images/schedule01.png>
 Package pdftex.def Info: images/schedule01.png used on input line 122.
 (pdftex.def)             Requested size: 360.0pt x 153.62015pt.
 
-<images/schedule02.png, id=161, 1879.02pt x 598.235pt>
+<images/schedule02.png, id=167, 1879.02pt x 598.235pt>
 File: images/schedule02.png Graphic file (type png)
 
 <use images/schedule02.png>
 Package pdftex.def Info: images/schedule02.png used on input line 123.
 (pdftex.def)             Requested size: 360.0pt x 114.61517pt.
- [7] [8 <./images/amStandalone.png> <./images/amGuiMaya.png>] [9 <./images/sche
-dule01.png> <./images/schedule02.png>] [10] [11]
-<images/compTemplate.png, id=198, 1413.28pt x 977.6525pt>
+ [8 <./images/schedule01.png> <./images/schedule02.png>] [9] [10] [11] <images/
+compTemplate.png, id=198, 1413.28pt x 977.6525pt>
 File: images/compTemplate.png Graphic file (type png)
 
 <use images/compTemplate.png>
@@ -486,44 +486,43 @@ File: images/shot010comp.png Graphic file (type png)
 <use images/shot010comp.png>
 Package pdftex.def Info: images/shot010comp.png used on input line 240.
 (pdftex.def)             Requested size: 360.0pt x 112.61891pt.
- [12] [13 <./images/compTemplate.png>] [14 <./images/srgb_nellie.png> <./images
-/filmic_nellie.png> <./images/james_srgb.png> <./images/james_filmic.png>]
-<images/shot020_precomp.png, id=226, 1573.88pt x 850.17625pt>
+
+<images/shot020_precomp.png, id=205, 1573.88pt x 850.17625pt>
 File: images/shot020_precomp.png Graphic file (type png)
 
 <use images/shot020_precomp.png>
 Package pdftex.def Info: images/shot020_precomp.png used on input line 252.
 (pdftex.def)             Requested size: 172.79846pt x 93.33806pt.
 
-<images/shot020_comp.png, id=227, 1572.87625pt x 850.17625pt>
+<images/shot020_comp.png, id=206, 1572.87625pt x 850.17625pt>
 File: images/shot020_comp.png Graphic file (type png)
 
 <use images/shot020_comp.png>
 Package pdftex.def Info: images/shot020_comp.png used on input line 254.
 (pdftex.def)             Requested size: 172.79846pt x 93.38994pt.
 
-<images/shot030_precomp.png, id=228, 1575.8875pt x 850.17625pt>
+<images/shot030_precomp.png, id=207, 1575.8875pt x 850.17625pt>
 File: images/shot030_precomp.png Graphic file (type png)
 
 <use images/shot030_precomp.png>
 Package pdftex.def Info: images/shot030_precomp.png used on input line 257.
 (pdftex.def)             Requested size: 172.79846pt x 93.2213pt.
 
-<images/shot030_comp.png, id=229, 1575.8875pt x 848.16875pt>
+<images/shot030_comp.png, id=208, 1575.8875pt x 848.16875pt>
 File: images/shot030_comp.png Graphic file (type png)
 
 <use images/shot030_comp.png>
 Package pdftex.def Info: images/shot030_comp.png used on input line 259.
 (pdftex.def)             Requested size: 172.79846pt x 93.00117pt.
 
-<images/shot040_precomp.png, id=230, 1577.895pt x 852.18375pt>
+<images/shot040_precomp.png, id=209, 1577.895pt x 852.18375pt>
 File: images/shot040_precomp.png Graphic file (type png)
 
 <use images/shot040_precomp.png>
 Package pdftex.def Info: images/shot040_precomp.png used on input line 262.
 (pdftex.def)             Requested size: 172.79846pt x 93.31139pt.
 
-<images/shot040_comp.png, id=231, 1577.895pt x 852.18375pt>
+<images/shot040_comp.png, id=210, 1577.895pt x 852.18375pt>
 File: images/shot040_comp.png Graphic file (type png)
 
 <use images/shot040_comp.png>
@@ -533,9 +532,11 @@ Package pdftex.def Info: images/shot040_comp.png used on input line 264.
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ” in font cmr10!
-) [15 <./images/shot010comp.png>] [16 <./images/shot020_precomp.png> <./images/
-shot020_comp.png> <./images/shot030_precomp.png> <./images/shot030_comp.png> <.
-/images/shot040_precomp.png> <./images/shot040_comp.png>]
+ [12] [13 <./images/compTemplate.png>] [14 <./images/srgb_nellie.png> <./images
+/filmic_nellie.png> <./images/james_srgb.png> <./images/james_filmic.png> <./im
+ages/shot010comp.png>] [15 <./images/shot020_precomp.png> <./images/shot020_com
+p.png> <./images/shot030_precomp.png> <./images/shot030_comp.png> <./images/sho
+t040_precomp.png> <./images/shot040_comp.png>]) [16]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
@@ -551,13 +552,13 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `Joe_Withers_Pipeline_Docs.out' has not chang
 ed.
-(rerunfilecheck)             Checksum: 4AF531068C08C616A7D7A6C79BA057DF;1196.
+(rerunfilecheck)             Checksum: 18832A74B234D4D50139330FC86D68D1;1205.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
  8828 strings out of 494946
  132172 string characters out of 6180981
- 236336 words of memory out of 5000000
+ 237354 words of memory out of 5000000
  11959 multiletter control sequences out of 15000+600000
  10530 words of font info for 38 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -569,7 +570,7 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Joe_Withers_Pipeline_Docs.pdf (17 pages, 17512609 bytes).
+Output written on Joe_Withers_Pipeline_Docs.pdf (17 pages, 17519991 bytes).
 PDF statistics:
  300 PDF objects out of 1000 (max. 8388607)
  238 compressed objects within 3 object streams

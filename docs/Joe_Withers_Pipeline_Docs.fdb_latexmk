@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Joe_Withers_Pipeline_Docs"] 1528511818 "Joe_Withers_Pipeline_Docs.aux" "Joe_Withers_Pipeline_Docs.bbl" "Joe_Withers_Pipeline_Docs" 1528511820
+["bibtex Joe_Withers_Pipeline_Docs"] 1528512749 "Joe_Withers_Pipeline_Docs.aux" "Joe_Withers_Pipeline_Docs.bbl" "Joe_Withers_Pipeline_Docs" 1528512796
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Joe_Withers_Pipeline_Docs.aux" 1528511820 7507 6744d9f0f9643833e39708e76cd12d71 ""
+  "Joe_Withers_Pipeline_Docs.aux" 1528512796 7515 f25fc711a4177a599aade78f0399473d ""
   "references.bib" 1528506450 1257 9abd5f0e87a9194245c85462feae24bb ""
   (generated)
-  "Joe_Withers_Pipeline_Docs.blg"
   "Joe_Withers_Pipeline_Docs.bbl"
-["pdflatex"] 1528511818 "Joe_Withers_Pipeline_Docs.tex" "Joe_Withers_Pipeline_Docs.pdf" "Joe_Withers_Pipeline_Docs" 1528511820
+  "Joe_Withers_Pipeline_Docs.blg"
+["pdflatex"] 1528512794 "Joe_Withers_Pipeline_Docs.tex" "Joe_Withers_Pipeline_Docs.pdf" "Joe_Withers_Pipeline_Docs" 1528512796
   "/home/jw0z/.cache/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1510180580 719143 88d356959a00881ccb18a2c476271507 ""
   "/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1463015741 1888031 5317a64a246c13fa560847c387843238 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -79,11 +79,11 @@
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1463002160 55589 34128738f682d033422ca125f82e5d62 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1495587079 31949 3ae02a131d161fd383f5b89f8ad0930c ""
-  "Joe_Withers_Pipeline_Docs.aux" 1528511820 7507 6744d9f0f9643833e39708e76cd12d71 ""
-  "Joe_Withers_Pipeline_Docs.bbl" 1528511818 788 56d5a58d39ad9e2745ff88a832cb44c4 "bibtex Joe_Withers_Pipeline_Docs"
-  "Joe_Withers_Pipeline_Docs.out" 1528511820 1196 4af531068c08c616a7d7a6c79ba057df ""
-  "Joe_Withers_Pipeline_Docs.tex" 1528511803 20085 758587eb4d4679a5951826cb3e552e85 ""
-  "Joe_Withers_Pipeline_Docs.toc" 1528511820 1559 5eb95ffb3519d927ad51ee22968f3cf4 ""
+  "Joe_Withers_Pipeline_Docs.aux" 1528512796 7515 f25fc711a4177a599aade78f0399473d ""
+  "Joe_Withers_Pipeline_Docs.bbl" 1528512749 788 56d5a58d39ad9e2745ff88a832cb44c4 "bibtex Joe_Withers_Pipeline_Docs"
+  "Joe_Withers_Pipeline_Docs.out" 1528512796 1205 18832a74b234d4d50139330fc86d68d1 ""
+  "Joe_Withers_Pipeline_Docs.tex" 1528512784 20568 3dfea29ddd89a7b9c00de9eb0b9003cd ""
+  "Joe_Withers_Pipeline_Docs.toc" 1528512796 1567 81054c6ff50c970dfd32dd407de27e06 ""
   "images/amGuiMaya.png" 1528508803 54231 b938890fb6408f198f40743053032de3 ""
   "images/amStandalone.png" 1528508900 72724 e9ef0a783b379353a1336519c9d10fcd ""
   "images/assetExample.png" 1528506180 30561 1e7ed04367a105310be521c2033cc973 ""
@@ -104,8 +104,8 @@
   "images/shot040_precomp.png" 1528491097 1923704 5dcfe694a20c09a28daf6f4cbf18774c ""
   "images/srgb_nellie.png" 1528491097 368994 8ed5a2fb4a80b725d835687bc2d440df ""
   (generated)
-  "Joe_Withers_Pipeline_Docs.toc"
-  "Joe_Withers_Pipeline_Docs.out"
-  "Joe_Withers_Pipeline_Docs.pdf"
-  "Joe_Withers_Pipeline_Docs.aux"
   "Joe_Withers_Pipeline_Docs.log"
+  "Joe_Withers_Pipeline_Docs.toc"
+  "Joe_Withers_Pipeline_Docs.pdf"
+  "Joe_Withers_Pipeline_Docs.out"
+  "Joe_Withers_Pipeline_Docs.aux"
