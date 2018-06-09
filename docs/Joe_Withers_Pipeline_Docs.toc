@@ -9,6 +9,7 @@
 \contentsline {section}{\numberline {3}Character Rigging}{9}{section.3}
 \contentsline {subsection}{\numberline {3.1}Requirements}{9}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Solution}{9}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Facial Rig}{10}{subsection.3.3}
 \contentsline {section}{\numberline {4}Groom}{10}{section.4}
 \contentsline {subsection}{\numberline {4.1}Pipeline}{10}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Results}{10}{subsection.4.2}
@@ -17,5 +18,5 @@
 \contentsline {subsection}{\numberline {5.2}Distributed Rendering Tools}{10}{subsection.5.2}
 \contentsline {section}{\numberline {6}Compositing}{11}{section.6}
 \contentsline {subsection}{\numberline {6.1}Workflow}{11}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Results}{12}{subsection.6.2}
-\contentsline {section}{\numberline {7}Critical Reflection}{12}{section.7}
+\contentsline {subsection}{\numberline {6.2}Results}{16}{subsection.6.2}
+\contentsline {section}{\numberline {7}Critical Reflection}{16}{section.7}
