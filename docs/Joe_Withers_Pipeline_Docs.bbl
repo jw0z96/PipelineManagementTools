@@ -1,5 +1,19 @@
 \begin{thebibliography}{1}
 
+\bibitem{stackoverflow}
+Using grep and sed to find and replace a string, May 2011.
+\newblock Accessed 12 October 2018.
+
+\bibitem{cauchi_2017}
+Michael Cauchi.
+\newblock Beginners guide to: Xgen pipeline for beginners, Aug 2017.
+\newblock Accessed 13 May 2018.
+
+\bibitem{fernandez_2018}
+Jesus Fernandez.
+\newblock Introduction to xgen, Mar 2018.
+\newblock Accessed 14 May 2018.
+
 \bibitem{cpickle}
 Python~Software Foundation.
 \newblock pickle — python object serialization, 2018.

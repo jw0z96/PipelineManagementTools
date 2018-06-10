@@ -5,18 +5,19 @@
 \contentsline {subsection}{\numberline {2.3}Storage}{3}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}Asset Pipeline}{3}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Asset Management}{4}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Production Management}{6}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.6}Miscellaneous Tools}{6}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Production Management}{6}{subsection.2.7}
 \contentsline {section}{\numberline {3}Character Rigging}{9}{section.3}
 \contentsline {subsection}{\numberline {3.1}Requirements}{9}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Solution}{9}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Facial Rig}{10}{subsection.3.3}
-\contentsline {section}{\numberline {4}Groom}{10}{section.4}
-\contentsline {subsection}{\numberline {4.1}Pipeline}{10}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Results}{10}{subsection.4.2}
-\contentsline {section}{\numberline {5}Rendering}{10}{section.5}
-\contentsline {subsection}{\numberline {5.1}Optimisation}{10}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Distributed Rendering Tools}{11}{subsection.5.2}
-\contentsline {section}{\numberline {6}Compositing}{12}{section.6}
-\contentsline {subsection}{\numberline {6.1}Workflow}{12}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Results}{15}{subsection.6.2}
-\contentsline {section}{\numberline {7}Critical Reflection}{15}{section.7}
+\contentsline {section}{\numberline {4}Rendering}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Optimisation}{10}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Render Farming}{11}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Distributed Rendering Tools}{12}{subsection.4.3}
+\contentsline {section}{\numberline {5}Groom}{13}{section.5}
+\contentsline {subsection}{\numberline {5.1}Pipeline}{13}{subsection.5.1}
+\contentsline {section}{\numberline {6}Compositing}{14}{section.6}
+\contentsline {subsection}{\numberline {6.1}Workflow}{14}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Results}{17}{subsection.6.2}
+\contentsline {section}{\numberline {7}Critical Reflection}{17}{section.7}
