@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{stackoverflow}
 Using grep and sed to find and replace a string, May 2011.
@@ -37,6 +37,10 @@ Fabric Software.
 Animation Studios.
 \newblock Advanced skeleton, 2016.
 \newblock Accessed 23 December 2017.
+
+\bibitem{myGitHub}
+Joe Withers.
+\newblock Pipeline management tools, 2017.
 
 \bibitem{pssh}
 www.parallel ssh.org.
