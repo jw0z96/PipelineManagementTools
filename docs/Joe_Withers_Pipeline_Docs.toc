@@ -20,4 +20,4 @@
 \contentsline {section}{\numberline {6}Compositing}{16}{section.6}
 \contentsline {subsection}{\numberline {6.1}Workflow}{17}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Results}{19}{subsection.6.2}
-\contentsline {section}{\numberline {7}Critical Reflection}{19}{section.7}
+\contentsline {section}{\numberline {7}Critical Reflection}{22}{section.7}
