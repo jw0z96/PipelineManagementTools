@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2016.5.26)  10 JUN 2018 15:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2016.5.26)  10 JUN 2018 22:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -395,230 +395,230 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 40.
  [3] [4]
-<images/pipeline.png, id=145, 1468.48625pt x 896.34875pt>
+<images/pipeline.png, id=144, 1468.48625pt x 896.34875pt>
 File: images/pipeline.png Graphic file (type png)
 
 <use images/pipeline.png>
-Package pdftex.def Info: images/pipeline.png used on input line 76.
+Package pdftex.def Info: images/pipeline.png used on input line 78.
 (pdftex.def)             Requested size: 360.0pt x 219.7373pt.
  [5 <./images/pipeline.png>]
-<images/asset_pipeline.png, id=153, 987.69pt x 686.565pt>
+<images/asset_pipeline.png, id=152, 987.69pt x 686.565pt>
 File: images/asset_pipeline.png Graphic file (type png)
 
 <use images/asset_pipeline.png>
-Package pdftex.def Info: images/asset_pipeline.png used on input line 99.
+Package pdftex.def Info: images/asset_pipeline.png used on input line 101.
 (pdftex.def)             Requested size: 360.0pt x 250.2432pt.
 
-<images/assetExample.png, id=156, 477.785pt x 352.31625pt>
+<images/assetExample.png, id=155, 477.785pt x 352.31625pt>
 File: images/assetExample.png Graphic file (type png)
 
 <use images/assetExample.png>
-Package pdftex.def Info: images/assetExample.png used on input line 106.
+Package pdftex.def Info: images/assetExample.png used on input line 108.
 (pdftex.def)             Requested size: 288.0011pt x 212.36978pt.
  [6 <./images/asset_pipeline.png>]
-<images/amStandalone.png, id=168, 649.42625pt x 508.90125pt>
+<images/amStandalone.png, id=167, 649.42625pt x 508.90125pt>
 File: images/amStandalone.png Graphic file (type png)
 
 <use images/amStandalone.png>
-Package pdftex.def Info: images/amStandalone.png used on input line 116.
+Package pdftex.def Info: images/amStandalone.png used on input line 118.
 (pdftex.def)             Requested size: 288.0011pt x 225.6877pt.
 
-<images/amGuiMaya.png, id=169, 652.4375pt x 509.905pt>
+<images/amGuiMaya.png, id=168, 652.4375pt x 509.905pt>
 File: images/amGuiMaya.png Graphic file (type png)
 
 <use images/amGuiMaya.png>
-Package pdftex.def Info: images/amGuiMaya.png used on input line 117.
+Package pdftex.def Info: images/amGuiMaya.png used on input line 119.
 (pdftex.def)             Requested size: 288.0011pt x 225.09026pt.
  [7 <./images/assetExample.png>] [8 <./images/amStandalone.png> <./images/amGui
 Maya.png>]
-<images/shelf.png, id=185, 644.4075pt x 50.1875pt>
+<images/shelf.png, id=184, 644.4075pt x 50.1875pt>
 File: images/shelf.png Graphic file (type png)
  <use images/shelf.png>
-Package pdftex.def Info: images/shelf.png used on input line 159.
+Package pdftex.def Info: images/shelf.png used on input line 161.
 (pdftex.def)             Requested size: 360.0pt x 28.03816pt.
 
-<images/miscScripts.png, id=186, 1082.0425pt x 331.2375pt>
+<images/miscScripts.png, id=185, 1082.0425pt x 331.2375pt>
 File: images/miscScripts.png Graphic file (type png)
 
 <use images/miscScripts.png>
-Package pdftex.def Info: images/miscScripts.png used on input line 165.
+Package pdftex.def Info: images/miscScripts.png used on input line 167.
 (pdftex.def)             Requested size: 360.0pt x 110.20331pt.
  [9]
-<images/schedule01.png, id=196, 1877.0125pt x 800.9925pt>
+<images/schedule01.png, id=195, 1877.0125pt x 800.9925pt>
 File: images/schedule01.png Graphic file (type png)
 
 <use images/schedule01.png>
-Package pdftex.def Info: images/schedule01.png used on input line 177.
+Package pdftex.def Info: images/schedule01.png used on input line 179.
 (pdftex.def)             Requested size: 360.0pt x 153.62015pt.
 
-<images/schedule02.png, id=197, 1879.02pt x 598.235pt>
+<images/schedule02.png, id=196, 1879.02pt x 598.235pt>
 File: images/schedule02.png Graphic file (type png)
 
 <use images/schedule02.png>
-Package pdftex.def Info: images/schedule02.png used on input line 178.
+Package pdftex.def Info: images/schedule02.png used on input line 180.
 (pdftex.def)             Requested size: 360.0pt x 114.61517pt.
  [10 <./images/shelf.png> <./images/miscScripts.png>] [11 <./images/schedule01.
 png> <./images/schedule02.png>] [12] [13]
-<images/cache_tool.png, id=221, 455.7025pt x 293.095pt>
+<images/cache_tool.png, id=220, 455.7025pt x 293.095pt>
 File: images/cache_tool.png Graphic file (type png)
 
 <use images/cache_tool.png>
-Package pdftex.def Info: images/cache_tool.png used on input line 227.
+Package pdftex.def Info: images/cache_tool.png used on input line 231.
 (pdftex.def)             Requested size: 360.0pt x 231.54697pt.
  [14] [15 <./images/cache_tool.png>] [16] [17]
-<images/compTemplate.png, id=257, 1413.28pt x 977.6525pt>
+<images/compTemplate.png, id=255, 1413.28pt x 977.6525pt>
 File: images/compTemplate.png Graphic file (type png)
 
 <use images/compTemplate.png>
-Package pdftex.def Info: images/compTemplate.png used on input line 286.
+Package pdftex.def Info: images/compTemplate.png used on input line 290.
 (pdftex.def)             Requested size: 360.0pt x 249.03703pt.
 
-<images/srgb_nellie.png, id=259, 586.19pt x 524.96124pt>
+<images/srgb_nellie.png, id=257, 586.19pt x 524.96124pt>
 File: images/srgb_nellie.png Graphic file (type png)
 
 <use images/srgb_nellie.png>
-Package pdftex.def Info: images/srgb_nellie.png used on input line 294.
+Package pdftex.def Info: images/srgb_nellie.png used on input line 298.
 (pdftex.def)             Requested size: 172.79846pt x 154.74207pt.
 
-<images/filmic_nellie.png, id=260, 586.19pt x 524.96124pt>
+<images/filmic_nellie.png, id=258, 586.19pt x 524.96124pt>
 File: images/filmic_nellie.png Graphic file (type png)
 
 <use images/filmic_nellie.png>
-Package pdftex.def Info: images/filmic_nellie.png used on input line 296.
+Package pdftex.def Info: images/filmic_nellie.png used on input line 300.
 (pdftex.def)             Requested size: 172.79846pt x 154.74207pt.
 
-<images/james_srgb.png, id=261, 688.5725pt x 640.3925pt>
+<images/james_srgb.png, id=259, 688.5725pt x 640.3925pt>
 File: images/james_srgb.png Graphic file (type png)
 
 <use images/james_srgb.png>
-Package pdftex.def Info: images/james_srgb.png used on input line 299.
+Package pdftex.def Info: images/james_srgb.png used on input line 303.
 (pdftex.def)             Requested size: 172.79846pt x 160.70357pt.
 
-<images/james_filmic.png, id=262, 695.59875pt x 646.415pt>
+<images/james_filmic.png, id=260, 695.59875pt x 646.415pt>
 File: images/james_filmic.png Graphic file (type png)
 
 <use images/james_filmic.png>
-Package pdftex.def Info: images/james_filmic.png used on input line 301.
+Package pdftex.def Info: images/james_filmic.png used on input line 305.
 (pdftex.def)             Requested size: 172.79846pt x 160.57755pt.
- [18 <./images/compTemplate.png>] [19 <./images/srgb_nellie.png> <./images/film
-ic_nellie.png> <./images/james_srgb.png> <./images/james_filmic.png>] <images/s
-hot010comp.png, id=281, 2565.585pt x 966.61125pt>
+ [18] [19 <./images/compTemplate.png>] [20 <./images/srgb_nellie.png> <./images
+/filmic_nellie.png> <./images/james_srgb.png> <./images/james_filmic.png>]
+<images/shot010comp.png, id=283, 2565.585pt x 966.61125pt>
 File: images/shot010comp.png Graphic file (type png)
 
 <use images/shot010comp.png>
-Package pdftex.def Info: images/shot010comp.png used on input line 310.
+Package pdftex.def Info: images/shot010comp.png used on input line 314.
 (pdftex.def)             Requested size: 360.0pt x 135.63438pt.
 
-<images/shot020_precomp.png, id=286, 1576.89125pt x 851.18pt>
+<images/shot020_precomp.png, id=288, 1576.89125pt x 851.18pt>
 File: images/shot020_precomp.png Graphic file (type png)
 
 <use images/shot020_precomp.png>
-Package pdftex.def Info: images/shot020_precomp.png used on input line 320.
+Package pdftex.def Info: images/shot020_precomp.png used on input line 324.
 (pdftex.def)             Requested size: 172.79846pt x 93.26642pt.
 
-<images/shot020_comp.png, id=287, 1573.88pt x 849.1725pt>
+<images/shot020_comp.png, id=289, 1573.88pt x 849.1725pt>
 File: images/shot020_comp.png Graphic file (type png)
 
 <use images/shot020_comp.png>
-Package pdftex.def Info: images/shot020_comp.png used on input line 322.
+Package pdftex.def Info: images/shot020_comp.png used on input line 326.
 (pdftex.def)             Requested size: 172.79846pt x 93.22786pt.
 
-<images/shot030_precomp.png, id=288, 1575.8875pt x 850.17625pt>
+<images/shot030_precomp.png, id=290, 1575.8875pt x 850.17625pt>
 File: images/shot030_precomp.png Graphic file (type png)
 
 <use images/shot030_precomp.png>
-Package pdftex.def Info: images/shot030_precomp.png used on input line 325.
+Package pdftex.def Info: images/shot030_precomp.png used on input line 329.
 (pdftex.def)             Requested size: 172.79846pt x 93.2213pt.
 
-<images/shot030_comp.png, id=289, 1575.8875pt x 848.16875pt>
+<images/shot030_comp.png, id=291, 1575.8875pt x 848.16875pt>
 File: images/shot030_comp.png Graphic file (type png)
 
 <use images/shot030_comp.png>
-Package pdftex.def Info: images/shot030_comp.png used on input line 327.
+Package pdftex.def Info: images/shot030_comp.png used on input line 331.
 (pdftex.def)             Requested size: 172.79846pt x 93.00117pt.
 
-<images/shot040_precomp.png, id=290, 1574.88374pt x 852.18375pt>
+<images/shot040_precomp.png, id=292, 1574.88374pt x 852.18375pt>
 File: images/shot040_precomp.png Graphic file (type png)
 
 <use images/shot040_precomp.png>
-Package pdftex.def Info: images/shot040_precomp.png used on input line 330.
+Package pdftex.def Info: images/shot040_precomp.png used on input line 334.
 (pdftex.def)             Requested size: 172.79846pt x 93.49344pt.
 
-<images/shot040_comp.png, id=291, 1577.895pt x 853.1875pt>
+<images/shot040_comp.png, id=293, 1577.895pt x 853.1875pt>
 File: images/shot040_comp.png Graphic file (type png)
 
 <use images/shot040_comp.png>
-Package pdftex.def Info: images/shot040_comp.png used on input line 332.
+Package pdftex.def Info: images/shot040_comp.png used on input line 336.
 (pdftex.def)             Requested size: 172.79846pt x 93.4213pt.
 
-<images/shot070_precomp.png, id=292, 1577.895pt x 851.18pt>
+<images/shot070_precomp.png, id=294, 1577.895pt x 851.18pt>
 File: images/shot070_precomp.png Graphic file (type png)
 
 <use images/shot070_precomp.png>
-Package pdftex.def Info: images/shot070_precomp.png used on input line 335.
+Package pdftex.def Info: images/shot070_precomp.png used on input line 339.
 (pdftex.def)             Requested size: 172.79846pt x 93.20148pt.
 
-<images/shot070_comp.png, id=293, 1575.8875pt x 851.18pt>
+<images/shot070_comp.png, id=295, 1575.8875pt x 851.18pt>
 File: images/shot070_comp.png Graphic file (type png)
 
 <use images/shot070_comp.png>
-Package pdftex.def Info: images/shot070_comp.png used on input line 337.
+Package pdftex.def Info: images/shot070_comp.png used on input line 341.
 (pdftex.def)             Requested size: 172.79846pt x 93.33136pt.
 
-<images/shot010_comp_02.png, id=294, 1578.89874pt x 852.18375pt>
+<images/shot010_comp_02.png, id=296, 1578.89874pt x 852.18375pt>
 File: images/shot010_comp_02.png Graphic file (type png)
 
 <use images/shot010_comp_02.png>
-Package pdftex.def Info: images/shot010_comp_02.png used on input line 342.
+Package pdftex.def Info: images/shot010_comp_02.png used on input line 346.
 (pdftex.def)             Requested size: 360.0pt x 194.29471pt.
 
-<images/shot010_comp_01.png, id=295, 1572.87625pt x 848.16875pt>
+<images/shot010_comp_01.png, id=297, 1572.87625pt x 848.16875pt>
 File: images/shot010_comp_01.png Graphic file (type png)
 
 <use images/shot010_comp_01.png>
-Package pdftex.def Info: images/shot010_comp_01.png used on input line 345.
+Package pdftex.def Info: images/shot010_comp_01.png used on input line 349.
 (pdftex.def)             Requested size: 360.0pt x 194.12994pt.
 
-<images/joe_with_crt.jpg, id=296, 1638.12pt x 1228.59pt>
+<images/joe_with_crt.jpg, id=298, 1638.12pt x 1228.59pt>
 File: images/joe_with_crt.jpg Graphic file (type jpg)
 
 <use images/joe_with_crt.jpg>
-Package pdftex.def Info: images/joe_with_crt.jpg used on input line 350.
+Package pdftex.def Info: images/joe_with_crt.jpg used on input line 354.
 (pdftex.def)             Requested size: 360.0pt x 269.99069pt.
- [20 <./images/shot010comp.png>] [21 <./images/shot020_precomp.png> <./images/s
+ [21 <./images/shot010comp.png>] [22 <./images/shot020_precomp.png> <./images/s
 hot020_comp.png> <./images/shot030_precomp.png> <./images/shot030_comp.png> <./
 images/shot040_precomp.png> <./images/shot040_comp.png> <./images/shot070_preco
-mp.png> <./images/shot070_comp.png>] [22 <./images/shot010_comp_02.png> <./imag
-es/shot010_comp_01.png>] [23 <./images/joe_with_crt.jpg>] [24] [25] (./Joe_With
+mp.png> <./images/shot070_comp.png>] [23 <./images/shot010_comp_02.png> <./imag
+es/shot010_comp_01.png>] [24 <./images/joe_with_crt.jpg>] [25] [26] (./Joe_With
 ers_Pipeline_Docs.bbl
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ” in font cmr10!
-) [26]
+) [27]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 387.
- [27]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 387.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 391.
+ [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 391.
 
 (./Joe_Withers_Pipeline_Docs.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 387.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 387.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 391.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 391.
 Package rerunfilecheck Info: File `Joe_Withers_Pipeline_Docs.out' has not chang
 ed.
 (rerunfilecheck)             Checksum: A847010147E8B645D28E739A001DBA39;1341.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 387.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 391.
  ) 
 Here is how much of TeX's memory you used:
- 8847 strings out of 495063
- 132610 string characters out of 3182201
+ 8846 strings out of 495063
+ 132593 string characters out of 3182201
  257225 words of memory out of 3000000
- 11835 multiletter control sequences out of 15000+200000
- 10877 words of font info for 39 fonts, out of 3000000 for 9000
+ 11834 multiletter control sequences out of 15000+200000
+ 10530 words of font info for 38 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  44i,6n,51p,1167b,1056s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
@@ -627,12 +627,11 @@ e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmtt10.pfb>
-Output written on Joe_Withers_Pipeline_Docs.pdf (27 pages, 27234872 bytes).
+/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on Joe_Withers_Pipeline_Docs.pdf (28 pages, 27224813 bytes).
 PDF statistics:
- 403 PDF objects out of 1000 (max. 8388607)
- 315 compressed objects within 4 object streams
- 84 named destinations out of 1000 (max. 500000)
+ 404 PDF objects out of 1000 (max. 8388607)
+ 316 compressed objects within 4 object streams
+ 85 named destinations out of 1000 (max. 500000)
  320 words of extra memory for PDF output out of 10000 (max. 10000000)
 
