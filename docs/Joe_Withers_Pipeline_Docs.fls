@@ -113,6 +113,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT Joe_Withers_Pipeline_Docs.toc
@@ -122,7 +123,6 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
 OUTPUT Joe_Withers_Pipeline_Docs.toc
-INPUT /usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
@@ -205,6 +205,9 @@ INPUT ./images/shot010_comp_02.png
 INPUT images/shot010_comp_01.png
 INPUT ./images/shot010_comp_01.png
 INPUT ./images/shot010_comp_01.png
+INPUT images/joe_with_crt.jpg
+INPUT ./images/joe_with_crt.jpg
+INPUT ./images/joe_with_crt.jpg
 INPUT Joe_Withers_Pipeline_Docs.bbl
 INPUT Joe_Withers_Pipeline_Docs.bbl
 INPUT /usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
