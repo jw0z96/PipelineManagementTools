@@ -87,7 +87,7 @@ When establishing the asset pipeline it was important to separate pipeline steps
 
 \subsection{Asset Management} \label{assman}
 
-With the Asset Pipeline established, I decided to design and develop an asset management system as it was clear that we would be working with a large number of assets. The asset management system would need to provide the following:
+With the Asset Pipeline established, I decided to design and develop an asset management system as from the initial concepts, it was clear that we would be working with a large number of assets. The asset management system would need to provide the following:
 
 \begin{itemize}
 
@@ -101,7 +101,7 @@ With the Asset Pipeline established, I decided to design and develop an asset ma
 
 \end{itemize}
 
-With this in mind I developed a system that made extensive use of symbolic links (Symlinks). Symlinks create a file which acts like a reference to another file. By creating a master symlink for each asset, updating the version of an asset is as simple as changing the target file. Files such as Maya scene files which contain references to existing file paths can have these paths substituted for symlinks, allowing me to change the version of any file in the asset pipeline non-destructively, with changes being propagated automatically. An example of data flow for multiple assets consisting of symlinks can be seen in Figure~\ref{figure:assetPipeline}.
+With this in mind I developed a system that made extensive use of symbolic links (Symlinks). Symlinks create a file which acts like a reference to another file. By creating a 'master' symlink for each asset, updating the version of an asset is as simple as changing the target file. Files such as Maya scene files which contain references to existing file paths can have these paths substituted for symlinks, allowing the version of any file in the asset pipeline to be changed non-destructively, with changes being propagated automatically. An example of data flow for multiple assets consisting of symlinks can be seen in Figure~\ref{figure:assetPipeline}.
 
 \begin{figure}[htbp]\centering
 	\includegraphics[width=1.0\linewidth]{images/asset_pipeline.png}
@@ -117,7 +117,9 @@ With this in place the next step was to develop a way of storing meta-data for e
 
 The asset file contains the associated file type for the asset, the file name for the asset's symbolic link, and an index for where the current asset version is stored in the \texttt{versions} array. The \texttt{versions} array consists of Python dictionaries containing the target file name, the date of release, and a comment for each version in the array.
 
-After testing this approach on a selection of non-production assets, I decided that this method of storing assets was fit for purpose, and decided to proceed by implementing a graphical asset manager that the other team members could use to author their own assets. For this I made use of Qt Designer to generate the user interface, primarily because I have experience using it to develop tools, but also because Maya 2017 supports Qt widgets with the inclusion of the PySide Python bindings. After multiple iterations per the requests of other team members, the GUI design shown in Figure~\ref{figure:assetManagerGui} was used for both the standalone version of the asset manager, and the Maya version which extends upon the functionality of the standalone version.
+Whilst this approach was sufficient, I would opt to use the JSON format for storing asset files in the future, as these files are human readable. Manipulating the contents of a cpickle file in a text editor is possible, however is not as simple as manipulating a comparable JSON file as these files are not designed to be human readable.
+
+After testing this approach on a selection of non-production test assets, I decided that this method of storing assets was fit for purpose, and decided to proceed by implementing a graphical asset manager that the other team members could use to author their own assets. For this I made use of Qt Designer to generate the user interface, primarily because I have experience using it to develop tools, but also because Maya 2017 supports Qt widgets with the inclusion of the PySide Python bindings. After multiple iterations per the requests of other team members, the GUI design shown in Figure~\ref{figure:assetManagerGui} was used for both the standalone version of the asset manager, and the Maya version which extends upon the functionality of the standalone version.
 
 \begin{figure}[htbp]
 \centering
@@ -144,7 +146,7 @@ During this project I was tasked with the development of a number of different t
 
 \item Create a default set of groups in the outliner, as described by Yves Bedenikovic.
 
-\item Set the environment variable used to store our project path as a RenderMan variable of the same value.
+\item Set the environment variable used to store our project path as a RenderMan variable of the same value. This is useful when rendering scenes where textures contain the project path environment variable.
 
 \item Change all texture paths in the scene to be absolute paths.
 
@@ -174,7 +176,7 @@ During this project I was tasked with the development of a number of different t
 \caption{\label{figure:miscScripts} The tool I developed automatically configure a shader, given a folder containing textures generated by Substance Painter or Substance Designer (Left), and the tool I developed to select facial and body controls for any character in the scene (Right).}
 \end{figure}
 
-A repository of the tools that I developed for this project is available on my GitHub account~\cite{myGitHub}.
+A repository of all of the tools that I developed for this project is available on my GitHub account~\cite{myGitHub}.
 
 \subsection{Production Management} \label{productionManagement}
 
@@ -213,7 +215,7 @@ With these features in mind, I decided to use an automated rigging system to spe
 
 I first looked at Kraken~\cite{kraken}, a rigging system included within Fabric Engine. This appealed to me as it was easily extensible through it's scripting language, which I thought I would find intuitive given that I had produced a basic automated rigging system for the specialism assignment in second year. Unfortunately, Fabric software went bankrupt at the beginning of the academic year so we were unable to get it working on the university computers.
 
-I then found Advanced Skeleton 5~\cite{advancedSkeleton}, an extensive rigging tool for Autodesk Maya, which I found to be extremely capable and was more than adequate for my needs. This provided an additional advantage of ensuring that the control systems were consistent between both of the character rigs.
+I then found Advanced Skeleton 5~\cite{advancedSkeleton}, an extensive rigging tool for Autodesk Maya, which I found to be extremely capable and was more than adequate for my needs. This provided an additional advantage of ensuring that the control systems were consistent between both of the character rigs. Advanced Skeleton also provided presets for prop rigs, which was used for rigging both of the cars.
 
 \subsection{Facial Rig}
 
@@ -225,24 +227,26 @@ I was able to combine this approach with the previous facial rig generated by Ad
 
 \section{Rendering}
 
-For this project there were many different options for choice of renderer within Maya, however we ultimately settled on Pixar's RenderMan for multiple reasons. Initially, Solid Angle's Arnold renderer was suggested as Alin had prior experience using it, however due to licensing issues on the university machines it was ultimately not an option. Chaos Group's V-Ray was also suggested as all of the team members had previous experience using it, however it's ability to render indirect illumination is relatively poor compared to RenderMan's path tracing integrator, which was disadvantageous as our scenes relied heavily on indirect lighting due to the city street environment.
+For this project there were many different options for choice of renderer within Maya, however we ultimately settled on Pixar's RenderMan for multiple reasons. Initially, Solid Angle's Arnold renderer was suggested as Alin had prior experience using it, yet due to licensing issues on the university machines it was ultimately not an option. Chaos Group's V-Ray was also suggested as all of the team members had previous experience using it, but it's ability to render indirect illumination is relatively poor compared to RenderMan's path tracing integrator, which was disadvantageous as our scenes relied heavily on indirect lighting due to the street-level city environment.
 
 \subsection{Optimisation} \label{rlslgt}
 
-Due to storage limits imposed by the render farm, it was necessary to cache the scene geometry to remove the need for large assets to be stored as part of the project. Whilst it would have been possible to use the Alembic file format for this, I opted to use RenderMan's RIB archive format, as it is capable of storing shading networks and render attributes in addition to scene geometry. One downside of this approach is that shaders cannot easily be changed after the cache has been made, however it eliminates the need for reassignment of shaders, which would be necessary in a comparable Alembic caching workflow.
+Due to storage limits imposed by the render farm, it was necessary to cache the scene geometry to remove the need for large assets to be stored as part of the project. Whilst it would have been possible to use the Alembic file format for this, I opted to use RenderMan's RIB archive format, as it is capable of storing shading networks and render attributes in addition to scene geometry. One downside of this approach is that shaders cannot easily be changed after the cache has been made, but it eliminates the need for reassignment of shaders, which would be necessary in a comparable Alembic caching workflow.
 
-In order to speed up this process I needed to design and develop a script that would export the entire lighting scene into RIB archives with minimal user input. In order to save storage space when caching scenes it was first important to determine which objects in the lighting scene actually required rendering, and of these objects, which were animated and thus required caching for each frame of the animation. Fortunately, Alin and Joe (Jones) had agreed on a naming convention for modelling assets, in which the names geometry objects would be suffixed with the string "\_GEO". Through the use of a single-use script, I systematically modified all of the asset build files, adding two custom attributes to every object with a name suffixed by "\_GEO". The first of these custom attributes was a boolean attribute for whether the object was to be rendered or not, and the second attribute was a boolean attribute for whether the object was animated or not. This allowed me to easily identify static and animated geometry when caching scenes, and to make changes to the contents of each cache on a per shot basis.
+In order to speed up this process I needed to design and develop a script that would export the entire lighting scene into RIB archives with minimal user input. In order to save storage space when caching scenes it was first important to determine which objects in the lighting scene actually required rendering, and of these objects, which were animated and thus required caching for each frame of the animation. Fortunately, Alin and Joe (Jones) had agreed on a naming convention when modelling assets, in which the names of geometry objects would be suffixed with the string "\_GEO". Through the use of a python script, I systematically modified all of the asset build files, adding two custom attributes to every object with a name suffixed by "\_GEO". The first of these custom attributes was a boolean attribute for whether the object was to be rendered or not, and the second attribute was a boolean attribute for whether the object was animated or not. This allowed me to easily identify static and animated geometry when caching scenes, and to make changes to the contents of each cache on a per shot basis.
 
 \begin{figure}[htbp]\centering
 	\includegraphics[width=1.0\linewidth]{images/cache_tool.png}
 	\caption{\label{figure:cache_tool} The dialog used to interface with the caching script. Note that the warning was necessary to ensure caches were sent to the right location.}
 \end{figure}
 
-The lighting, camera, and XGen scalp geometry could then be exported from the lighting scene, and then be imported into a new file alongside the RIB archives to create a light weight scene file ready for rendering. To automate this process somewhat, a template 'cached' scene file was made, which included RIB archive read nodes ready to be repathed to the newly generated RIB archives. The hair shaders were also included in this file, as XGen collections would need to be applied to the scalp geometry once imported.
+\newpage
+
+The lighting, camera, and XGen scalp geometry could then be exported from the lighting scene, and then be imported into a new file alongside the RIB archives to create a lightweight scene file ready for rendering. To automate this process somewhat, a template 'cached' scene file was made, which included RIB archive nodes ready to be repathed to the newly generated RIB archives. The hair shaders were also included in this file, as XGen collections would need to be applied to the scalp geometry once imported.
 
 \subsection{Render Farming}
 
-We intended to make use of the university render farm during this project, so testing was necessary to ensure that projects ran smoothly once submitted. I first tested a simple scene that made use of RIB archives, only to find that the version of RenderMan for Maya installed on the render farm was version 20, as opposed to version 21 which was installed in the teaching labs. This caused RIB archives to not be rendered, though was easily fixed once I had notified one of the university IT technicians.
+We intended to make use of the university render farm during this project, so testing was necessary to ensure that renders ran smoothly once submitted. I first tested a simple scene that made use of RIB archives, only to find that the version of RenderMan for Maya installed on the render farm was version 20, as opposed to version 21 which was installed in the teaching labs. This caused RIB archives to not be rendered, though was easily fixed once I had notified one of the university IT technicians.
 
 Another issue I faced was that any absolute file paths (any file paths that are not relative to the Maya project directory), would cause errors as that path would not exist on the render farm storage server. To help solve this, I used a solution listed in a StackOverflow~\cite{stackoverflow} thread to create the script shown in Listing~\ref{lst:grep}. This script would traverse all Maya scene files in my project directory, and replace any absolute file path strings with file path strings which would work on the render farm.
 
@@ -250,19 +254,19 @@ Further issues relating found whilst testing XGen content on the render farm are
 
 \subsection{Distributed Rendering Tools}
 
-Due to inconsistent availability of the render farm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allows me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
+Due to inconsistent availability of the render farm, our only other immediate option for rendering was to use the computers in the teaching labs. To maximise our rendering output and to minimise disruption to other students, I decided to connect to other computers remotely over SSH. This allowed me to connect to far more computers than I would be physically able log into, and at the same time allows other users to log into and use the same computer.
 
-I was able to write a short Python script which used the \texttt{ping} command to check which of the computers on the university network were online and running Linux, relying on the host name naming convention using the name of the room in which the computer is located. Upon connecting to a computer, I could then check whether another user is logged into the computer by capturing the output of the \texttt{who} command, so that I could render without impacting another user's session. In situations where a computer was found to be logged in by another user, I could check the current CPU and memory usage by capturing the output of the commands in Listing~\ref{lst:cpumem}.
+I was able to write a short Python script which used the \texttt{ping} command to check which of the computers on the university network were online and running Linux, relying on the hostname naming convention using the name of the room in which the computer is located. Upon connecting to a computer, I could then check whether another user is logged into the computer by capturing the output of the \texttt{who} command, so that I could render without impacting another user's session. In situations where a computer was found to be logged in by another user, I could check the current CPU and memory usage by capturing the output of the commands in Listing~\ref{lst:cpumem}, telling me whether the computer was in heavy use or just idling.
 
 As Linux does not natively support issuing commands in parallel to multiple hosts over SSH, I made use of the \texttt{parallel-ssh}\cite{pssh} Python library to provide this functionality. By following an article from \texttt{Linux.com}\cite{martin_2008}, I was able to use an array of host names combined with an array of arguments to render multiple frames using multiple hosts with ease.
 
 Unfortunately I soon found the limit of the university network infrastructure, as having multiple computers reading from and writing to a single directory proved to extremely slow. It was therefore necessary to extend my original command to copy the project directory onto the transfer drive of that computer, execute the render, and finally copy the rendered frames back into the desired directory. Whilst this increased the time required to start a render, the speed of the render itself was much improved.
 
-Whilst this method proved to be extremely powerful, it was certainly not reliable; If a computer is restarted into Windows it cannot be accessed over SSH, meaning that frames were often lost if someone needed to use the computer. As a result we primarily used this technique for test renders and shorter sequences, using the render farm to render shots which were known to render without error and for longer sequences.
+Whilst this method proved to be extremely powerful, it was certainly not reliable; If a computer was restarted into Windows it cannot be accessed over SSH, meaning that frames were often lost if someone needed to use the computer. As a result we primarily used this technique for test renders and shorter sequences, using the render farm to render shots which were known to render without error, or to render longer sequences.
 
 \section{Groom}
 
-Both of the character designs for this project required semi-realistic hair rendering, so we decided to make use of the XGen plugin within Maya. XGen was chosen as it is supported within RenderMan, and doesn't require additional licenses unlike other third party groom software such as Yeti. Unfortunately, none the team members had any experience using XGen, so we relied heavily on tutorial resources such as those published by Michael Cauchi \cite{cauchi_2017} and Jesus Fernandez \cite{fernandez_2018}. Together with Alin Bolcas, XGen collections were generated for both characters; I was responsible for setting up and configuring the XGen pipeline, with Alin being responsible for the artistic direction.
+Both of the character designs for this project required semi-realistic hair rendering, so we decided to make use of the XGen plugin within Maya. XGen was chosen as it is supported within RenderMan, and doesn't require additional licenses unlike other third party groom software such as Yeti. Unfortunately, none the team members had any experience using XGen, so we relied heavily on tutorial resources such as those published by Michael Cauchi \cite{cauchi_2017} and Jesus Fernandez \cite{fernandez_2018}. Together with Alin Bolcas, XGen collections were generated for both characters. I was responsible for setting up and configuring the XGen pipeline, with Alin being responsible for the artistic direction.
 
 \subsection{Pipeline} \label{threadsafe}
 
@@ -272,7 +276,7 @@ During my initial tests for rendering XGen content using the university render f
 
 \section{Compositing}
 
-In addition to being responsible for rendering, I took responsibility for compositing the shots, which was convenient as I was managing the storage of the raw renders and would be the first member of the team to get a chance to do any compositing. Being more technically inclined my compositing responsibilities mainly consisted of:
+In addition to being responsible for rendering, I took responsibility for compositing the shots, which was convenient as I was managing the storage of the rendered frames and would be the first member of the team to get a chance to do any compositing. Being more technically inclined my compositing responsibilities mainly consisted of:
 
 \begin{itemize}
 
@@ -365,15 +369,18 @@ Figure~\ref{figure:compcomparison} shows some before and after comparisons betwe
 
 \section{Critical Reflection}
 
-Overall I am pleased with my major contributions to this project; I believe I have created a set of pipeline tools that improved the efficiency of this project, and could potentially be used for future student projects if required. However, at the time of writing this report the project is yet to be finished, so one has to recognise the shortcomings with the team that resulted in this situation.
+Overall I am pleased with my major contributions to this project; I believe I have created a set of pipeline tools that improved the efficiency of this project, and could potentially be used for future student projects if required. However, faced issues which led to us not completing everything to the desired level of quality, so one has to recognise the shortcomings with the team that resulted in this situation.
+% However, at the time of writing this report the project is yet to be finished, so one has to recognise the shortcomings with the team that resulted in this situation.
 
 As mentioned in section \ref{productionManagement}, my attempts at production management were short lived, and I feel the progression of the project was slowed as a result. I accept full responsibility for the mistakes made in this regard, but feel fortunate that it has afforded me the chance to learn from this experience. Before undertaking any future production management roles, I am now aware that I need to be far more assertive in regards to scheduling and task management. This especially applies to artists, as it seems they can easily lose sight of the 'bigger picture', as a result of being highly focused on creating work to the best of their abilities.
 
 As far as my 'artistic' contributions are concerned, I am proud of the compositing work I was able to perform in such a short timescale, but feel my character rigging left a lot to be desired. The initial requirements for the character rig listed a cloth simulation, however although I was able to implement it into one of the rig versions, it was ultimately not used in production as it produced ugly results and would have cost a lot of time to simulate. I would have liked to have contributed more of my time to working out these issues, as I feel it would much improve the visual fidelity of the animation, especially on the aprons and James' jacket. As a result of this I had to rely on skinning the clothing, which proved to be very difficult, with intersection artefacts appearing in the final renders which required a lot of rotopainting to fix. Nonetheless, creating two human character rigs was quite a tall order even with the use of automated rigging tools, so I am somewhat satisfied that I was able to provide Yves with these in addition to my other responsibilities.
 
-Whilst we were not able to complete all of the rendering for this project, I stand by my choice of RenderMan as renderer for this project. I instead attribute the lack of renders to the large amount of data generated by all of the assets in our scene, and the strain that it put on the university network infrastructure. Had we not have chosen a renderer with caching functionality similar to that of RenderMan's RIB archiving, I fear the scenes would take excessively long to load prior to rendering, and I sincerely doubt the project with un-cached assets would fit within the render farm's 30gb storage limit. Additionally I feel we made good use of RenderMan's path tracing integrator to produce images of a high visual standard, though I am impressed by the results I have seen achieved by other renderers such as Redshift at a significantly lower time cost.
+Whilst we were not able to complete all renders to the desired level of quality, I stand by my choice of RenderMan as renderer for this project. We faced isses as we were unable to predict quite how much data would be generated by all of the assets in our scene, nor the strain that it put on the university network infrastructure. Had we not have chosen a renderer with caching functionality similar to that of RenderMan's RIB archiving, I fear the scenes would take excessively long to load prior to rendering, and I sincerely doubt the project with un-cached assets would fit within the render farm's 30gb storage limit. Additionally I feel we made good use of RenderMan's path tracing integrator to produce images of a high visual standard, though I am impressed by the results I have seen achieved by other renderers such as Redshift at a significantly lower time cost.
 
-Ultimately I am pleased with the overall quality of work we were able to produce as a team, and I strive to see this project to its completion in the following weeks.
+Regrettably, I was unable to help the team during the final week of the project as I was no longer in Bournemouth. I fear this put undue strain on the other group members, as they were forced to take responsibility of rendering the shots that yet to be rendered after I had left. Whilst I was able to alleviate some issues by providing them with a toolset which automates some of the more complex tasks, I feel that I should have invested the time in producing documentation that would assist them with rendering these remaining shots. I take full responsibility for the inconsistencies in quality between shots that may be present as a result of this.
+
+Ultimately I am pleased with the overall quality of work we were able to produce as a team, and I strive to see the completion of this project to a consistent level of quality in the following weeks.
 
 \newpage
 
